@@ -21,4 +21,13 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+
+div.logo,
+a.logo {
+  background-image: url("@/assets/logo.png");
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  aspect-ratio: 471 / 60;
+}
 </style>

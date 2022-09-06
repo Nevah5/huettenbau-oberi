@@ -6,7 +6,7 @@
       <div>User</div>
     </div>
     <div class="bottom">
-      <h1>Hüttenbau-Oberi</h1>
+      <router-link to="/" class="logo"></router-link>
       <ul>
         <li>Hauptseite</li>
         <li>Kontakt</li>
@@ -27,14 +27,18 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 nav {
-  div.actions {
+  & > .actions {
     display: flex;
     justify-content: flex-end;
   }
-  div.bottom {
+  & > .bottom {
     display: flex;
     justify-content: flex-start;
 
+    a.logo {
+      display: block;
+      width: 300px;
+    }
     ul {
       list-style-type: none;
       display: flex;
