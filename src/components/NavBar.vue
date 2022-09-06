@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="bar">
     <div class="actions">
       <span>DE | EN</span>
       <input type="text" placeholder="Search" />
@@ -7,12 +7,12 @@
     </div>
     <div class="bottom">
       <router-link to="/" class="logo"></router-link>
-      <ul>
-        <li>Hauptseite</li>
-        <li>Kontakt</li>
-        <li>Unterstützung</li>
-        <li>Mehr</li>
-      </ul>
+      <nav>
+        <router-link to="/">Hauptseite</router-link>
+        <router-link to="/">Kontakt</router-link>
+        <router-link to="/">Unterstützung</router-link>
+        <router-link to="/">Mehr</router-link>
+      </nav>
     </div>
   </nav>
 </template>
@@ -26,7 +26,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-nav {
+nav.bar {
+  padding: 15px 15px 0;
+
   & > .actions {
     display: flex;
     justify-content: flex-end;
@@ -34,15 +36,31 @@ nav {
   & > .bottom {
     display: flex;
     justify-content: flex-start;
+    align-items: flex-end;
 
     a.logo {
       display: block;
       width: 300px;
     }
-    ul {
-      list-style-type: none;
+    nav {
       display: flex;
       justify-content: flex-start;
+      align-items: center;
+      padding: 0;
+      margin: 0 10px;
+
+      & > a {
+        margin: 0 10px;
+        padding-bottom: 3px;
+        border-bottom: solid transparent 2px;
+        text-decoration: none;
+        color: #3a3a3a;
+        font-weight: 1000;
+
+        &:hover {
+          border-bottom-color: #3a3a3a;
+        }
+      }
     }
   }
 }
