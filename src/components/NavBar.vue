@@ -25,4 +25,21 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+nav {
+  div.actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  div.bottom {
+    display: flex;
+    justify-content: flex-start;
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: flex-start;
+    }
+  }
+}
+</style>
