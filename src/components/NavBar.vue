@@ -3,7 +3,7 @@
     <div class="bottom">
       <router-link to="/" class="logo"></router-link>
       <nav>
-        <router-link to="/">Hauptseite</router-link>
+        <router-link to="/">Start</router-link>
         <router-link to="/">Kontakt</router-link>
         <router-link to="/">Unterstützung</router-link>
         <router-link to="/">Mehr</router-link>

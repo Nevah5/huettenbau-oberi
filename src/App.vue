@@ -11,6 +11,15 @@ export default defineComponent({
   components: {
     NavBarVue,
   },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to): void {
+        if (to.meta.title)
+          document.title = `${to.meta.title} - Hüttenbau Oberi`;
+      },
+    },
+  },
 });
 </script>
 
