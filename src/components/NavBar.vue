@@ -1,10 +1,5 @@
 <template>
   <nav class="bar">
-    <div class="actions">
-      <span>DE | EN</span>
-      <input type="text" placeholder="Search" />
-      <div>User</div>
-    </div>
     <div class="bottom">
       <router-link to="/" class="logo"></router-link>
       <nav>
@@ -12,6 +7,7 @@
         <router-link to="/">Kontakt</router-link>
         <router-link to="/">Unterstützung</router-link>
         <router-link to="/">Mehr</router-link>
+        <router-link to="/">Login</router-link>
       </nav>
     </div>
   </nav>
@@ -26,17 +22,30 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$color: #f91313;
 nav.bar {
-  padding: 15px 15px 0;
+  padding: 15px 15px 10px;
+  border-top: 7px solid $color;
+  border-bottom: dashed 1px $color;
 
   & > .actions {
     display: flex;
     justify-content: flex-end;
+
+    div.langs {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & > * {
+        margin: 0 5px;
+      }
+    }
   }
   & > .bottom {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
 
     a.logo {
       display: block;
@@ -50,15 +59,14 @@ nav.bar {
       margin: 0 10px;
 
       & > a {
-        margin: 0 10px;
-        padding-bottom: 3px;
-        border-bottom: solid transparent 2px;
         text-decoration: none;
         color: #3a3a3a;
         font-weight: 1000;
+        padding: 7px 14px;
 
-        &:hover {
-          border-bottom-color: #3a3a3a;
+        &:last-child {
+          background-color: $color;
+          color: white;
         }
       }
     }
