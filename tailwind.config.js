@@ -28,6 +28,7 @@ module.exports = {
       red: {
         DEFAULT: "#fa1414",
         dark: "#b70e0e",
+        light: "#ef5656"
       },
       orange: colors.orange,
       amber: colors.amber,
