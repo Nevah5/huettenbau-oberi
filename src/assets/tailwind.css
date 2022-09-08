@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .logo{
+    background-image: url('@/assets/logo.png');
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    aspect-ratio: 471 / 60;
+  }
+}
