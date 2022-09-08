@@ -26,7 +26,7 @@ $color: #f91313;
 nav.bar {
   padding: 15px 15px 10px;
   border-top: 7px solid $color;
-  border-bottom: dashed 1px $color;
+  box-shadow: 0 0 10px 1px #3a3a3a27;
 
   & > .actions {
     display: flex;
