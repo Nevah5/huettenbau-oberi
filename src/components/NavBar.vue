@@ -6,22 +6,22 @@
     <div class="my-4 flex justify-end items-center text-black">
       <router-link
         to="/"
-        class="py-2.5 px-4 font-bold rounded-md h-fit hover:bg-hoverblack"
+        class="py-2.5 px-4 font-bold rounded-md h-fit hover:bg-black-light"
         >Startseite</router-link
       >
       <router-link
         to="/unterstuetzen"
-        class="py-2.5 px-4 font-bold rounded-md h-fit hover:bg-hoverblack"
+        class="py-2.5 px-4 font-bold rounded-md h-fit hover:bg-black-light"
         >Untersützen</router-link
       >
       <router-link
         to="/contact"
-        class="py-2.5 px-4 font-bold rounded-md h-fit hover:bg-hoverblack"
+        class="py-2.5 px-4 font-bold rounded-md h-fit hover:bg-black-light"
         >Kontakt</router-link
       >
       <router-link
         to="/login"
-        class="py-2.5 px-4 bg-red text-white font-bold rounded-md h-fit hover:bg-darkred"
+        class="py-2.5 px-4 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark"
         >Login</router-link
       >
     </div>
