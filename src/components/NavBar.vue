@@ -1,14 +1,16 @@
 <template>
-  <nav class="bar">
-    <div class="bottom">
-      <router-link to="/" class="logo"></router-link>
-      <nav>
-        <router-link to="/">Start</router-link>
-        <router-link to="/">Kontakt</router-link>
-        <router-link to="/">Unterstützung</router-link>
-        <router-link to="/">Mehr</router-link>
-        <router-link to="/">Login</router-link>
-      </nav>
+  <nav
+    class="flex content-center justify-between w-full border-t-8 border-solid border-red shadow-navbar pl-4 pr-16"
+  >
+    <div class="my-4 flex justify-end content-center text-black">
+      <router-link to="/contact" class="py-2.5 px-4 font-bold"
+        >Kontakt</router-link
+      >
+      <router-link
+        to="/login"
+        class="py-2.5 px-4 bg-red text-white font-bold rounded-md"
+        >Login</router-link
+      >
     </div>
   </nav>
 </template>
@@ -20,56 +22,3 @@ export default defineComponent({
   name: "NavBar",
 });
 </script>
-
-<style lang="scss" scoped>
-$color: #f91313;
-nav.bar {
-  padding: 15px 15px 10px;
-  border-top: 7px solid $color;
-  box-shadow: 0 0 10px 1px #3a3a3a27;
-
-  & > .actions {
-    display: flex;
-    justify-content: flex-end;
-
-    div.langs {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      & > * {
-        margin: 0 5px;
-      }
-    }
-  }
-  & > .bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    a.logo {
-      display: block;
-      width: 300px;
-    }
-    nav {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      padding: 0;
-      margin: 0 10px;
-
-      & > a {
-        text-decoration: none;
-        color: #3a3a3a;
-        font-weight: 1000;
-        padding: 7px 14px;
-
-        &:last-child {
-          background-color: $color;
-          color: white;
-        }
-      }
-    }
-  }
-}
-</style>
