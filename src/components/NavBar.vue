@@ -3,7 +3,7 @@
     class="sticky bg-white top-0 flex items-center justify-between w-full border-t-8 border-solid border-red shadow-navbar px-4"
   >
     <router-link to="/" class="logo w-64 my-4"></router-link>
-    <div class="my-4 flex justify-end items-center text-black">
+    <div class="hidden my-4 md:flex justify-end items-center text-black">
       <router-link
         to="/"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
