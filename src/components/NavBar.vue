@@ -12,7 +12,7 @@
       <router-link
         to="/unterstuetzen"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-        >Untersützen</router-link
+        >Galerie</router-link
       >
       <router-link
         to="/contact"
