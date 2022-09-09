@@ -1,8 +1,8 @@
 <template>
   <nav
-    class="sticky flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar px-4 h-24 z-50"
+    class="sticky flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50"
   >
-    <div class="flex items-center justify-between w-full h-fit">
+    <div class="flex items-center justify-between w-full h-fit px-4 my-4">
       <router-link to="/" class="logo w-64"></router-link>
       <div class="hidden md:flex justify-end items-center text-black">
         <router-link
@@ -34,12 +34,12 @@
       <font-awesome-icon
         icon="fas fa-bars"
         class="md:hidden h-6 p-3 hover:bg-black-light rounded-md cursor-pointer"
-        @click="navbarState = true"
+        @click="navbarState = !navbarState"
       />
     </div>
     <nav
       v-if="navbarState"
-      class="absolute top-full right-0 bg-white flex items-end justify-center flex-col w-full h-fit border-red border-solid border-y-2 p-4"
+      class="md:hidden bg-white border-red border-solid border-y-2 p-4 w-full"
     >
       <router-link
         to="/"
