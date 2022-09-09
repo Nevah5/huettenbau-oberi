@@ -30,6 +30,10 @@
         >Login</router-link
       >
     </div>
+    <font-awesome-icon
+      icon="fas fa-bars"
+      class="md:hidden h-6 p-3 hover:bg-black-light rounded-md cursor-pointer"
+    />
   </nav>
 </template>
 
