@@ -1,14 +1,21 @@
 <template>
-  <BroadcastMessage />
-  <h3 class="font-bold">CONTENT CONTENT CONTENT CONTENT</h3>
+  <div class="w-full p-24">
+    <figure class="relative">
+      <caption
+        class="absolute -translate-y-1/2 -translate-x-1/2 top-1/2 right-1/2"
+      >
+        ETsadf
+      </caption>
+      <img src="@/assets/images/slider.jpg" alt="Slider Image" class="w-full" />
+    </figure>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import BroadcastMessage from "@/components/BroadcastMessage.vue";
 
 export default defineComponent({
   name: "HomeView",
-  components: { BroadcastMessage },
+  components: {},
 });
 </script>
