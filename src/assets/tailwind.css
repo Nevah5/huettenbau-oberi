@@ -4,7 +4,7 @@
 
 @layer components {
   .logo{
-    background-image: url('@/assets/logo.png');
+    background-image: url('@/assets/logo.svg');
     background-position: center;
     background-size: 100%;
     background-repeat: no-repeat;
