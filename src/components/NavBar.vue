@@ -6,6 +6,7 @@
       <router-link to="/" class="logo w-64"></router-link>
       <nav class="hidden md:flex justify-end items-center text-black">
         <router-link
+          @click="resetStates()"
           to="/"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
           >Startseite</router-link
@@ -16,16 +17,19 @@
           >Galerie</a
         >
         <router-link
+          @click="resetStates()"
           to="/contact"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
           >Kontakt</router-link
         >
         <router-link
+          @click="resetStates()"
           to="/more"
           class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light"
           >Mehr</router-link
         >
         <router-link
+          @click="resetStates()"
           to="/login"
           class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark"
           >Login</router-link
@@ -185,6 +189,12 @@ export default defineComponent({
       navbarState: false,
       galleryState: false,
     };
+  },
+  methods: {
+    resetStates(): void {
+      this.galleryState = false;
+      this.navbarState = false;
+    },
   },
 });
 </script>
