@@ -18,13 +18,13 @@
         >
         <router-link
           @click="resetStates()"
-          to="/contact"
+          to="/kontakt"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
           >Kontakt</router-link
         >
         <router-link
           @click="resetStates()"
-          to="/more"
+          to="/mehr"
           class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light"
           >Mehr</router-link
         >
@@ -44,98 +44,98 @@
     <div class="w-full flex justify-end text-black flex-wrap" v-auto-animate>
       <router-link
         v-if="galleryState"
-        to="/gallery/2019"
+        to="/gallerie/2019"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2009</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2010"
+        to="/gallerie/2010"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2010</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2011"
+        to="/gallerie/2011"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2011</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2012"
+        to="/gallerie/2012"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2012</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2013"
+        to="/gallerie/2013"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2013</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2014"
+        to="/gallerie/2014"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2014</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2015"
+        to="/gallerie/2015"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2015</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2016"
+        to="/gallerie/2016"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2016</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2017"
+        to="/gallerie/2017"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2017</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2018"
+        to="/gallerie/2018"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2018</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2019"
+        to="/gallerie/2019"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2019</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2020"
+        to="/gallerie/2020"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2020</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2021"
+        to="/gallerie/2021"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2021</router-link
       >
       <router-link
         v-if="galleryState"
-        to="/gallery/2022"
+        to="/gallerie/2022"
         @click="galleryState = false"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2022</router-link
