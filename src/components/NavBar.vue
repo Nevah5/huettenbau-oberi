@@ -343,16 +343,35 @@
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light my-1"
           >Kontakt</router-link
         >
-        <router-link
-          @click="resetStates()"
-          to="/mehr"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light my-1"
-          >Mehr</router-link
+        <a
+          @click="mehrState = !mehrState"
+          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
+          >Mehr</a
         >
+        <!-- More -->
+        <div
+          class="flex w-7/8 justify-start text-black flex-wrap pl-4 border-red border-l-2 ml-4"
+          v-auto-animate
+        >
+          <router-link
+            v-if="mehrState"
+            to="/mehr/goenner"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Gönner werden</router-link
+          >
+          <router-link
+            v-if="mehrState"
+            to="/mehr/anmeldung"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Anmeldung</router-link
+          >
+        </div>
         <router-link
           @click="resetStates()"
           to="/login"
-          class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark my-1"
+          class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark my-1 mt-6"
           >Login</router-link
         >
       </nav>
@@ -367,6 +386,7 @@ interface Data {
   navbarState: boolean;
   infoState: boolean;
   galleryState: boolean;
+  mehrState: boolean;
 }
 
 export default defineComponent({
@@ -376,6 +396,7 @@ export default defineComponent({
       navbarState: false,
       infoState: false,
       galleryState: false,
+      mehrState: false,
     };
   },
   methods: {
