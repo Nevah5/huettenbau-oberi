@@ -29,7 +29,7 @@
           >Kontakt</router-link
         >
         <a
-          @click="mehrState = !mehrState"
+          @click="moreState = !moreState"
           class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
           >Mehr</a
         >
@@ -218,14 +218,14 @@
       v-auto-animate
     >
       <router-link
-        v-if="mehrState"
+        v-if="moreState"
         to="/mehr/goenner"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Gönner werden</router-link
       >
       <router-link
-        v-if="mehrState"
+        v-if="moreState"
         to="/mehr/anmeldung"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
@@ -425,7 +425,7 @@
           >Kontakt</router-link
         >
         <a
-          @click="mehrState = !mehrState"
+          @click="moreState = !moreState"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
           >Mehr</a
         >
@@ -435,14 +435,14 @@
           v-auto-animate
         >
           <router-link
-            v-if="mehrState"
+            v-if="moreState"
             to="/mehr/goenner"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Gönner werden</router-link
           >
           <router-link
-            v-if="mehrState"
+            v-if="moreState"
             to="/mehr/anmeldung"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
@@ -467,7 +467,7 @@ interface Data {
   navbarState: boolean;
   infosState: boolean;
   galleryState: boolean;
-  mehrState: boolean;
+  moreState: boolean;
 }
 
 export default defineComponent({
@@ -477,7 +477,7 @@ export default defineComponent({
       navbarState: false,
       infosState: false,
       galleryState: false,
-      mehrState: false,
+      moreState: false,
     };
   },
   methods: {
@@ -485,7 +485,7 @@ export default defineComponent({
       this.navbarState = false;
       this.infosState = false;
       this.galleryState = false;
-      this.mehrState = false;
+      this.moreState = false;
     },
     toggleNavbar(): void {
       this.navbarState = !this.navbarState;
