@@ -13,7 +13,7 @@
           >Startseite</router-link
         >
         <a
-          @click="infoState = !infoState"
+          @click="infosState = !infosState"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
           >Infos</a
         >
@@ -52,56 +52,56 @@
       v-auto-animate
     >
       <router-link
-        v-if="infoState"
+        v-if="infosState"
         to="/infos/infoblatt"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Infoblatt</router-link
       >
       <router-link
-        v-if="infoState"
+        v-if="infosState"
         to="/infos/dachverband"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Dachverband</router-link
       >
       <router-link
-        v-if="infoState"
+        v-if="infosState"
         to="/infos/lager"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Lager</router-link
       >
       <router-link
-        v-if="infoState"
+        v-if="infosState"
         to="/infos/team"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Team</router-link
       >
       <router-link
-        v-if="infoState"
+        v-if="infosState"
         to="/infos/verein"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Verein</router-link
       >
       <router-link
-        v-if="infoState"
+        v-if="infosState"
         to="/infos/standort"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Standort</router-link
       >
       <router-link
-        v-if="infoState"
+        v-if="infosState"
         to="/infos/sponsoren"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Sponsoren</router-link
       >
       <router-link
-        v-if="infoState"
+        v-if="infosState"
         to="/infos/links"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
@@ -243,7 +243,7 @@
           >Startseite</router-link
         >
         <a
-          @click="infoState = !infoState"
+          @click="infosState = !infosState"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
           >Infos</a
         >
@@ -253,56 +253,56 @@
           v-auto-animate
         >
           <router-link
-            v-if="infoState"
+            v-if="infosState"
             to="/infos/infoblatt"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Infoblatt</router-link
           >
           <router-link
-            v-if="infoState"
+            v-if="infosState"
             to="/infos/dachverband"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Dachverband</router-link
           >
           <router-link
-            v-if="infoState"
+            v-if="infosState"
             to="/infos/lager"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Lager</router-link
           >
           <router-link
-            v-if="infoState"
+            v-if="infosState"
             to="/infos/team"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Team</router-link
           >
           <router-link
-            v-if="infoState"
+            v-if="infosState"
             to="/infos/verein"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Verein</router-link
           >
           <router-link
-            v-if="infoState"
+            v-if="infosState"
             to="/infos/standort"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Standort</router-link
           >
           <router-link
-            v-if="infoState"
+            v-if="infosState"
             to="/infos/sponsoren"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Sponsoren</router-link
           >
           <router-link
-            v-if="infoState"
+            v-if="infosState"
             to="/infos/links"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
@@ -465,7 +465,7 @@ import { defineComponent } from "vue";
 
 interface Data {
   navbarState: boolean;
-  infoState: boolean;
+  infosState: boolean;
   galleryState: boolean;
   mehrState: boolean;
 }
@@ -475,7 +475,7 @@ export default defineComponent({
   data(): Data {
     return {
       navbarState: false,
-      infoState: false,
+      infosState: false,
       galleryState: false,
       mehrState: false,
     };
@@ -483,7 +483,7 @@ export default defineComponent({
   methods: {
     resetStates(): void {
       this.navbarState = false;
-      this.infoState = false;
+      this.infosState = false;
       this.galleryState = false;
       this.mehrState = false;
     },
