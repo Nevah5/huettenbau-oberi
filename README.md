@@ -1,24 +1,16 @@
 # huettenbau-oberi
 
-## Project setup
-```
-npm install
-```
+## Environment Variables Setup
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Modes: production or/and development
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Name: `.env.[mode].local`
 
-### Lints and fixes files
+```txt
+FIREBASE_API_KEY=
+FIREBASE_AUTH_DOMAIN=
+FIREBASE_PROJECT_ID=
+FIREBASE_STORAGE_BUCKET=
+FIREBASE_MESSAGING_SENDER_ID=
+FIREBASE_APP_ID=
 ```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
