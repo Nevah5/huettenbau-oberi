@@ -1,5 +1,6 @@
 <template>
   <NavBarVue />
+  <div class="w-full h-[84px]"></div>
   <router-view />
 </template>
 

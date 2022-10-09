@@ -1,11 +1,11 @@
 <template>
   <div
-    class="sticky flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4"
+    class="absolute flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4"
   >
     <!-- Main Navbar -->
     <div class="flex items-center justify-between w-full">
       <router-link to="/" class="logo w-64"></router-link>
-      <nav class="hidden md:flex justify-end items-center text-black">
+      <nav class="hidden lg:flex justify-end items-center text-black">
         <router-link
           @click="resetStates()"
           to="/"
@@ -13,7 +13,12 @@
           >Startseite</router-link
         >
         <a
-          @click="galleryState = !galleryState"
+          @click="toggleState('infos')"
+          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
+          >Infos</a
+        >
+        <a
+          @click="toggleState('gallery')"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
           >Galerie</a
         >
@@ -23,11 +28,10 @@
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
           >Kontakt</router-link
         >
-        <router-link
-          @click="resetStates()"
-          to="/mehr"
-          class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light"
-          >Mehr</router-link
+        <a
+          @click="toggleState('more')"
+          class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
+          >Mehr</a
         >
         <router-link
           @click="resetStates()"
@@ -38,13 +42,75 @@
       </nav>
       <font-awesome-icon
         icon="fas fa-bars"
-        class="md:hidden h-6 p-3 hover:bg-black-light rounded-md cursor-pointer"
+        class="lg:hidden p-3 hover:bg-black-light rounded-md cursor-pointer h-[20px]"
         @click="toggleNavbar()"
       />
     </div>
+    <!-- Infos (PC) -->
+    <div
+      class="hidden lg:flex w-full justify-end text-black flex-wrap"
+      v-auto-animate
+    >
+      <router-link
+        v-if="infosState"
+        to="/infos/infoblatt"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Infoblatt</router-link
+      >
+      <router-link
+        v-if="infosState"
+        to="/infos/dachverband"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Dachverband</router-link
+      >
+      <router-link
+        v-if="infosState"
+        to="/infos/lager"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Lager</router-link
+      >
+      <router-link
+        v-if="infosState"
+        to="/infos/team"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Team</router-link
+      >
+      <router-link
+        v-if="infosState"
+        to="/infos/verein"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Verein</router-link
+      >
+      <router-link
+        v-if="infosState"
+        to="/infos/standort"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Standort</router-link
+      >
+      <router-link
+        v-if="infosState"
+        to="/infos/sponsoren"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Sponsoren</router-link
+      >
+      <router-link
+        v-if="infosState"
+        to="/infos/links"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Links</router-link
+      >
+    </div>
     <!-- Gallery (PC) -->
     <div
-      class="hidden md:flex w-full justify-end text-black flex-wrap"
+      class="hidden lg:flex w-full justify-end text-black flex-wrap"
       v-auto-animate
     >
       <router-link
@@ -146,8 +212,28 @@
         >2022</router-link
       >
     </div>
+    <!-- More -->
+    <div
+      class="hidden lg:flex w-full justify-end text-black flex-wrap"
+      v-auto-animate
+    >
+      <router-link
+        v-if="moreState"
+        to="/mehr/goenner"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Gönner werden</router-link
+      >
+      <router-link
+        v-if="moreState"
+        to="/mehr/anmeldung"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Anmeldung</router-link
+      >
+    </div>
     <!-- Navbar Navigation (Phone) -->
-    <div class="md:hidden w-full" v-auto-animate>
+    <div class="lg:hidden w-full" v-auto-animate>
       <div v-if="navbarState" class="w-full h-[2px] my-4 bg-red"></div>
       <nav v-if="navbarState" class="flex justify-end flex-col">
         <router-link
@@ -157,7 +243,74 @@
           >Startseite</router-link
         >
         <a
-          @click="galleryState = !galleryState"
+          @click="toggleState('infos')"
+          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
+          >Infos</a
+        >
+        <!-- Infos -->
+        <div
+          class="flex w-7/8 justify-start text-black flex-wrap pl-4 border-red border-l-2 ml-4"
+          v-auto-animate
+        >
+          <router-link
+            v-if="infosState"
+            to="/infos/infoblatt"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Infoblatt</router-link
+          >
+          <router-link
+            v-if="infosState"
+            to="/infos/dachverband"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Dachverband</router-link
+          >
+          <router-link
+            v-if="infosState"
+            to="/infos/lager"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Lager</router-link
+          >
+          <router-link
+            v-if="infosState"
+            to="/infos/team"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Team</router-link
+          >
+          <router-link
+            v-if="infosState"
+            to="/infos/verein"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Verein</router-link
+          >
+          <router-link
+            v-if="infosState"
+            to="/infos/standort"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Standort</router-link
+          >
+          <router-link
+            v-if="infosState"
+            to="/infos/sponsoren"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Sponsoren</router-link
+          >
+          <router-link
+            v-if="infosState"
+            to="/infos/links"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Links</router-link
+          >
+        </div>
+        <a
+          @click="toggleState('gallery')"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
           >Galerie</a
         >
@@ -271,16 +424,35 @@
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light my-1"
           >Kontakt</router-link
         >
-        <router-link
-          @click="resetStates()"
-          to="/mehr"
-          class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light my-1"
-          >Mehr</router-link
+        <a
+          @click="toggleState('more')"
+          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
+          >Mehr</a
         >
+        <!-- More -->
+        <div
+          class="flex w-7/8 justify-start text-black flex-wrap pl-4 border-red border-l-2 ml-4"
+          v-auto-animate
+        >
+          <router-link
+            v-if="moreState"
+            to="/mehr/goenner"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Gönner werden</router-link
+          >
+          <router-link
+            v-if="moreState"
+            to="/mehr/anmeldung"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Anmeldung</router-link
+          >
+        </div>
         <router-link
           @click="resetStates()"
           to="/login"
-          class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark my-1"
+          class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark my-1 mt-6"
           >Login</router-link
         >
       </nav>
@@ -293,7 +465,9 @@ import { defineComponent } from "vue";
 
 interface Data {
   navbarState: boolean;
+  infosState: boolean;
   galleryState: boolean;
+  moreState: boolean;
 }
 
 export default defineComponent({
@@ -301,15 +475,42 @@ export default defineComponent({
   data(): Data {
     return {
       navbarState: false,
+      infosState: false,
       galleryState: false,
+      moreState: false,
     };
   },
   methods: {
-    resetStates(): void {
+    /**
+     * Resets all states for the navigation
+     * @param resetNavbar default true
+     */
+    resetStates(resetNavbar?: boolean): void {
+      if (resetNavbar !== false) this.navbarState = false;
+      this.infosState = false;
       this.galleryState = false;
-      this.navbarState = false;
+      this.moreState = false;
     },
+    /**
+     * toggles the state of a navigation and disables all the others
+     * @param state possible parameters: "infos", "gallery", "more"
+     */
+    toggleState(state: string): void {
+      let newState = !this.infosState;
+      if (state === "gallery") newState = !this.galleryState;
+      if (state === "more") newState = !this.moreState;
+
+      this.resetStates(false);
+
+      if (state === "infos") this.infosState = newState;
+      if (state === "gallery") this.galleryState = newState;
+      if (state === "more") this.moreState = newState;
+    },
+    /**
+     * toggles the navbar
+     */
     toggleNavbar(): void {
+      this.resetStates(false);
       this.navbarState = !this.navbarState;
     },
   },
