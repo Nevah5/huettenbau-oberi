@@ -13,7 +13,7 @@
           >Startseite</router-link
         >
         <a
-          @click="resetStates()"
+          @click="infoState = !infoState"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
           >Infos</a
         >
@@ -28,11 +28,10 @@
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
           >Kontakt</router-link
         >
-        <router-link
-          @click="resetStates()"
-          to="/mehr"
-          class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light"
-          >Mehr</router-link
+        <a
+          @click="mehrState = !mehrState"
+          class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
+          >Mehr</a
         >
         <router-link
           @click="resetStates()"
@@ -46,6 +45,68 @@
         class="lg:hidden p-3 hover:bg-black-light rounded-md cursor-pointer h-[20px]"
         @click="toggleNavbar()"
       />
+    </div>
+    <!-- Infos (PC) -->
+    <div
+      class="hidden lg:flex w-full justify-end text-black flex-wrap"
+      v-auto-animate
+    >
+      <router-link
+        v-if="infoState"
+        to="/infos/infoblatt"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Infoblatt</router-link
+      >
+      <router-link
+        v-if="infoState"
+        to="/infos/dachverband"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Dachverband</router-link
+      >
+      <router-link
+        v-if="infoState"
+        to="/infos/lager"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Lager</router-link
+      >
+      <router-link
+        v-if="infoState"
+        to="/infos/team"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Team</router-link
+      >
+      <router-link
+        v-if="infoState"
+        to="/infos/verein"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Verein</router-link
+      >
+      <router-link
+        v-if="infoState"
+        to="/infos/standort"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Standort</router-link
+      >
+      <router-link
+        v-if="infoState"
+        to="/infos/sponsoren"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Sponsoren</router-link
+      >
+      <router-link
+        v-if="infoState"
+        to="/infos/links"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Links</router-link
+      >
     </div>
     <!-- Gallery (PC) -->
     <div
@@ -149,6 +210,26 @@
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light mt-4"
         >2022</router-link
+      >
+    </div>
+    <!-- More -->
+    <div
+      class="hidden lg:flex w-full justify-end text-black flex-wrap"
+      v-auto-animate
+    >
+      <router-link
+        v-if="mehrState"
+        to="/mehr/goenner"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Gönner werden</router-link
+      >
+      <router-link
+        v-if="mehrState"
+        to="/mehr/anmeldung"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Anmeldung</router-link
       >
     </div>
     <!-- Navbar Navigation (Phone) -->
