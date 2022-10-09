@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sticky flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4"
+    class="absolute flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4"
   >
     <!-- Main Navbar -->
     <div class="flex items-center justify-between w-full">
@@ -38,7 +38,7 @@
       </nav>
       <font-awesome-icon
         icon="fas fa-bars"
-        class="md:hidden h-6 p-3 hover:bg-black-light rounded-md cursor-pointer"
+        class="md:hidden p-3 hover:bg-black-light rounded-md cursor-pointer h-[20px]"
         @click="toggleNavbar()"
       />
     </div>
