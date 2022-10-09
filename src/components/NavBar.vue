@@ -481,12 +481,20 @@ export default defineComponent({
     };
   },
   methods: {
+    /**
+     * Resets all states for the navigation
+     * @param resetNavbar default true
+     */
     resetStates(resetNavbar?: boolean): void {
       if (resetNavbar !== false) this.navbarState = false;
       this.infosState = false;
       this.galleryState = false;
       this.moreState = false;
     },
+    /**
+     * toggles the state of a navigation and disables all the others
+     * @param state possible parameters: "infos", "gallery", "more"
+     */
     toggleState(state: string): void {
       let newState = !this.infosState;
       if (state === "gallery") newState = !this.galleryState;
@@ -498,6 +506,9 @@ export default defineComponent({
       if (state === "gallery") this.galleryState = newState;
       if (state === "more") this.moreState = newState;
     },
+    /**
+     * toggles the navbar
+     */
     toggleNavbar(): void {
       this.resetStates(false);
       this.navbarState = !this.navbarState;
