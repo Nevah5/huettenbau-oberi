@@ -482,8 +482,10 @@ export default defineComponent({
   },
   methods: {
     resetStates(): void {
-      this.galleryState = false;
       this.navbarState = false;
+      this.infoState = false;
+      this.galleryState = false;
+      this.mehrState = false;
     },
     toggleNavbar(): void {
       this.navbarState = !this.navbarState;
