@@ -13,12 +13,12 @@
           >Startseite</router-link
         >
         <a
-          @click="infosState = !infosState"
+          @click="toggleState('infos')"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
           >Infos</a
         >
         <a
-          @click="galleryState = !galleryState"
+          @click="toggleState('gallery')"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
           >Galerie</a
         >
@@ -29,7 +29,7 @@
           >Kontakt</router-link
         >
         <a
-          @click="moreState = !moreState"
+          @click="toggleState('more')"
           class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
           >Mehr</a
         >
@@ -243,7 +243,7 @@
           >Startseite</router-link
         >
         <a
-          @click="infosState = !infosState"
+          @click="toggleState('infos')"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
           >Infos</a
         >
@@ -310,7 +310,7 @@
           >
         </div>
         <a
-          @click="galleryState = !galleryState"
+          @click="toggleState('gallery')"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
           >Galerie</a
         >
@@ -425,7 +425,7 @@
           >Kontakt</router-link
         >
         <a
-          @click="moreState = !moreState"
+          @click="toggleState('more')"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
           >Mehr</a
         >
@@ -481,13 +481,25 @@ export default defineComponent({
     };
   },
   methods: {
-    resetStates(): void {
-      this.navbarState = false;
+    resetStates(resetNavbar?: boolean): void {
+      if (resetNavbar !== false) this.navbarState = false;
       this.infosState = false;
       this.galleryState = false;
       this.moreState = false;
     },
+    toggleState(state: string): void {
+      let newState = !this.infosState;
+      if (state === "gallery") newState = !this.galleryState;
+      if (state === "more") newState = !this.moreState;
+
+      this.resetStates(false);
+
+      if (state === "infos") this.infosState = newState;
+      if (state === "gallery") this.galleryState = newState;
+      if (state === "more") this.moreState = newState;
+    },
     toggleNavbar(): void {
+      this.resetStates(false);
       this.navbarState = !this.navbarState;
     },
   },
