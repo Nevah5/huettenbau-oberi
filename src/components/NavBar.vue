@@ -173,6 +173,13 @@
         >
           <router-link
             v-if="infoState"
+            to="/infos/infoblatt"
+            @click="resetStates()"
+            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+            >Infoblatt</router-link
+          >
+          <router-link
+            v-if="infoState"
             to="/infos/dachverband"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
