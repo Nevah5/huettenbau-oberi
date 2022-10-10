@@ -1,5 +1,16 @@
 {
   "projects": {
     "default": "huettenbau-oberi"
-  }
+  },
+  "targets": {
+    "huettenbau-oberi": {
+      "hosting": {
+        "huettenbau-oberi": [
+          "dev-huettenbau-oberi",
+          "huettenbau-oberi"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
