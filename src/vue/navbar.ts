@@ -1,7 +1,7 @@
 import { firestore } from "@/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
-interface navbarData {
+interface navbarItem {
   id: string,
   display: string,
   link?: string,
@@ -18,12 +18,11 @@ interface navbarData {
 const getNavbarData = async () => {
   const res = await getDocs(collection(firestore, "navbar"))
   const data = res.docs.map(doc => {
-    return { id: doc.id, ...doc.data() } as navbarData
+    return { id: doc.id, ...doc.data() }
   })
-  return data;
+  return (data as navbarItem[]);
 }
 
 export {
-  navbarData,
   getNavbarData
 }
