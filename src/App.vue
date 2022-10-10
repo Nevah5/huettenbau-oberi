@@ -5,23 +5,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import NavBarVue from "./components/NavBar.vue";
 
-export default defineComponent({
-  components: {
-    NavBarVue,
+export default {
+  components: { NavBarVue },
+  setup() {
+    const route = useRoute();
+
+    watchEffect(() => {
+      if (route.meta.title)
+        document.title = `${route.meta.title} - Hüttenbau Oberi`;
+    });
   },
-  watch: {
-    $route: {
-      immediate: true,
-      handler(to): void {
-        if (to.meta.title)
-          document.title = `${to.meta.title} - Hüttenbau Oberi`;
-      },
-    },
-  },
-});
+};
 </script>
 
 <style src="./assets/tailwind.css" />
