@@ -17,4 +17,4 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_HUETTENBAU_OBERI }}"
           channelId: live
-          projectId: dev-huettenbau-oberi
+          projectId: huettenbau-oberi
