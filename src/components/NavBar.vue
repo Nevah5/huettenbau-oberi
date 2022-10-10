@@ -312,7 +312,7 @@
         <a
           @click="toggleState('gallery')"
           class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
-          >Galerie</a
+          >Gallerie</a
         >
         <!-- Gallery -->
         <div
