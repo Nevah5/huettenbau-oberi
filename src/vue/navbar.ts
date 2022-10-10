@@ -18,7 +18,7 @@ interface navbarData {
 const getNavbarData = async () => {
   const res = await getDocs(collection(firestore, "navbar"))
   const data = res.docs.map(doc => {
-    return { id: doc.id, ...doc.data() }
+    return { id: doc.id, ...doc.data() } as navbarData
   })
   return data;
 }
