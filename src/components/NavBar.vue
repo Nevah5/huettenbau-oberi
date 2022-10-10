@@ -9,7 +9,7 @@
         class="hidden lg:flex justify-end items-center text-black"
         v-if="navbarData"
       >
-        <NavbarLink v-for="d in navbarData" :key="d.id" />
+        <NavbarLink v-for="doc in navbarData" :key="doc.id" :doc="doc" />
         <router-link
           @click="resetStates()"
           to="/"
