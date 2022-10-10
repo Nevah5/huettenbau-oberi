@@ -461,58 +461,58 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { ref } from "vue";
 
-interface Data {
-  navbarState: boolean;
-  infosState: boolean;
-  galleryState: boolean;
-  moreState: boolean;
-}
-
-export default defineComponent({
+export default {
   name: "NavBar",
-  data(): Data {
-    return {
-      navbarState: false,
-      infosState: false,
-      galleryState: false,
-      moreState: false,
-    };
-  },
-  methods: {
+  setup() {
+    const navbarState = ref(false);
+    const infosState = ref(false);
+    const galleryState = ref(false);
+    const moreState = ref(false);
+
     /**
      * Resets all states for the navigation
      * @param resetNavbar default true
      */
-    resetStates(resetNavbar?: boolean): void {
-      if (resetNavbar !== false) this.navbarState = false;
-      this.infosState = false;
-      this.galleryState = false;
-      this.moreState = false;
-    },
+    const resetStates = (resetNavbar?: boolean): void => {
+      if (resetNavbar !== false) navbarState.value = false;
+      infosState.value = false;
+      galleryState.value = false;
+      moreState.value = false;
+    };
     /**
      * toggles the state of a navigation and disables all the others
      * @param state possible parameters: "infos", "gallery", "more"
      */
-    toggleState(state: string): void {
-      let newState = !this.infosState;
-      if (state === "gallery") newState = !this.galleryState;
-      if (state === "more") newState = !this.moreState;
+    const toggleState = (state: string): void => {
+      let newState = !infosState.value;
+      if (state === "gallery") newState = !galleryState.value;
+      if (state === "more") newState = !moreState.value;
 
-      this.resetStates(false);
+      resetStates(false);
 
-      if (state === "infos") this.infosState = newState;
-      if (state === "gallery") this.galleryState = newState;
-      if (state === "more") this.moreState = newState;
-    },
+      if (state === "infos") infosState.value = newState;
+      if (state === "gallery") galleryState.value = newState;
+      if (state === "more") moreState.value = newState;
+    };
     /**
      * toggles the navbar
      */
-    toggleNavbar(): void {
-      this.resetStates(false);
-      this.navbarState = !this.navbarState;
-    },
+    const toggleNavbar = (): void => {
+      resetStates(false);
+      navbarState.value = !navbarState.value;
+    };
+
+    return {
+      moreState,
+      infosState,
+      navbarState,
+      galleryState,
+      toggleState,
+      toggleNavbar,
+      resetStates,
+    };
   },
-});
+};
 </script>
