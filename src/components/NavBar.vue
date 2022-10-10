@@ -5,7 +5,11 @@
     <!-- Main Navbar -->
     <div class="flex items-center justify-between w-full">
       <router-link to="/" class="logo w-64"></router-link>
-      <nav class="hidden lg:flex justify-end items-center text-black">
+      <nav
+        class="hidden lg:flex justify-end items-center text-black"
+        v-if="navbarData"
+      >
+        <NavbarLink v-for="d in navbarData" :key="d.id" />
         <router-link
           @click="resetStates()"
           to="/"
@@ -215,9 +219,11 @@
 <script lang="ts">
 import { ref, onMounted } from "vue";
 import { getNavbarData } from "@/vue/navbar";
+import NavbarLink from "@/components/NavbarLink.vue";
 
 export default {
   name: "NavBar",
+  components: { NavbarLink },
   setup() {
     const navbarData = ref();
     onMounted(async () => {
