@@ -24,5 +24,6 @@ const getNavbarData = async () => {
 }
 
 export {
+  navbarItem,
   getNavbarData
 }
