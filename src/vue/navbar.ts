@@ -1,5 +1,5 @@
 import { firestore } from "@/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
 interface navbarItem {
   id: string,
@@ -16,7 +16,7 @@ interface navbarItem {
 }
 
 const getNavbarData = async () => {
-  const res = await getDocs(collection(firestore, "navbar"))
+  const res = await getDocs(query(collection(firestore, "navbar"), orderBy("order", "asc")))
   const data = res.docs.map(doc => {
     return { id: doc.id, ...doc.data() }
   })
