@@ -213,13 +213,17 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { getNavbarData } from "@/vue/navbar";
 
 export default {
   name: "NavBar",
   setup() {
-    const navbarData = getNavbarData();
+    const navbarData = ref();
+    onMounted(async () => {
+      navbarData.value = await getNavbarData();
+    });
+
     const navbarState = ref(false);
     const infosState = ref(false);
 
