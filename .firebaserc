@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "huettenbau-oberi"
+    "production": "huettenbau-oberi",
+    "development": "dev-huettenbau-oberi"
   }
 }
