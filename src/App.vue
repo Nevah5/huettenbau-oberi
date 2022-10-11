@@ -8,8 +8,9 @@
 import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import NavBarVue from "./components/NavBar.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   components: { NavBarVue },
   setup() {
     const route = useRoute();
@@ -19,7 +20,7 @@ export default {
         document.title = `${route.meta.title} - Hüttenbau Oberi`;
     });
   },
-};
+});
 </script>
 
 <style src="./assets/tailwind.css" />
