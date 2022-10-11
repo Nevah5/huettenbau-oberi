@@ -230,23 +230,35 @@ export default {
       navbarData.value = await getNavbarData();
     });
 
-    const navbarState = ref(false);
-    const infosState = ref(false);
+    const navbarState = ref({
+      navbar: false,
+      infos: false,
+      gallery: false,
+      more: false,
+    });
+    const defaultNavbarState = {
+      navbar: false,
+      infos: false,
+      gallery: false,
+      more: false,
+    };
 
     /**
      * Resets all states for the navigation
      * @param resetNavbar default true
      */
     const resetStates = (resetNavbar?: boolean): void => {
-      if (resetNavbar !== false) navbarState.value = false;
-      infosState.value = false;
+      let newStateNavbar: boolean = false;
+      if (resetNavbar === false) newStateNavbar = true;
+      navbarState.value = defaultNavbarState;
+      navbarState.value["navbar"] = newStateNavbar;
     };
     /**
      * toggles the state of a navigation and disables all the others
-     * @param state possible parameters: "infos", "gallery", "more"
+     * @param state a string state
      */
     const toggleState = (state: string): void => {
-      let newState = !infosState.value;
+      let newState: boolean = !navbarState.value[state];
 
       resetStates(false);
 
