@@ -34,14 +34,12 @@
     <div
       class="hidden lg:flex w-full justify-end text-black flex-wrap"
       v-auto-animate
-      v-for="doc in navbarData"
-      :key="doc.id"
-      :doc="doc"
     >
       <NavbarLink
-        v-for="sub in doc.sub"
-        :key="sub.id"
-        :doc="sub"
+        v-for="doc in navbarData"
+        :key="doc.id"
+        :doc="doc"
+        sub
         @toggle-state="toggleState"
         @reset-states="resetStates(true)"
       />
@@ -200,6 +198,7 @@ export default defineComponent({
       resetStates(false);
 
       navbarStates.value[state] = newState;
+      console.log(navbarStates.value);
     };
     /**
      * toggles the navbar
