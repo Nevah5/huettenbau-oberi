@@ -56,56 +56,56 @@
       v-auto-animate
     >
       <router-link
-        v-if="infosState"
+        v-if="navbarStates['infos']"
         to="/infos/infoblatt"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Infoblatt</router-link
       >
       <router-link
-        v-if="infosState"
+        v-if="navbarStates['infos']"
         to="/infos/dachverband"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Dachverband</router-link
       >
       <router-link
-        v-if="infosState"
+        v-if="navbarStates['infos']"
         to="/infos/lager"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Lager</router-link
       >
       <router-link
-        v-if="infosState"
+        v-if="navbarStates['infos']"
         to="/infos/team"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Team</router-link
       >
       <router-link
-        v-if="infosState"
+        v-if="navbarStates['infos']"
         to="/infos/verein"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Verein</router-link
       >
       <router-link
-        v-if="infosState"
+        v-if="navbarStates['infos']"
         to="/infos/standort"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Standort</router-link
       >
       <router-link
-        v-if="infosState"
+        v-if="navbarStates['infos']"
         to="/infos/sponsoren"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
         >Sponsoren</router-link
       >
       <router-link
-        v-if="infosState"
+        v-if="navbarStates['infos']"
         to="/infos/links"
         @click="resetStates()"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
@@ -114,8 +114,8 @@
     </div>
     <!-- Navbar Navigation (Phone) -->
     <div class="lg:hidden w-full" v-auto-animate>
-      <div v-if="navbarState" class="w-full h-[2px] my-4 bg-red"></div>
-      <nav v-if="navbarState" class="flex justify-end flex-col">
+      <div v-if="navbarStates" class="w-full h-[2px] my-4 bg-red"></div>
+      <nav v-if="navbarStates" class="flex justify-end flex-col">
         <router-link
           @click="resetStates()"
           to="/"
@@ -133,56 +133,56 @@
           v-auto-animate
         >
           <router-link
-            v-if="infosState"
+            v-if="navbarStates['infos']"
             to="/infos/infoblatt"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Infoblatt</router-link
           >
           <router-link
-            v-if="infosState"
+            v-if="navbarStates['infos']"
             to="/infos/dachverband"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Dachverband</router-link
           >
           <router-link
-            v-if="infosState"
+            v-if="navbarStates['infos']"
             to="/infos/lager"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Lager</router-link
           >
           <router-link
-            v-if="infosState"
+            v-if="navbarStates['infos']"
             to="/infos/team"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Team</router-link
           >
           <router-link
-            v-if="infosState"
+            v-if="navbarStates['infos']"
             to="/infos/verein"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Verein</router-link
           >
           <router-link
-            v-if="infosState"
+            v-if="navbarStates['infos']"
             to="/infos/standort"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Standort</router-link
           >
           <router-link
-            v-if="infosState"
+            v-if="navbarStates['infos']"
             to="/infos/sponsoren"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Sponsoren</router-link
           >
           <router-link
-            v-if="infosState"
+            v-if="navbarStates['infos']"
             to="/infos/links"
             @click="resetStates()"
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
@@ -230,51 +230,52 @@ export default {
       navbarData.value = await getNavbarData();
     });
 
-    const navbarState = ref({
-      navbar: false,
-      infos: false,
-      gallery: false,
-      more: false,
-    });
-    const defaultNavbarState = {
+    type navbarStatesIndex = "navbar" | "infos" | "gallery" | "more";
+    interface defaultnavbarStatesInterface {
+      navbar: boolean;
+      infos: boolean;
+      gallery: boolean;
+      more: boolean;
+    }
+    const defaultnavbarStates: defaultnavbarStatesInterface = {
       navbar: false,
       infos: false,
       gallery: false,
       more: false,
     };
+    const navbarStates = ref(defaultnavbarStates);
 
     /**
      * Resets all states for the navigation
      * @param resetNavbar default true
      */
     const resetStates = (resetNavbar?: boolean): void => {
-      let newStateNavbar: boolean = false;
+      let newStateNavbar = false;
       if (resetNavbar === false) newStateNavbar = true;
-      navbarState.value = defaultNavbarState;
-      navbarState.value["navbar"] = newStateNavbar;
+      navbarStates.value = defaultnavbarStates;
+      navbarStates.value["navbar"] = newStateNavbar;
     };
     /**
      * toggles the state of a navigation and disables all the others
      * @param state a string state
      */
-    const toggleState = (state: string): void => {
-      let newState: boolean = !navbarState.value[state];
+    const toggleState = (state: navbarStatesIndex): void => {
+      let newState = !navbarStates.value[state];
 
       resetStates(false);
 
-      if (state === "infos") infosState.value = newState;
+      navbarStates.value[state] = newState;
     };
     /**
      * toggles the navbar
      */
     const toggleNavbar = (): void => {
       resetStates(false);
-      navbarState.value = !navbarState.value;
+      navbarStates.value["navbar"] = !navbarStates.value["navbar"];
     };
 
     return {
-      infosState,
-      navbarState,
+      navbarStates,
       toggleState,
       toggleNavbar,
       resetStates,
