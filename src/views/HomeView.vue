@@ -4,9 +4,10 @@
 
 <script lang="ts">
 import HomeSlider from "@/components/HomeSlider.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "HomeView",
   components: { HomeSlider },
-};
+});
 </script>

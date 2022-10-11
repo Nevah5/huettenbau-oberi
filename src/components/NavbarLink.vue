@@ -17,8 +17,9 @@
 
 <script lang="ts">
 import { navbarItem } from "@/vue/navbar";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "NavbarLink",
   props: ["doc"],
   emits: ["resetStates", "toggleState"],
@@ -43,5 +44,5 @@ export default {
       toggleState,
     };
   },
-};
+});
 </script>

@@ -199,8 +199,9 @@
 import { ref, onMounted } from "vue";
 import { getNavbarData } from "@/vue/navbar";
 import NavbarLink from "@/components/NavbarLink.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "NavBar",
   components: { NavbarLink },
   setup() {
@@ -262,5 +263,5 @@ export default {
       navbarData,
     };
   },
-};
+});
 </script>
