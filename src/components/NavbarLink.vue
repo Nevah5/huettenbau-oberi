@@ -57,7 +57,7 @@
   </div>
   <div
     v-else-if="data.sub && isShown"
-    class="hidden md:flex flex-wrap justify-end"
+    class="hidden lg:flex flex-wrap justify-end"
   >
     <div v-for="sub in data.sub" :key="sub.link" class="w-fit mt-3 mb-2">
       <router-link
