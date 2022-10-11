@@ -32,7 +32,7 @@
       />
     </div>
     <!-- Sub (PC) -->
-    <div v-auto-animate class="w-full">
+    <div v-auto-animate class="w-full text-black">
       <NavbarLink
         v-for="doc in navbarData"
         :key="doc.id"
