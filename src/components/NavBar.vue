@@ -47,8 +47,8 @@
     </div>
     <!-- Navbar Navigation (Phone) -->
     <div class="lg:hidden w-full" v-if="navbarData" v-auto-animate>
-      <div class="w-full h-[2px] my-4 bg-red"></div>
-      <nav class="flex justify-end flex-col">
+      <div v-if="navbarState" class="w-full h-[2px] my-4 bg-red"></div>
+      <nav v-if="navbarState" class="flex justify-end flex-col">
         <router-link
           @click="resetStates()"
           to="/"
@@ -164,6 +164,8 @@ export default defineComponent({
       navbarData.value = await getNavbarData();
     });
 
+    const navbarState = ref(false);
+
     const defaultNavbarStates: { [key: string]: boolean } = {};
     const navbarStates = ref(defaultNavbarStates);
 
@@ -188,15 +190,16 @@ export default defineComponent({
     /**
      * toggles the navbar
      */
-    // const toggleNavbar = (): void => {
-    //   resetStates(false);
-    //   navbarStates.value.navbar = !navbarStates.value.navbar;
-    // };
+    const toggleNavbar = (): void => {
+      resetStates(false);
+      navbarState.value = !navbarState.value;
+    };
 
     return {
       navbarStates,
+      navbarState,
       toggleState,
-      // toggleNavbar,
+      toggleNavbar,
       resetStates,
       navbarData,
     };
