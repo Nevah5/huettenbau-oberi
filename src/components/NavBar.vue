@@ -12,33 +12,6 @@
         <NavbarLink v-for="doc in navbarData" :key="doc.id" :doc="doc" />
         <router-link
           @click="resetStates()"
-          to="/"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-          >Startseite</router-link
-        >
-        <a
-          @click="toggleState('infos')"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-          >Infos</a
-        >
-        <a
-          @click="toggleState('gallery')"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-          >Galerie</a
-        >
-        <router-link
-          @click="resetStates()"
-          to="/kontakt"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-          >Kontakt</router-link
-        >
-        <a
-          @click="toggleState('more')"
-          class="py-2.5 px-3 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-          >Mehr</a
-        >
-        <router-link
-          @click="resetStates()"
           to="/login"
           class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark"
           >Login</router-link
