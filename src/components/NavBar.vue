@@ -189,7 +189,6 @@ export default defineComponent({
       if (resetNavbar !== false) newStateNavbar = false;
       navbarStates.value = { ...defaultnavbarStates };
       navbarStates.value.navbar = newStateNavbar;
-      console.log(navbarStates.value);
     };
     /**
      * toggles the state of a navigation and disables all the others
