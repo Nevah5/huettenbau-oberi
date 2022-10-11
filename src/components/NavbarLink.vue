@@ -16,7 +16,7 @@
       >{{ data.display }}</a
     >
   </div>
-  <div class="mt-3 mb-2" v-else-if="data.sub">
+  <div class="mt-3 mb-2" v-else-if="data.sub && isShown">
     <div v-for="sub in data.sub" :key="sub.link">
       <router-link
         v-if="!sub.isExternal"
@@ -43,7 +43,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "NavbarLink",
-  props: ["doc"],
+  props: ["doc", "isShown"],
   emits: ["resetStates", "toggleState"],
   setup(props, ctx) {
     const isSub = ctx.attrs.sub !== undefined;

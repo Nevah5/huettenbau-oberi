@@ -39,6 +39,7 @@
         v-for="doc in navbarData"
         :key="doc.id"
         :doc="doc"
+        :isShown="navbarStates[doc.id as any]"
         sub
         @toggle-state="toggleState"
         @reset-states="resetStates(true)"
@@ -198,7 +199,6 @@ export default defineComponent({
       resetStates(false);
 
       navbarStates.value[state] = newState;
-      console.log(navbarStates.value);
     };
     /**
      * toggles the navbar
