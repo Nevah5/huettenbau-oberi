@@ -16,16 +16,25 @@
       >{{ data.display }}</a
     >
     <div
-      class="flex w-7/8 justify-start text-black flex-wrap pl-4 border-red border-l-2 ml-4"
+      class="flex w-7/8 justify-start text-black flex-wrap border-red border-l-2 pl-4 ml-4"
       v-auto-animate
-      v-if="data.sub"
+      v-for="sub in data.sub"
+      :key="sub.link"
     >
       <router-link
-        v-if="isShown"
-        to="/infos/infoblatt"
-        @click="resetStates()"
-        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-        >Infoblatt</router-link
+        v-if="!sub.isExternal && isShown"
+        @click="resetStates"
+        :to="sub.link!"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
+        >{{ sub.display }}</router-link
+      >
+      <a
+        v-else-if="isShown"
+        :href="sub.link!"
+        @click="toggleState(data.id)"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
+        target="_blank"
+        >{{ sub.display }}</a
       >
     </div>
   </div>
