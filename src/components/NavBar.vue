@@ -32,10 +32,7 @@
       />
     </div>
     <!-- Sub (PC) -->
-    <div
-      class="hidden lg:flex w-full justify-end text-black flex-wrap"
-      v-auto-animate
-    >
+    <div v-auto-animate class="w-full">
       <NavbarLink
         v-for="doc in navbarData"
         :key="doc.id"
