@@ -31,7 +31,7 @@
       <a
         v-else-if="isShown"
         :href="sub.link!"
-        @click="toggleState(data.id)"
+        @click="resetStates"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
         target="_blank"
         >{{ sub.display }}</a

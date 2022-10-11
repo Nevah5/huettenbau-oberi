@@ -15,10 +15,10 @@
           :doc="doc"
           :states="navbarStates"
           @toggle-state="toggleState"
-          @reset-states="resetStates()"
+          @reset-states="resetStates(true)"
         />
         <router-link
-          @click="resetStates()"
+          @click="resetStates"
           to="/login"
           class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark"
           >Login</router-link
@@ -28,7 +28,7 @@
         icon="fas fa-bars"
         v-if="navbarData"
         class="lg:hidden p-3 hover:bg-black-light rounded-md cursor-pointer h-[20px]"
-        @click="toggleNavbar()"
+        @click="toggleNavbar"
       />
     </div>
     <!-- Sub (PC) -->
@@ -43,7 +43,7 @@
         :states="navbarStates"
         sub
         @toggle-state="toggleState"
-        @reset-states="resetStates()"
+        @reset-states="resetStates(true)"
       />
     </div>
     <!-- Navbar Navigation (Phone) -->
@@ -57,72 +57,10 @@
           :states="navbarStates"
           phone
           @toggle-state="toggleState"
-          @reset-states="resetStates()"
+          @reset-states="resetStates(true)"
         />
-        <!-- Infos -->
-        <!-- <div
-          class="flex w-7/8 justify-start text-black flex-wrap pl-4 border-red border-l-2 ml-4"
-          v-auto-animate
-        >
-          <router-link
-            v-if="navbarStates.infos"
-            to="/infos/infoblatt"
-            @click="resetStates()"
-            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-            >Infoblatt</router-link
-          >
-          <router-link
-            v-if="navbarStates.infos"
-            to="/infos/dachverband"
-            @click="resetStates()"
-            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-            >Dachverband</router-link
-          >
-          <router-link
-            v-if="navbarStates.infos"
-            to="/infos/lager"
-            @click="resetStates()"
-            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-            >Lager</router-link
-          >
-          <router-link
-            v-if="navbarStates.infos"
-            to="/infos/team"
-            @click="resetStates()"
-            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-            >Team</router-link
-          >
-          <router-link
-            v-if="navbarStates.infos"
-            to="/infos/verein"
-            @click="resetStates()"
-            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-            >Verein</router-link
-          >
-          <router-link
-            v-if="navbarStates.infos"
-            to="/infos/standort"
-            @click="resetStates()"
-            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-            >Standort</router-link
-          >
-          <router-link
-            v-if="navbarStates.infos"
-            to="/infos/sponsoren"
-            @click="resetStates()"
-            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-            >Sponsoren</router-link
-          >
-          <router-link
-            v-if="navbarStates.infos"
-            to="/infos/links"
-            @click="resetStates()"
-            class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
-            >Links</router-link
-          >
-        </div> -->
         <router-link
-          @click="resetStates()"
+          @click="resetStates(true)"
           to="/login"
           class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark my-1 mt-6"
           >Login</router-link
@@ -156,8 +94,9 @@ export default defineComponent({
      * Resets all states for the navigation
      * @param resetNavbar default true
      */
-    const resetStates = (): void => {
+    const resetStates = (resetNavbarState?: boolean): void => {
       navbarStates.value = {};
+      if (resetNavbarState) navbarState.value = false;
     };
     /**
      * toggles the state of a navigation and disables all the others
