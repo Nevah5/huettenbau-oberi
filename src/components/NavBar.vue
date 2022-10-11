@@ -13,6 +13,7 @@
           v-for="doc in navbarData"
           :key="doc.id"
           :doc="doc"
+          :states="navbarStates"
           @toggle-state="toggleState"
           @reset-states="resetStates()"
         />
@@ -39,7 +40,7 @@
         v-for="doc in navbarData"
         :key="doc.id"
         :doc="doc"
-        :isShown="navbarStates[doc.id as any]"
+        :states="navbarStates"
         sub
         @toggle-state="toggleState"
         @reset-states="resetStates()"
@@ -49,19 +50,17 @@
     <div class="lg:hidden w-full" v-if="navbarData" v-auto-animate>
       <div v-if="navbarState" class="w-full h-[2px] my-4 bg-red"></div>
       <nav v-if="navbarState" class="flex justify-end flex-col">
-        <router-link
-          @click="resetStates()"
-          to="/"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light my-1"
-          >Startseite</router-link
-        >
-        <a
-          @click="toggleState('infos')"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-          >Infos</a
-        >
+        <NavbarLink
+          v-for="doc in navbarData"
+          :key="doc.id"
+          :doc="doc"
+          :states="navbarStates"
+          phone
+          @toggle-state="toggleState"
+          @reset-states="resetStates()"
+        />
         <!-- Infos -->
-        <div
+        <!-- <div
           class="flex w-7/8 justify-start text-black flex-wrap pl-4 border-red border-l-2 ml-4"
           v-auto-animate
         >
@@ -121,23 +120,7 @@
             class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
             >Links</router-link
           >
-        </div>
-        <a
-          @click="toggleState('gallery')"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
-          >Gallerie</a
-        >
-        <router-link
-          @click="resetStates()"
-          to="/kontakt"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light my-1"
-          >Kontakt</router-link
-        >
-        <a
-          @click="toggleState('more')"
-          class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
-          >Mehr</a
-        >
+        </div> -->
         <router-link
           @click="resetStates()"
           to="/login"

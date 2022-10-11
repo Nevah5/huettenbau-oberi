@@ -1,5 +1,35 @@
 <template>
-  <div v-if="!isSub">
+  <div v-if="isPhone" class="flex justify-end flex-col">
+    <router-link
+      v-if="!data.sub && !data.isExternal"
+      @click="resetStates"
+      :to="data.link!"
+      class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
+      >{{ data.display }}</router-link
+    >
+    <a
+      v-else
+      :href="data.link!"
+      @click="data.sub ? toggleState(data.id) : null"
+      class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
+      target="_blank"
+      >{{ data.display }}</a
+    >
+    <div
+      class="flex w-7/8 justify-start text-black flex-wrap pl-4 border-red border-l-2 ml-4"
+      v-auto-animate
+      v-if="data.sub"
+    >
+      <router-link
+        v-if="isShown"
+        to="/infos/infoblatt"
+        @click="resetStates()"
+        class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
+        >Infoblatt</router-link
+      >
+    </div>
+  </div>
+  <div v-else-if="!isSub">
     <router-link
       v-if="!data.sub && !data.isExternal"
       @click="resetStates"
@@ -39,14 +69,21 @@
 
 <script lang="ts">
 import { navbarItem } from "@/vue/navbar";
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 
 export default defineComponent({
   name: "NavbarLink",
-  props: ["doc", "isShown"],
+  props: ["doc", "states"],
   emits: ["resetStates", "toggleState"],
   setup(props, ctx) {
     const isSub = ctx.attrs.sub !== undefined;
+    const isPhone = ctx.attrs.phone !== undefined;
+    const isShown = computed(() => {
+      return props.states[props.doc.id] as boolean;
+    });
+    const data = computed(() => {
+      return props.doc as navbarItem;
+    });
 
     const toggleState = (state: string): void => {
       ctx.emit("toggleState", state);
@@ -57,9 +94,11 @@ export default defineComponent({
     };
 
     return {
-      data: props.doc as navbarItem,
+      data,
+      isShown,
       resetStates,
       toggleState,
+      isPhone,
       isSub,
     };
   },
