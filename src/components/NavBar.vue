@@ -14,7 +14,7 @@
           :key="doc.id"
           :doc="doc"
           @toggle-state="toggleState"
-          @reset-states="resetStates(true)"
+          @reset-states="resetStates()"
         />
         <router-link
           @click="resetStates()"
@@ -42,7 +42,7 @@
         :isShown="navbarStates[doc.id as any]"
         sub
         @toggle-state="toggleState"
-        @reset-states="resetStates(true)"
+        @reset-states="resetStates()"
       />
     </div>
     <!-- Navbar Navigation (Phone) -->
@@ -173,7 +173,7 @@ export default defineComponent({
      * Resets all states for the navigation
      * @param resetNavbar default true
      */
-    const resetStates = (resetNavbar?: boolean): void => {
+    const resetStates = (): void => {
       navbarStates.value = {};
     };
     /**
@@ -183,7 +183,7 @@ export default defineComponent({
     const toggleState = (state: string): void => {
       let newState = !navbarStates.value[state];
 
-      resetStates(false);
+      resetStates();
 
       navbarStates.value[state] = newState;
     };
@@ -191,7 +191,7 @@ export default defineComponent({
      * toggles the navbar
      */
     const toggleNavbar = (): void => {
-      resetStates(false);
+      resetStates();
       navbarState.value = !navbarState.value;
     };
 

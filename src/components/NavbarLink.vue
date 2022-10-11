@@ -53,7 +53,7 @@ export default defineComponent({
     };
 
     const resetStates = (): void => {
-      ctx.emit("resetStates", true);
+      ctx.emit("resetStates");
     };
 
     return {
