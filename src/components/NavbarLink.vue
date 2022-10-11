@@ -11,6 +11,7 @@
     :href="data.link!"
     @click="data.sub ? toggleState('infos') : null"
     class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
+    target="_blank"
     >{{ data.display }}</a
   >
 </template>
