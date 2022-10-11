@@ -84,7 +84,7 @@
 </template>
 
 <script lang="ts">
-import { navbarItem } from "@/vue/navbar";
+import { navbarItem } from "@/composables/navbar";
 import { defineComponent, computed } from "vue";
 
 export default defineComponent({

@@ -32,7 +32,7 @@
       />
     </div>
     <!-- Sub (PC) -->
-    <div v-auto-animate class="w-full">
+    <div v-auto-animate class="w-full text-black">
       <NavbarLink
         v-for="doc in navbarData"
         :key="doc.id"
@@ -69,7 +69,7 @@
 
 <script lang="ts">
 import { ref, onMounted } from "vue";
-import { getNavbarData } from "@/vue/navbar";
+import { getNavbarData } from "@/composables/navbar";
 import NavbarLink from "@/components/NavbarLink.vue";
 import { defineComponent } from "vue";
 
