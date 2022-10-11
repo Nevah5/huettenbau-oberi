@@ -47,8 +47,8 @@
     </div>
     <!-- Navbar Navigation (Phone) -->
     <div class="lg:hidden w-full" v-if="navbarData" v-auto-animate>
-      <div v-if="navbarStates" class="w-full h-[2px] my-4 bg-red"></div>
-      <nav v-if="navbarStates" class="flex justify-end flex-col">
+      <div class="w-full h-[2px] my-4 bg-red"></div>
+      <nav class="flex justify-end flex-col">
         <router-link
           @click="resetStates()"
           to="/"
@@ -164,36 +164,21 @@ export default defineComponent({
       navbarData.value = await getNavbarData();
     });
 
-    type navbarStatesIndex = "navbar" | "infos" | "gallery" | "more";
-    interface defaultnavbarStatesInterface {
-      navbar: boolean;
-      infos: boolean;
-      gallery: boolean;
-      more: boolean;
-    }
-    const defaultnavbarStates: defaultnavbarStatesInterface = {
-      navbar: false,
-      infos: false,
-      gallery: false,
-      more: false,
-    };
-    const navbarStates = ref(defaultnavbarStates);
+    const defaultNavbarStates: { [key: string]: boolean } = {};
+    const navbarStates = ref(defaultNavbarStates);
 
     /**
      * Resets all states for the navigation
      * @param resetNavbar default true
      */
     const resetStates = (resetNavbar?: boolean): void => {
-      let newStateNavbar = true;
-      if (resetNavbar !== false) newStateNavbar = false;
-      navbarStates.value = { ...defaultnavbarStates };
-      navbarStates.value.navbar = newStateNavbar;
+      navbarStates.value = {};
     };
     /**
      * toggles the state of a navigation and disables all the others
      * @param state a string state
      */
-    const toggleState = (state: navbarStatesIndex): void => {
+    const toggleState = (state: string): void => {
       let newState = !navbarStates.value[state];
 
       resetStates(false);
@@ -203,15 +188,15 @@ export default defineComponent({
     /**
      * toggles the navbar
      */
-    const toggleNavbar = (): void => {
-      resetStates(false);
-      navbarStates.value.navbar = !navbarStates.value.navbar;
-    };
+    // const toggleNavbar = (): void => {
+    //   resetStates(false);
+    //   navbarStates.value.navbar = !navbarStates.value.navbar;
+    // };
 
     return {
       navbarStates,
       toggleState,
-      toggleNavbar,
+      // toggleNavbar,
       resetStates,
       navbarData,
     };
