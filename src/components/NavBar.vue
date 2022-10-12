@@ -68,60 +68,51 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({
+  name: "NavBar",
+});
+</script>
+
+<script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import { getNavbarData } from "@/composables/navbar";
 import NavbarLink from "@/components/NavbarLink.vue";
-import { defineComponent } from "vue";
 
-export default defineComponent({
-  name: "NavBar",
-  components: { NavbarLink },
-  setup() {
-    const navbarData = ref();
-    onMounted(async () => {
-      navbarData.value = await getNavbarData();
-    });
-
-    const navbarState = ref(false);
-
-    const defaultNavbarStates: { [key: string]: boolean } = {};
-    const navbarStates = ref(defaultNavbarStates);
-
-    /**
-     * Resets all states for the navigation
-     * @param resetNavbar default true
-     */
-    const resetStates = (resetNavbarState?: boolean): void => {
-      navbarStates.value = {};
-      if (resetNavbarState) navbarState.value = false;
-    };
-    /**
-     * toggles the state of a navigation and disables all the others
-     * @param state a string state
-     */
-    const toggleState = (state: string): void => {
-      let newState = !navbarStates.value[state];
-
-      resetStates();
-
-      navbarStates.value[state] = newState;
-    };
-    /**
-     * toggles the navbar
-     */
-    const toggleNavbar = (): void => {
-      resetStates();
-      navbarState.value = !navbarState.value;
-    };
-
-    return {
-      navbarStates,
-      navbarState,
-      toggleState,
-      toggleNavbar,
-      resetStates,
-      navbarData,
-    };
-  },
+const navbarData = ref();
+onMounted(async () => {
+  navbarData.value = await getNavbarData();
 });
+
+const navbarState = ref(false);
+
+const defaultNavbarStates: { [key: string]: boolean } = {};
+const navbarStates = ref(defaultNavbarStates);
+
+/**
+ * Resets all states for the navigation
+ * @param resetNavbar default true
+ */
+const resetStates = (resetNavbarState?: boolean): void => {
+  navbarStates.value = {};
+  if (resetNavbarState) navbarState.value = false;
+};
+/**
+ * toggles the state of a navigation and disables all the others
+ * @param state a string state
+ */
+const toggleState = (state: string): void => {
+  let newState = !navbarStates.value[state];
+
+  resetStates();
+
+  navbarStates.value[state] = newState;
+};
+/**
+ * toggles the navbar
+ */
+const toggleNavbar = (): void => {
+  resetStates();
+  navbarState.value = !navbarState.value;
+};
 </script>
