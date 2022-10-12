@@ -4,22 +4,16 @@
   <router-view />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import NavBarVue from "./components/NavBar.vue";
-import { defineComponent } from "vue";
 
-export default defineComponent({
-  components: { NavBarVue },
-  setup() {
-    const route = useRoute();
+const route = useRoute();
 
-    watchEffect(() => {
-      if (route.meta.title)
-        document.title = `${route.meta.title} - Hüttenbau Oberi`;
-    });
-  },
+watchEffect(() => {
+  if (route.meta.title)
+    document.title = `${route.meta.title} - Hüttenbau Oberi`;
 });
 </script>
 
