@@ -84,39 +84,33 @@
 </template>
 
 <script lang="ts">
-import { navbarItem } from "@/composables/navbar";
-import { defineComponent, computed } from "vue";
-
+import { defineComponent } from "vue";
 export default defineComponent({
   name: "NavbarLink",
-  props: ["doc", "states"],
-  emits: ["resetStates", "toggleState"],
-  setup(props, ctx) {
-    const isSub = ctx.attrs.sub !== undefined;
-    const isPhone = ctx.attrs.phone !== undefined;
-    const isShown = computed(() => {
-      return props.states[props.doc.id] as boolean;
-    });
-    const data = computed(() => {
-      return props.doc as navbarItem;
-    });
-
-    const toggleState = (state: string): void => {
-      ctx.emit("toggleState", state);
-    };
-
-    const resetStates = (): void => {
-      ctx.emit("resetStates");
-    };
-
-    return {
-      data,
-      isShown,
-      resetStates,
-      toggleState,
-      isPhone,
-      isSub,
-    };
-  },
 });
+</script>
+
+<script lang="ts" setup>
+import { navbarItem } from "@/composables/navbar";
+import { computed, defineEmits, defineProps, useAttrs } from "vue";
+
+const attr = useAttrs();
+const props = defineProps(["doc", "states"]);
+const emit = defineEmits(["resetStates", "toggleState"]);
+const isSub = attr.sub !== undefined;
+const isPhone = attr.phone !== undefined;
+const isShown = computed(() => {
+  return props.states[props.doc.id] as boolean;
+});
+const data = computed(() => {
+  return props.doc as navbarItem;
+});
+
+const toggleState = (state: string): void => {
+  emit("toggleState", state);
+};
+
+const resetStates = (): void => {
+  emit("resetStates");
+};
 </script>
