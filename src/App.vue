@@ -1,19 +1,25 @@
 <template>
   <NavBarVue />
-  <div class="w-full h-[84px]"></div>
+  <div v-if="navSpacerEnabled" class="w-full h-[84px]"></div>
   <router-view />
 </template>
 
 <script lang="ts" setup>
-import { watchEffect } from "vue";
+import { watchEffect, ref } from "vue";
 import { useRoute } from "vue-router";
 import NavBarVue from "./components/NavBar.vue";
 
 const route = useRoute();
+const navSpacerEnabled = ref(true);
 
 watchEffect(() => {
   if (route.meta.title)
     document.title = `${route.meta.title} - Hüttenbau Oberi`;
+  if (route.meta.isNavSpacerEnabled === false) {
+    navSpacerEnabled.value = false;
+  } else {
+    navSpacerEnabled.value = true;
+  }
 });
 </script>
 
