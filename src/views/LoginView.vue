@@ -1,7 +1,5 @@
 <template>
-  <div class="w-full flex justify-center py-24">
-    <LoginForm />
-  </div>
+  <LoginForm />
 </template>
 
 <script setup lang="ts">
