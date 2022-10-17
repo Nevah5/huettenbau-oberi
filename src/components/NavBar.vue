@@ -30,6 +30,15 @@
         class="lg:hidden p-3 hover:bg-black-light rounded-md cursor-pointer h-[20px]"
         @click="toggleNavbar"
       />
+      <div class="flex justify-end gap-2 items-center" v-if="!navbarData">
+        <font-awesome-icon
+          icon="fa-solid fa-circle-notch"
+          class="animate-spin h-[20px] p-3"
+        />
+        <p class="text-black font-bold hidden lg:inline-block">
+          Daten werden geladen...
+        </p>
+      </div>
     </div>
     <!-- Sub (PC) -->
     <div v-auto-animate class="w-full text-black">
