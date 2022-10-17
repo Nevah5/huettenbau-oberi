@@ -5,10 +5,10 @@ import {autoAnimatePlugin} from "@formkit/auto-animate/vue"
 import './assets/tailwind.css'
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faArrowUpRightFromSquare, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faBars);
+library.add(faBars, faArrowUpRightFromSquare, faCircleNotch);
 
 createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
