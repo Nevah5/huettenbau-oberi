@@ -12,7 +12,6 @@ interface navbarItem {
   id: string,
   display: string,
   link?: string,
-  isExternal?: boolean,
   order: number,
   sub?: navbarSub[]
 }
