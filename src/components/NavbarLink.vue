@@ -29,10 +29,10 @@
         >
         <a
           v-else-if="isShown"
-          :href="sub.link!"
+          :href="sub.link ? sub.link : 'javascript:void(0)'"
           @click="resetStates"
           class="p-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-          target="_blank"
+          :target="sub.link ? '_blank' : ''"
           >{{ sub.display }}</a
         >
       </div>
@@ -52,10 +52,10 @@
     >
     <a
       v-else
-      :href="data.link!"
+      :href="data.link ? data.link : 'javascript:void(0)'"
       @click="data.sub ? toggleState(data.id) : null"
       class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-      target="_blank"
+      :target="data.link ? '_blank' : ''"
       >{{ data.display }}</a
     >
   </div>
@@ -73,9 +73,9 @@
       >
       <a
         v-else
-        :href="sub.link!"
+        :href="sub.link ? sub.link : 'javascript:void(0)'"
         @click="toggleState(data.id)"
-        target="_blank"
+        :target="sub.link ? '_blank' : ''"
         class="mt-3 mb-2 py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
         >{{ sub.display }}</a
       >
