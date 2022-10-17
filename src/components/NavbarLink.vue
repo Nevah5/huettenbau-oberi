@@ -26,8 +26,12 @@
         @click="resetStates"
         :to="sub.link!"
         class="p-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-        >{{ sub.display }}</router-link
-      >
+        >{{ sub.display
+        }}<font-awesome-icon
+          v-if="sub.isExternal"
+          class="ml-1"
+          icon="fa-solid fa-arrow-up-right-from-square"
+      /></router-link>
       <div
         class="border-red border-b-2 w-full mx-4 mt-4 mb-2"
         v-if="isShown"
@@ -62,8 +66,12 @@
         @click="resetStates"
         :to="sub.link!"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-        >{{ sub.display }}</router-link
-      >
+        >{{ sub.display
+        }}<font-awesome-icon
+          v-if="sub.isExternal"
+          class="ml-1"
+          icon="fa-solid fa-arrow-up-right-from-square"
+      /></router-link>
     </div>
   </div>
 </template>
