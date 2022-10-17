@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4"
+    class="absolute flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4 text-black"
   >
     <!-- Main Navbar -->
     <div class="flex items-center justify-between w-full">
