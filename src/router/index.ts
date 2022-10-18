@@ -8,8 +8,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.meta.enforceNoLogin && loggedInUser()) return next("/");
-  next();
+  const userLoggedIn = loggedInUser()
+
+  if(to.meta.enforceNoLogin && userLoggedIn) return next("/")
+  if(to.meta.enforceLogin && !userLoggedIn) return next("/login")
+  next()
 })
 
 export default router
