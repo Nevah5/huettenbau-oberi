@@ -10,11 +10,13 @@
         type="text"
         placeholder="Email"
         class="appearance-none block border-red border-solid border-2 rounded w-full px-4 py-2 mb-2"
+        v-model="email"
       />
       <input
         type="password"
         placeholder="Passwort"
         class="appearance-none block border-red border-solid border-2 rounded w-full px-4 py-2 mb-2"
+        v-model="password"
       />
       <button
         type="submit"
@@ -35,7 +37,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+
+const email = ref("");
+const password = ref("");
+
 const submit = () => {
-  console.log("Submit");
+  console.log("submit");
 };
 </script>
