@@ -35,7 +35,11 @@
       >
         <p class="text-center font-semibold mx-4 mb-0 font-bold">ODER</p>
       </div>
-      <button class="w-full bg-[#0055e6] rounded text-white font-bold p-2">
+      <button
+        class="w-full bg-[#0055e6] rounded text-white font-bold p-2"
+        type="button"
+        @click="loginWithGoogle"
+      >
         <font-awesome-icon icon="fa-brands fa-google" class="mr-2" />Google
       </button>
     </form>
@@ -44,7 +48,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { loginWithEmailAndPassword } from "@/composables/account";
+import {
+  loginWithEmailAndPassword,
+  loginWithGoogle,
+} from "@/composables/account";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
