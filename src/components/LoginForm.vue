@@ -18,11 +18,17 @@
         class="appearance-none block border-red border-solid border-2 rounded w-full px-4 py-2 mb-2"
         v-model="password"
       />
-      <button
-        type="submit"
-        class="w-full bg-red rounded text-white font-bold p-2 mt-2"
-      >
-        <font-awesome-icon icon="fa-solid fa-unlock" class="mr-2" />Einloggen
+      <p class="text-red font-bold">{{ errorMessage }}</p>
+      <button class="w-full bg-red rounded text-white font-bold p-2 mt-2">
+        <font-awesome-icon
+          icon="fa-solid fa-unlock"
+          v-if="!isCheckingCredentials"
+          class="mr-2"
+        /><font-awesome-icon
+          icon="fa-solid fa-circle-notch"
+          class="animate-spin mr-2"
+          v-if="isCheckingCredentials"
+        />Einloggen
       </button>
       <div
         class="w-full flex items-center my-4 before:flex-1 before:border-t before:border-black before:mt-0.5 after:flex-1 after:border-t after:border-black after:mt-0.5"
@@ -38,11 +44,25 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { loginWithEmailAndPassword } from "@/composables/account";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
+const isCheckingCredentials = ref(false);
+const errorMessage = ref("");
 
 const submit = () => {
-  console.log("submit");
+  isCheckingCredentials.value = true;
+  loginWithEmailAndPassword(email.value, password.value)
+    .then(() => {
+      router.push("/");
+    })
+    .catch((errMsg: string) => {
+      isCheckingCredentials.value = false;
+      errorMessage.value = errMsg;
+    });
 };
 </script>
