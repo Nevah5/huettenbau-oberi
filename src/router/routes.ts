@@ -37,15 +37,6 @@ const routes: RouteRecordRaw[] = [
           enforceLogin: true,
         },
         component: () => import('@/views/account/OverviewView.vue')
-      },
-      {
-        path: 'logout',
-        name: 'logout',
-        meta: {
-          titleName: 'Logging out...',
-          enforceLogin: true,
-        },
-        component: () => import('@/views/account/LogoutView.vue')
       }
     ]
   }
