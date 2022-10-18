@@ -20,7 +20,15 @@
         type="submit"
         class="w-full bg-red rounded text-white font-bold p-2 mt-2"
       >
-        Einloggen
+        <font-awesome-icon icon="fa-solid fa-unlock" class="mr-2" />Einloggen
+      </button>
+      <div
+        class="w-full flex items-center my-4 before:flex-1 before:border-t before:border-black before:mt-0.5 after:flex-1 after:border-t after:border-black after:mt-0.5"
+      >
+        <p class="text-center font-semibold mx-4 mb-0 font-bold">ODER</p>
+      </div>
+      <button class="w-full bg-[#0055e6] rounded text-white font-bold p-2">
+        <font-awesome-icon icon="fa-brands fa-google" class="mr-2" />Google
       </button>
     </form>
   </section>
