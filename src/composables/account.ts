@@ -22,7 +22,7 @@ const loginWithEmailAndPassword = (email: string, password: string): Promise<str
             errorMessage = "Passwort inkorrekt"
             break;
           case "auth/user-disabled":
-            errorMessage = "Dieser Benutzer wurde ausgeschaltet"
+            errorMessage = "Dieser Benutzer wurde deaktiviert"
             break;
           default:
             errorMessage = "Etwas ist schief gelaufen!"
