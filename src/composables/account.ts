@@ -1,7 +1,5 @@
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User } from "firebase/auth"
-import { app } from "../firebase"
-
-const auth = getAuth(app);
+import { app, auth } from "../firebase"
 
 const loginWithEmailAndPassword = (email: string, password: string): Promise<string | void> => {
   return new Promise<string | void>((resolve, reject) => {
