@@ -2,7 +2,7 @@
   <section class="flex justify-center items-center h-screen">
     <form
       @submit.prevent="submit"
-      class="w-5/12 flex flex-col justify-center items-center p-16 text-black rounded drop-shadow-xl shadow-2xl"
+      class="w-full md:w-2/3 lg:w-5/12 flex flex-col justify-center items-center p-8 md:p-16 text-black rounded drop-shadow-xl md:shadow-2xl"
     >
       <router-link to="/" class="logo w-3/4 mb-4"></router-link>
       <h2 class="font-bold text-xl mb-4">Logge dich hier ein:</h2>
