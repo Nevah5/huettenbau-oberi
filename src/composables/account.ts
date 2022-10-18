@@ -51,7 +51,12 @@ const loggedInUser = (): User | void => {
   return auth.currentUser!
 }
 
+const logoutUser = async (): Promise<void> => {
+  await auth.signOut()
+}
+
 export {
+  logoutUser,
   loginWithGoogle,
   loggedInUser,
   loginWithEmailAndPassword
