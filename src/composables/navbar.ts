@@ -1,18 +1,19 @@
 import { firestore } from "@/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
+interface navbarSub{
+  display: string,
+  link: string,
+  isExternal: boolean,
+  order: number
+}
+
 interface navbarItem {
   id: string,
   display: string,
   link?: string,
-  isExternal?: boolean,
   order: number,
-  sub?: {
-    display: string,
-    link: string,
-    isExternal: boolean,
-    order: number
-  }[]
+  sub?: navbarSub[]
 }
 
 const getNavbarData = async () => {

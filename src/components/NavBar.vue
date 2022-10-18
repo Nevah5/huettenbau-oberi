@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4"
+    class="absolute flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4 text-black"
   >
     <!-- Main Navbar -->
     <div class="flex items-center justify-between w-full">
@@ -30,6 +30,15 @@
         class="lg:hidden p-3 hover:bg-black-light rounded-md cursor-pointer h-[20px]"
         @click="toggleNavbar"
       />
+      <div class="flex justify-end gap-2 items-center" v-if="!navbarData">
+        <font-awesome-icon
+          icon="fa-solid fa-circle-notch"
+          class="animate-spin h-[20px] p-3"
+        />
+        <p class="text-black font-bold hidden lg:inline-block">
+          Daten werden geladen...
+        </p>
+      </div>
     </div>
     <!-- Sub (PC) -->
     <div v-auto-animate class="w-full text-black">

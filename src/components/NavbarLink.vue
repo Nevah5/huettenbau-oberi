@@ -1,7 +1,7 @@
 <template>
-  <div v-if="isPhone" class="flex justify-start flex-col">
+  <div v-if="isPhone" class="flex justify-start flex-col" v-auto-animate>
     <router-link
-      v-if="!data.sub && !data.isExternal"
+      v-if="!data.sub"
       @click="resetStates"
       :to="data.link!"
       class="w-full py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
@@ -10,41 +10,38 @@
     <a
       v-else
       :href="data.link!"
-      @click="data.sub ? toggleState(data.id) : null"
+      @click="toggleState(data.id)"
       class="w-full py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
       target="_blank"
       >{{ data.display }}</a
     >
+    <!-- Sub Links -->
     <div
       class="relative flex w-7/8 justify-start text-black flex-wrap items-center"
-      v-auto-animate
+      v-if="isShown"
     >
-      <div v-for="sub in data.sub" :key="sub.link">
-        <router-link
-          v-if="!sub.isExternal && isShown"
-          @click="resetStates"
-          :to="sub.link!"
-          class="p-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-          >{{ sub.display }}</router-link
-        >
-        <a
-          v-else-if="isShown"
-          :href="sub.link ? sub.link : 'javascript:void(0)'"
-          @click="resetStates"
-          class="p-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-          :target="sub.link ? '_blank' : ''"
-          >{{ sub.display }}</a
-        >
-      </div>
+      <router-link
+        v-for="sub in data.sub"
+        :key="sub.link"
+        @click="resetStates"
+        :to="sub.link!"
+        class="p-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
+        >{{ sub.display
+        }}<font-awesome-icon
+          v-if="sub.isExternal"
+          class="ml-1"
+          icon="fa-solid fa-arrow-up-right-from-square"
+      /></router-link>
       <div
         class="border-red border-b-2 w-full mx-4 mt-4 mb-2"
         v-if="isShown"
       ></div>
     </div>
   </div>
+  <!-- For PC view in Navbar -->
   <div v-else-if="!isSub">
     <router-link
-      v-if="!data.sub && !data.isExternal"
+      v-if="!data.sub"
       @click="resetStates"
       :to="data.link!"
       class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
@@ -53,32 +50,28 @@
     <a
       v-else
       :href="data.link ? data.link : 'javascript:void(0)'"
-      @click="data.sub ? toggleState(data.id) : null"
+      @click="toggleState(data.id)"
       class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
       :target="data.link ? '_blank' : ''"
       >{{ data.display }}</a
     >
   </div>
+  <!-- For subs in PC Navbar -->
   <div
     v-else-if="data.sub && isShown"
     class="hidden lg:flex flex-wrap justify-end"
   >
     <div v-for="sub in data.sub" :key="sub.link" class="w-fit mt-3 mb-2">
       <router-link
-        v-if="!sub.isExternal"
         @click="resetStates"
         :to="sub.link!"
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-        >{{ sub.display }}</router-link
-      >
-      <a
-        v-else
-        :href="sub.link ? sub.link : 'javascript:void(0)'"
-        @click="toggleState(data.id)"
-        :target="sub.link ? '_blank' : ''"
-        class="mt-3 mb-2 py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-        >{{ sub.display }}</a
-      >
+        >{{ sub.display
+        }}<font-awesome-icon
+          v-if="sub.isExternal"
+          class="ml-1"
+          icon="fa-solid fa-arrow-up-right-from-square"
+      /></router-link>
     </div>
   </div>
 </template>
@@ -92,7 +85,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { navbarItem } from "@/composables/navbar";
-import { computed, defineEmits, defineProps, useAttrs } from "vue";
+import { computed, defineEmits, defineProps, useAttrs, h } from "vue";
 
 const attr = useAttrs();
 const props = defineProps(["doc", "states"]);
