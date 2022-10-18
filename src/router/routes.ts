@@ -14,7 +14,8 @@ const routes: RouteRecordRaw[] = [
     name: 'login',
     meta: {
       title: "Login",
-      isNavSpacerEnabled: false
+      isNavSpacerEnabled: false,
+      enforceNoLogin: true,
     },
     component: () => import('@/views/LoginView.vue')
   }
