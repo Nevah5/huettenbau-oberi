@@ -7,14 +7,13 @@
       class="w-full py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
       >{{ data.display }}</router-link
     >
-    <a
+    <button
       v-else
-      :href="data.link!"
       @click="toggleState(data.id)"
-      class="w-full py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1"
-      target="_blank"
-      >{{ data.display }}</a
+      class="w-full py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer my-1 text-left"
     >
+      {{ data.display }}
+    </button>
     <!-- Sub Links -->
     <div
       class="relative flex w-7/8 justify-start text-black flex-wrap items-center"
@@ -47,14 +46,13 @@
       class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light"
       >{{ data.display }}</router-link
     >
-    <a
+    <button
       v-else
-      :href="data.link ? data.link : 'javascript:void(0)'"
       @click="toggleState(data.id)"
-      class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
-      :target="data.link ? '_blank' : ''"
-      >{{ data.display }}</a
+      class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer text-left"
     >
+      {{ data.display }}
+    </button>
   </div>
   <!-- For subs in PC Navbar -->
   <div
@@ -85,7 +83,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { navbarItem } from "@/composables/navbar";
-import { computed, defineEmits, defineProps, useAttrs, h } from "vue";
+import { computed, defineEmits, defineProps, useAttrs } from "vue";
 
 const attr = useAttrs();
 const props = defineProps(["doc", "states"]);

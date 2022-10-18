@@ -6,9 +6,11 @@
 
 <script lang="ts" setup>
 import { watchEffect, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { auth } from "./firebase";
 import NavBarVue from "./components/NavBar.vue";
 
+const router = useRouter();
 const route = useRoute();
 const navSpacerEnabled = ref(true);
 
@@ -20,6 +22,11 @@ watchEffect(() => {
   } else {
     navSpacerEnabled.value = true;
   }
+});
+
+//when page is refreshed, to detect user login
+auth.onAuthStateChanged((user) => {
+  router.push(route.path);
 });
 </script>
 

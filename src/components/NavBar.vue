@@ -18,10 +18,18 @@
           @reset-states="resetStates(true)"
         />
         <router-link
+          v-if="!loggedInUser()"
           @click="resetStates"
           to="/login"
           class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark"
           >Login</router-link
+        >
+        <router-link
+          v-else
+          @click="resetStates"
+          to="/account"
+          class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark"
+          >Account</router-link
         >
       </nav>
       <font-awesome-icon
@@ -66,10 +74,18 @@
           @reset-states="resetStates(true)"
         />
         <router-link
+          v-if="!loggedInUser()"
           @click="resetStates(true)"
           to="/login"
           class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark my-1 mt-6"
           >Login</router-link
+        >
+        <router-link
+          v-else
+          @click="resetStates(true)"
+          to="/account"
+          class="py-2.5 px-3 mx-1 bg-red text-white font-bold rounded-md h-fit hover:bg-red-dark my-1 mt-6"
+          >Account</router-link
         >
       </nav>
     </div>
@@ -85,6 +101,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
+import { loggedInUser } from "@/composables/account";
 import { getNavbarData } from "@/composables/navbar";
 import NavbarLink from "@/components/NavbarLink.vue";
 

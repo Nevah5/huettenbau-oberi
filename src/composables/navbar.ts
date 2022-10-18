@@ -26,7 +26,7 @@ const getNavbarData = async () => {
       return a.order - b.order
     })
   });
-  return (data as navbarItem[]);
+  return (data as navbarItem[])
 }
 
 export {
