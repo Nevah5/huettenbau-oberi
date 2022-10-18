@@ -1,9 +1,10 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { app } from "../firebase"
+
+const auth = getAuth(app);
 
 const loginWithEmailAndPassword = (email: string, password: string): Promise<string | void> => {
   return new Promise<string | void>((resolve, reject) => {
-    const auth = getAuth(app)
     signInWithEmailAndPassword(auth, email, password)
       .then((data) => {
         console.log(data);
@@ -33,6 +34,20 @@ const loginWithEmailAndPassword = (email: string, password: string): Promise<str
   })
 }
 
+const loginWithGoogle = () => {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+  .then((data) => {
+    console.log(data);
+    
+  })
+  .catch((e) => {
+    console.log(e);
+    
+  })
+}
+
 export {
+  loginWithGoogle,
   loginWithEmailAndPassword
 }
