@@ -85,7 +85,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { navbarItem } from "@/composables/navbar";
-import { computed, defineEmits, defineProps, useAttrs, h } from "vue";
+import { computed, defineEmits, defineProps, useAttrs } from "vue";
 
 const attr = useAttrs();
 const props = defineProps(["doc", "states"]);
