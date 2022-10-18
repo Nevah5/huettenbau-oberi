@@ -10,7 +10,7 @@ const loginWithEmailAndPassword = (email: string, password: string): Promise<str
         resolve()
       })
       .catch((e) => {
-        let errorMessage = "";
+        let errorMessage: string = "";
         switch(e.code){
           case "auth/invalid-email":
             errorMessage = "Ungültige Email Adresse"
