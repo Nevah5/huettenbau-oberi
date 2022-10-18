@@ -18,7 +18,7 @@
         class="appearance-none block border-red border-solid border-2 rounded w-full px-4 py-2 mb-2"
         v-model="password"
       />
-      <p class="text-red font-bold">{{ errorMessage }}</p>
+      <p class="text-red font-bold" v-if="errorMessage">{{ errorMessage }}</p>
       <button class="w-full bg-red rounded text-white font-bold p-2 mt-2">
         <font-awesome-icon
           icon="fa-solid fa-unlock"
@@ -38,10 +38,13 @@
       <button
         class="w-full bg-[#0055e6] rounded text-white font-bold p-2"
         type="button"
-        @click="loginWithGoogle"
+        @click="googleLogin"
       >
         <font-awesome-icon icon="fa-brands fa-google" class="mr-2" />Google
       </button>
+      <p class="text-red font-bold mt-2" v-if="otherLoginErrorMessage">
+        {{ otherLoginErrorMessage }}
+      </p>
     </form>
   </section>
 </template>
@@ -60,6 +63,7 @@ const email = ref("");
 const password = ref("");
 const isCheckingCredentials = ref(false);
 const errorMessage = ref("");
+const otherLoginErrorMessage = ref("");
 
 const submit = () => {
   isCheckingCredentials.value = true;
@@ -70,6 +74,16 @@ const submit = () => {
     .catch((errMsg: string) => {
       isCheckingCredentials.value = false;
       errorMessage.value = errMsg;
+    });
+};
+
+const googleLogin = () => {
+  loginWithGoogle()
+    .then(() => {
+      router.push("/");
+    })
+    .catch((errMsg) => {
+      otherLoginErrorMessage.value = errMsg;
     });
 };
 </script>

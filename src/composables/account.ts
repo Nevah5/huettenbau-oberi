@@ -1,4 +1,5 @@
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { useRouter } from "vue-router"
 import { app } from "../firebase"
 
 const auth = getAuth(app);
@@ -7,11 +8,10 @@ const loginWithEmailAndPassword = (email: string, password: string): Promise<str
   return new Promise<string | void>((resolve, reject) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((data) => {
-        console.log(data);
         resolve()
       })
       .catch((e) => {
-        let errorMessage = "";
+        let errorMessage = ""
         switch(e.code){
           case "auth/invalid-email":
             errorMessage = "Ungültige Email Adresse"
@@ -27,23 +27,24 @@ const loginWithEmailAndPassword = (email: string, password: string): Promise<str
             break;
           default:
             errorMessage = "Etwas ist schief gelaufen!"
-            console.log(e);
+            console.log(e)
         }
-        reject(errorMessage);
+        reject(errorMessage)
       })
   })
 }
 
 const loginWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-  .then((data) => {
-    console.log(data);
-    
-  })
-  .catch((e) => {
-    console.log(e);
-    
+  return new Promise<string | void>((resolve, reject) => {
+    const provider = new GoogleAuthProvider()
+    signInWithPopup(auth, provider)
+      .then(() => {
+        resolve()
+      })
+      .catch((e) => {
+        console.log(e)
+        reject("Etwas ist schief gelaufen!")
+      })
   })
 }
 
