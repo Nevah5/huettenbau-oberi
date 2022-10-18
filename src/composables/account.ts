@@ -1,5 +1,4 @@
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
-import { useRouter } from "vue-router"
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User } from "firebase/auth"
 import { app } from "../firebase"
 
 const auth = getAuth(app);
@@ -48,7 +47,12 @@ const loginWithGoogle = () => {
   })
 }
 
+const loggedInUser = (): User | void => {
+  return auth.currentUser!
+}
+
 export {
   loginWithGoogle,
+  loggedInUser,
   loginWithEmailAndPassword
 }
