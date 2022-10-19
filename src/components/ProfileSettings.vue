@@ -55,6 +55,12 @@
               class="appearance-none border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
               v-model="displayName"
             />
+            <p
+              class="text-red font-bold w-full"
+              v-if="errorMessage.displayName"
+            >
+              {{ errorMessage.displayName }}
+            </p>
             <div class="mt-2 flex justify-start gap-1">
               <button
                 @click="
@@ -112,6 +118,9 @@
               class="appearance-none border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
               v-model="email"
             />
+            <p class="text-red font-bold w-full" v-if="errorMessage.email">
+              {{ errorMessage.email }}
+            </p>
             <div class="mt-2 flex justify-start gap-1">
               <button
                 @click="
@@ -151,6 +160,7 @@
         </div>
       </div>
     </div>
+    {{ user }}
   </div>
 </template>
 
@@ -159,6 +169,7 @@ import {
   loggedInUser,
   isGoogleAccount,
   changeDisplayName,
+  changeEmail,
 } from "@/composables/account";
 import { ref } from "vue";
 
@@ -171,12 +182,16 @@ const editLoading = ref({
   displayName: false,
   email: false,
 });
-const errorMessage = "";
+const errorMessage = ref({
+  displayName: "",
+  email: "",
+});
 const displayName = ref(user!.displayName);
 const email = ref(user!.email);
 
 const editDisplayName = () => {
   editLoading.value.displayName = true;
+  errorMessage.value.displayName = "";
 
   changeDisplayName(displayName.value as string)
     .then(() => {
@@ -185,10 +200,21 @@ const editDisplayName = () => {
     })
     .catch(() => {
       editLoading.value.displayName = false;
+      errorMessage.value.displayName = "Etwas ist schief gelaufen!";
     });
 };
 const editEmail = () => {
-  editLoading.value.email = false;
-  editStates.value.email = false;
+  editLoading.value.email = true;
+  errorMessage.value.email = "";
+
+  changeEmail(email.value as string)
+    .then(() => {
+      editLoading.value.email = false;
+      editStates.value.email = false;
+    })
+    .catch((errorMsg: string) => {
+      editLoading.value.email = false;
+      errorMessage.value.email = errorMsg;
+    });
 };
 </script>
