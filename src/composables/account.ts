@@ -45,6 +45,12 @@ const loginWithGoogle = () => {
   })
 }
 
+const isGoogleAccount = () => {
+  const user = loggedInUser()
+  if(user!.providerData[0].providerId === 'google.com') return true;
+  return false;
+}
+
 const loggedInUser = (): User | null => {
   return auth.currentUser
 }
@@ -54,6 +60,7 @@ const logoutUser = async (): Promise<void> => {
 }
 
 export {
+  isGoogleAccount,
   logoutUser,
   loginWithGoogle,
   loggedInUser,
