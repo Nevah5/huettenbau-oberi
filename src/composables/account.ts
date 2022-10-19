@@ -18,16 +18,16 @@ const loginWithEmailAndPassword = (email: string, password: string): Promise<str
         switch(e.code){
           case "auth/invalid-email":
             errorMessage = "Ungültige Email Adresse"
-            break;
+            break
           case "auth/user-not-found":
             errorMessage = "Benutzer nicht gefunden"
-            break;
+            break
           case "auth/wrong-password":
             errorMessage = "Passwort inkorrekt"
-            break;
+            break
           case "auth/user-disabled":
             errorMessage = "Dieser Benutzer wurde deaktiviert"
-            break;
+            break
           default:
             errorMessage = "Etwas ist schief gelaufen!"
             console.log(e)
@@ -61,8 +61,8 @@ const loginWithGoogle = () => {
  */
 const hasPasswordLogin = (): boolean => {
   const user = loggedInUser()
-  if(user!.providerData.find((obj) => obj.providerId === 'password')) return true;
-  return false;
+  if(user!.providerData.find((obj) => obj.providerId === 'password')) return true
+  return false
 }
 
 /**
@@ -92,7 +92,7 @@ const changeDisplayName = (newDisplayName: string): Promise<void> => {
     })
     .then(() => resolve())
     .catch((e) => {
-      console.log(e);
+      console.log(e)
       reject()
     })
   })
@@ -112,10 +112,10 @@ const changeEmail = (newEmail: string): Promise<void | string> => {
     .catch((e) => {
       switch(e.code){
         case "auth/requires-recent-login":
-          reject("Logge dich erneut ein und versuche es dann nochmals.");
-          break;
+          reject("Logge dich erneut ein und versuche es dann nochmals.")
+          break
         default:
-          console.log(e);
+          console.log(e)
           reject("Etwas ist schief gelaufen!")
       }
     })
@@ -139,10 +139,10 @@ const changePassword = (currentPassword: string, newPassword: string): Promise<v
       .catch((e) => {
         switch(e.code){
           case "auth/weak-password":
-            reject("Das Passwort muss mindestens 6 Zeichen lang sein.");
-            break;
+            reject("Das Passwort muss mindestens 6 Zeichen lang sein.")
+            break
           default:
-            console.log(e);
+            console.log(e)
             reject("Etwas ist schief gelaufen")
         }
       })
@@ -167,13 +167,13 @@ const addPassword = (newPassword: string): Promise<void | string> => {
     .catch((e) => {
       switch(e.code){
         case "auth/requires-recent-login":
-          reject("Logge dich erneut ein und versuche es dann nochmals.");
-          break;
+          reject("Logge dich erneut ein und versuche es dann nochmals.")
+          break
         case "auth/weak-password":
-          reject("Das Passwort muss mindestens 6 Zeichen lang sein.");
-          break;
+          reject("Das Passwort muss mindestens 6 Zeichen lang sein.")
+          break
         default:
-          console.log(e);
+          console.log(e)
           reject("Etwas ist schief gelaufen!")
       }
     })
