@@ -25,7 +25,7 @@ watchEffect(() => {
 });
 
 //when page is refreshed, to detect user login
-auth.onAuthStateChanged((user) => {
+auth.onAuthStateChanged(() => {
   router.push(route.path);
 });
 </script>
