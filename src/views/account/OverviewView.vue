@@ -1,6 +1,7 @@
 <template>
   <section class="w-full px-4 sm:w-9/12 sm:px-0 xl:w-1/2">
     <ProfileSettings />
+    <LinkedAccounts />
     <div class="mb-8">
       <h2 class="text-xl font-bold text-black mb-2">Account</h2>
       <div class="w-full bg-black h-[2px] block mb-2"></div>
@@ -33,6 +34,7 @@
 import { useRouter } from "vue-router";
 import { logoutUser } from "@/composables/account";
 import ProfileSettings from "@/components/account/ProfileSettings.vue";
+import LinkedAccounts from "@/components/account/LinkedAccounts.vue";
 
 const router = useRouter();
 
