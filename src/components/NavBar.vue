@@ -104,9 +104,13 @@ import { ref, onMounted } from "vue";
 import { loggedInUser } from "@/composables/account";
 import { getNavbarData } from "@/composables/navbar";
 import NavbarLink from "@/components/NavbarLink.vue";
+import { auth } from "../firebase";
 
 const navbarData = ref();
 onMounted(async () => {
+  navbarData.value = await getNavbarData();
+});
+auth.onAuthStateChanged(async () => {
   navbarData.value = await getNavbarData();
 });
 
