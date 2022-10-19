@@ -1,13 +1,7 @@
 <template>
   <div class="mb-8 text-black">
     <!-- Title -->
-    <h2 class="text-xl font-bold mb-2">
-      Profil{{ isGoogleAccount() ? " [" : ""
-      }}<font-awesome-icon
-        icon="fa-brands fa-google"
-        v-if="isGoogleAccount()"
-      />{{ isGoogleAccount() ? " Google]" : "" }}
-    </h2>
+    <h2 class="text-xl font-bold mb-2">Profil</h2>
     <!-- Line -->
     <div class="w-full bg-black h-[2px] block mb-2"></div>
     <!-- Content -->
@@ -92,7 +86,7 @@
           <div class="flex justify-between">
             <label for="email" class="font-bold">Email Adresse</label>
             <p
-              v-if="!editStates.email && !isGoogleAccount()"
+              v-if="!editStates.email"
               @click="editStates.email = true"
               class="text-red underline cursor-pointer"
             >
@@ -166,7 +160,6 @@
 <script setup lang="ts">
 import {
   loggedInUser,
-  isGoogleAccount,
   changeDisplayName,
   changeEmail,
 } from "@/composables/account";
