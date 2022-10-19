@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4 text-black"
+    class="sticky flex items-center justify-center flex-col bg-white top-0 w-full border-t-8 border-solid border-red shadow-navbar z-50 p-4 text-black"
   >
     <!-- Main Navbar -->
     <div class="flex items-center justify-between w-full">
@@ -104,9 +104,13 @@ import { ref, onMounted } from "vue";
 import { loggedInUser } from "@/composables/account";
 import { getNavbarData } from "@/composables/navbar";
 import NavbarLink from "@/components/NavbarLink.vue";
+import { auth } from "../firebase";
 
 const navbarData = ref();
 onMounted(async () => {
+  navbarData.value = await getNavbarData();
+});
+auth.onAuthStateChanged(async () => {
   navbarData.value = await getNavbarData();
 });
 
