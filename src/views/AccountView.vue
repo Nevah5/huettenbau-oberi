@@ -6,5 +6,5 @@
 </template>
 
 <script lang="ts" setup>
-import AccountNav from "@/components/AccountNav.vue";
+import AccountNav from "@/components/account/AccountNav.vue";
 </script>

@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { logoutUser } from "@/composables/account";
-import ProfileSettings from "@/components/ProfileSettings.vue";
+import ProfileSettings from "@/components/account/ProfileSettings.vue";
 
 const router = useRouter();
 

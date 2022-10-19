@@ -19,5 +19,5 @@
 </template>
 
 <script lang="ts" setup>
-import AccountSecurity from "@/components/AccountSecurity.vue";
+import AccountSecurity from "@/components/account/AccountSecurity.vue";
 </script>
