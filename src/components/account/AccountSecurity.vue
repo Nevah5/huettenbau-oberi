@@ -7,18 +7,20 @@
       Diese Aktion schaltet das login mit Email und Passwort an.
     </p>
     <!-- Current Password -->
-    <div class="mb-4 w-full">
+    <form class="mb-4 w-full" @submit.prevent="funChangePassword">
       <label for="currentPW" class="font-bold" v-if="hasPasswordLogin()"
         >Aktuelles Passwort</label
       >
       <input
         v-if="hasPasswordLogin()"
+        v-model="data.currentPassword"
         type="password"
         id="currentPW"
         class="appearance-none border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full mb-2"
       />
       <label for="newPW" class="font-bold">Neues Passwort</label>
       <input
+        v-model="data.newPassword"
         type="password"
         id="newPW"
         class="appearance-none border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full mb-2"
@@ -27,14 +29,60 @@
         >Neues Passwort wiederholen</label
       >
       <input
+        v-model="data.repeatNewPassword"
         type="password"
         id="repeatNewPW"
         class="appearance-none border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full mb-2"
       />
-    </div>
+      <p class="text-red font-bold mb-1" v-if="errMsg">{{ errMsg }}</p>
+      <button
+        type="submit"
+        class="rounded-md bg-red text-white font-bold px-4 py-2 mt-1"
+      >
+        <font-awesome-icon
+          v-if="loading"
+          icon="fa-solid fa-circle-notch"
+          class="animate-spin mr-1"
+        />
+        Change
+      </button>
+      <p class="text-black mt-1" v-if="successMsg">
+        Dein Passwort wurde erfolgreich geändert.
+      </p>
+    </form>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { hasPasswordLogin } from "@/composables/account";
+import { hasPasswordLogin, changePassword } from "@/composables/account";
+import { ref } from "vue";
+
+const loading = ref(false);
+const data = ref({
+  currentPassword: "",
+  newPassword: "",
+  repeatNewPassword: "",
+});
+const errMsg = ref("");
+const successMsg = ref(false);
+
+const funChangePassword = () => {
+  loading.value = true;
+  if (hasPasswordLogin())
+    return changePassword(data.value.currentPassword, data.value.newPassword)
+      .then(() => {
+        loading.value = false;
+        errMsg.value = "";
+        data.value = {
+          currentPassword: "",
+          newPassword: "",
+          repeatNewPassword: "",
+        };
+        successMsg.value = true;
+      })
+      .catch((errorMessage) => {
+        loading.value = false;
+        errMsg.value = errorMessage;
+      });
+};
 </script>
