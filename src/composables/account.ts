@@ -1,10 +1,10 @@
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User } from "firebase/auth"
-import { app, auth } from "../firebase"
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User } from "firebase/auth"
+import { auth } from "../firebase"
 
 const loginWithEmailAndPassword = (email: string, password: string): Promise<string | void> => {
   return new Promise<string | void>((resolve, reject) => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((data) => {
+      .then(() => {
         resolve()
       })
       .catch((e) => {
@@ -45,8 +45,8 @@ const loginWithGoogle = () => {
   })
 }
 
-const loggedInUser = (): User | void => {
-  return auth.currentUser!
+const loggedInUser = (): User | null => {
+  return auth.currentUser
 }
 
 const logoutUser = async (): Promise<void> => {
