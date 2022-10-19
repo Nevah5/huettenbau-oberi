@@ -37,12 +37,48 @@
             </p>
           </div>
           <input
+            v-if="!editStates.displayName"
             type="text"
             id="displayName"
             class="appearance-none bg-black-light border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
             disabled
             :value="(user!.displayName as string)"
           />
+          <form
+            @submit.prevent="editDisplayName"
+            v-else
+            class="w-full flex flex-col justify-center items-start"
+          >
+            <input
+              type="text"
+              id="displayName"
+              class="appearance-none border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
+              v-model="displayName"
+            />
+            <div class="mt-2 flex justify-start gap-1">
+              <button
+                @click="
+                  editStates.displayName = false;
+                  editLoading.displayName = false;
+                "
+                class="rounded-md border-red border-2 border-solid text-red font-bold px-4 py-2"
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="rounded-md bg-red text-white font-bold px-4 py-2"
+              >
+                <font-awesome-icon
+                  v-if="editLoading.displayName"
+                  icon="fa-solid fa-circle-notch"
+                  class="animate-spin mr-1"
+                />
+                Save
+              </button>
+            </div>
+          </form>
         </div>
         <!-- Email -->
         <div class="mb-4 w-full">
@@ -57,12 +93,48 @@
             </p>
           </div>
           <input
+            v-if="!editStates.email"
             type="text"
             id="email"
             class="appearance-none bg-black-light border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
             disabled
             :value="(user!.email as string)"
           />
+          <form
+            @submit.prevent="editEmail"
+            v-else
+            class="w-full flex flex-col justify-center items-start"
+          >
+            <input
+              type="email"
+              id="email"
+              class="appearance-none border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
+              v-model="email"
+            />
+            <div class="mt-2 flex justify-start gap-1">
+              <button
+                @click="
+                  editStates.email = false;
+                  editLoading.email = false;
+                "
+                class="rounded-md border-red border-2 border-solid text-red font-bold px-4 py-2"
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="rounded-md bg-red text-white font-bold px-4 py-2"
+              >
+                <font-awesome-icon
+                  v-if="editLoading.email"
+                  icon="fa-solid fa-circle-notch"
+                  class="animate-spin mr-1"
+                />
+                Save
+              </button>
+            </div>
+          </form>
         </div>
         <!-- User ID -->
         <div class="mb-4 w-full">
@@ -89,4 +161,19 @@ const editStates = ref({
   displayName: false,
   email: false,
 });
+const editLoading = ref({
+  displayName: false,
+  email: false,
+});
+const displayName = ref(user!.displayName);
+const email = ref(user!.email);
+
+const editDisplayName = () => {
+  editLoading.value.displayName = false;
+  editStates.value.displayName = false;
+};
+const editEmail = () => {
+  editLoading.value.email = false;
+  editStates.value.email = false;
+};
 </script>
