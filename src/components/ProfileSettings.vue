@@ -28,51 +28,52 @@
         <div class="mb-4 w-full">
           <div class="flex justify-between">
             <label for="displayName" class="font-bold">Anzeige Name</label>
-            <a href="#edit=displayName" class="text-red underline">Ändern</a>
+            <p
+              v-if="!editStates.displayName"
+              @click="editStates.displayName = true"
+              class="text-red underline cursor-pointer"
+            >
+              Ändern
+            </p>
           </div>
-          <div class="flex justify-center items-center">
-            <input
-              type="text"
-              id="displayName"
-              class="appearance-none bg-black-light border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
-              disabled
-              :value="(user!.displayName as string)"
-            />
-          </div>
+          <input
+            type="text"
+            id="displayName"
+            class="appearance-none bg-black-light border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
+            disabled
+            :value="(user!.displayName as string)"
+          />
         </div>
         <!-- Email -->
         <div class="mb-4 w-full">
           <div class="flex justify-between">
             <label for="email" class="font-bold">Email Adresse</label>
-            <a
-              href="#edit=email"
-              class="text-red underline"
-              v-if="!isGoogleAccount()"
-              >Ändern</a
+            <p
+              v-if="!editStates.email && !isGoogleAccount()"
+              @click="editStates.email = true"
+              class="text-red underline cursor-pointer"
             >
+              Ändern
+            </p>
           </div>
-          <div class="flex justify-center items-center">
-            <input
-              type="text"
-              id="email"
-              class="appearance-none bg-black-light border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
-              disabled
-              :value="(user!.email as string)"
-            />
-          </div>
+          <input
+            type="text"
+            id="email"
+            class="appearance-none bg-black-light border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
+            disabled
+            :value="(user!.email as string)"
+          />
         </div>
         <!-- User ID -->
         <div class="mb-4 w-full">
           <label for="uid" class="font-bold">User ID</label>
-          <div class="flex justify-center items-center">
-            <input
-              type="text"
-              id="uid"
-              class="appearance-none bg-black-light border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
-              disabled
-              :value="(user!.uid as string)"
-            />
-          </div>
+          <input
+            type="text"
+            id="uid"
+            class="appearance-none bg-black-light border-black border-2 border-solid rounded-md px-4 py-2 mt-1 w-full"
+            disabled
+            :value="(user!.uid as string)"
+          />
         </div>
       </div>
     </div>
@@ -81,6 +82,11 @@
 
 <script setup lang="ts">
 import { loggedInUser, isGoogleAccount } from "@/composables/account";
+import { ref } from "vue";
 
 const user = loggedInUser();
+const editStates = ref({
+  displayName: false,
+  email: false,
+});
 </script>
