@@ -1,6 +1,12 @@
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User, updateProfile, updateEmail } from "firebase/auth"
 import { auth } from "../firebase"
 
+/**
+ * Logs into an account.
+ * @param email string
+ * @param password string
+ * @returns Error Message when error, else void
+ */
 const loginWithEmailAndPassword = (email: string, password: string): Promise<string | void> => {
   return new Promise<string | void>((resolve, reject) => {
     signInWithEmailAndPassword(auth, email, password)
@@ -31,6 +37,10 @@ const loginWithEmailAndPassword = (email: string, password: string): Promise<str
   })
 }
 
+/**
+ * Opens popup to authenticate with google login.
+ * @returns Error Message when error, else void
+ */
 const loginWithGoogle = () => {
   return new Promise<string | void>((resolve, reject) => {
     const provider = new GoogleAuthProvider()
@@ -45,20 +55,36 @@ const loginWithGoogle = () => {
   })
 }
 
-const isGoogleAccount = () => {
+/**
+ * Checks if the account has Password login.
+ * @returns boolean
+ */
+const hasPasswordLogin = (): boolean => {
   const user = loggedInUser()
-  if(user!.providerData[0].providerId === 'google.com') return true;
+  if(user!.providerData.find((obj) => obj.providerId === 'password')) return true;
   return false;
 }
 
+/**
+ * Gives the current logged in user back.
+ * @returns User
+ */
 const loggedInUser = (): User | null => {
   return auth.currentUser
 }
 
+/**
+ * Signs out of firebase auth.
+ */
 const logoutUser = async (): Promise<void> => {
   await auth.signOut()
 }
 
+/**
+ * Changes the displayname of the account.
+ * @param newDisplayName string
+ * @returns Promise
+ */
 const changeDisplayName = (newDisplayName: string): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     updateProfile(auth.currentUser!, {
@@ -72,8 +98,13 @@ const changeDisplayName = (newDisplayName: string): Promise<void> => {
   })
 }
 
-const changeEmail = (newEmail: string): Promise<void> => {
-  return new Promise<void>((resolve, reject) => {
+/**
+ * Changes the email of a account, automatically sends mail to old email that email was changed.
+ * @param newEmail string
+ * @returns Error message if error, else void
+ */
+const changeEmail = (newEmail: string): Promise<void | string> => {
+  return new Promise<void | string>((resolve, reject) => {
     updateEmail(auth.currentUser!, newEmail)
     .then(() => {
       resolve()
@@ -94,7 +125,7 @@ const changeEmail = (newEmail: string): Promise<void> => {
 export {
   changeDisplayName,
   changeEmail,
-  isGoogleAccount,
+  hasPasswordLogin,
   logoutUser,
   loginWithGoogle,
   loggedInUser,
