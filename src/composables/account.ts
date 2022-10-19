@@ -122,6 +122,12 @@ const changeEmail = (newEmail: string): Promise<void | string> => {
   })
 }
 
+/**
+ * Changes the password of a emailAndPassword user.
+ * @param currentPassword 
+ * @param newPassword 
+ * @returns 
+ */
 const changePassword = (currentPassword: string, newPassword: string): Promise<void | string> => {
   return new Promise<void | string>((resolve, reject) => {
     loginWithEmailAndPassword(auth.currentUser!.email!, currentPassword)
@@ -147,7 +153,35 @@ const changePassword = (currentPassword: string, newPassword: string): Promise<v
   })
 }
 
+/**
+ * Adds the emailAndPassword provider to a users account.
+ * @param newPassword string
+ * @returns error message when error, else void
+ */
+const addPassword = (newPassword: string): Promise<void | string> => {
+  return new Promise<void | string>((resolve, reject) => {
+    updatePassword(auth.currentUser!, newPassword)
+    .then(() => {
+      resolve()
+    })
+    .catch((e) => {
+      switch(e.code){
+        case "auth/requires-recent-login":
+          reject("Logge dich erneut ein und versuche es dann nochmals.");
+          break;
+        case "auth/weak-password":
+          reject("Das Passwort muss mindestens 6 Zeichen lang sein.");
+          break;
+        default:
+          console.log(e);
+          reject("Etwas ist schief gelaufen!")
+      }
+    })
+  })
+}
+
 export {
+  addPassword,
   changePassword,
   changeDisplayName,
   changeEmail,
