@@ -8,20 +8,3 @@
     </div>
   </section>
 </template>
-
-<script lang="ts" setup>
-import { useRouter } from "vue-router";
-import { logoutUser } from "@/composables/account";
-
-const router = useRouter();
-
-const logout = () => {
-  logoutUser()
-    .then(() => {
-      router.push("/");
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-};
-</script>
