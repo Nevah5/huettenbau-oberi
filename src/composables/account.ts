@@ -1,4 +1,14 @@
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User, updateProfile, updateEmail, updatePassword } from "firebase/auth"
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  User,
+  updateProfile,
+  updateEmail,
+  updatePassword,
+  linkWithPopup,
+  unlink
+} from "firebase/auth"
 import { auth } from "../firebase"
 
 /**
@@ -180,7 +190,50 @@ const addPassword = (newPassword: string): Promise<void | string> => {
   })
 }
 
+/**
+ * Links google account to currentUser auth.
+ * @returns error message when error, else void
+ */
+const linkGoogleAccount = (): Promise<void | string> => {
+  return new Promise<void | string>((resolve, reject) => {
+    const provider = new GoogleAuthProvider()
+    linkWithPopup(auth.currentUser!, provider)
+    .then(() => {
+      resolve()
+    })
+    .catch((e) => {
+      switch(e.code){
+        case "auth/credential-already-in-use":
+          reject("Dieser Account wird bereits benutzt.")
+          break
+        default:
+          console.log(e)
+          reject("Etwas ist schief gelaufen.")
+      }
+    })
+  })
+}
+
+/**
+ * Unlinks the googleaccount from currentUser auth.
+ * @returns error message when error, else void
+ */
+const unlinkGoogleAccount = (): Promise<void | string> => {
+  return new Promise<void | string>((resolve, reject) => {
+    unlink(auth.currentUser!, 'google.com')
+    .then(() => {
+      resolve()
+    })
+    .catch((e) => {
+      console.log(e)
+      reject("Etwas ist schief gelaufen.")
+    })
+  })
+}
+
 export {
+  unlinkGoogleAccount,
+  linkGoogleAccount,
   addPassword,
   changePassword,
   changeDisplayName,
