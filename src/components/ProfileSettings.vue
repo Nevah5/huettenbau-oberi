@@ -59,6 +59,7 @@
               <button
                 @click="
                   editStates.displayName = false;
+                  displayName = user!.displayName;
                   editLoading.displayName = false;
                 "
                 class="rounded-md border-red border-2 border-solid text-red font-bold px-4 py-2"
@@ -115,6 +116,7 @@
               <button
                 @click="
                   editStates.email = false;
+                  email = user!.email;
                   editLoading.email = false;
                 "
                 class="rounded-md border-red border-2 border-solid text-red font-bold px-4 py-2"
@@ -153,7 +155,11 @@
 </template>
 
 <script setup lang="ts">
-import { loggedInUser, isGoogleAccount } from "@/composables/account";
+import {
+  loggedInUser,
+  isGoogleAccount,
+  changeDisplayName,
+} from "@/composables/account";
 import { ref } from "vue";
 
 const user = loggedInUser();
@@ -165,12 +171,21 @@ const editLoading = ref({
   displayName: false,
   email: false,
 });
+const errorMessage = "";
 const displayName = ref(user!.displayName);
 const email = ref(user!.email);
 
 const editDisplayName = () => {
-  editLoading.value.displayName = false;
-  editStates.value.displayName = false;
+  editLoading.value.displayName = true;
+
+  changeDisplayName(displayName.value as string)
+    .then(() => {
+      editLoading.value.displayName = false;
+      editStates.value.displayName = false;
+    })
+    .catch(() => {
+      editLoading.value.displayName = false;
+    });
 };
 const editEmail = () => {
   editLoading.value.email = false;
