@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
     redirect: '/account/overview',
     name: 'account',
     meta: {
-      titleName: 'Account',
+      title: 'Account',
       enforceLogin: true,
     },
     component: () => import('@/views/AccountView.vue'),
@@ -33,10 +33,28 @@ const routes: RouteRecordRaw[] = [
         path: 'overview',
         name: 'overview',
         meta: {
-          titleName: 'Account',
+          title: 'Account',
           enforceLogin: true,
         },
         component: () => import('@/views/account/OverviewView.vue')
+      },
+      {
+        path: 'settings',
+        name: 'settings',
+        meta: {
+          title: 'Account Settings',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/account/SettingsView.vue')
+      },
+      {
+        path: 'security',
+        name: 'security',
+        meta: {
+          title: 'Account Security',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/account/SecurityView.vue')
       }
     ]
   }

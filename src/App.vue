@@ -25,6 +25,10 @@ watchEffect(() => {
 
 <style src="./assets/tailwind.css" />
 <style lang="scss">
+:root {
+  --red: #fa1414;
+}
+
 * {
   box-sizing: border-box;
 }
