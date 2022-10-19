@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User } from "firebase/auth"
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User, updateProfile } from "firebase/auth"
 import { auth } from "../firebase"
 
 const loginWithEmailAndPassword = (email: string, password: string): Promise<string | void> => {
@@ -59,7 +59,21 @@ const logoutUser = async (): Promise<void> => {
   await auth.signOut()
 }
 
+const changeDisplayName = (newDisplayName: string): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    updateProfile(auth.currentUser!, {
+      displayName: newDisplayName
+    })
+    .then(() => resolve())
+    .catch((e) => {
+      console.log(e);
+      reject()
+    })
+  })
+}
+
 export {
+  changeDisplayName,
   isGoogleAccount,
   logoutUser,
   loginWithGoogle,
