@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User, updateProfile, updateEmail } from "firebase/auth"
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User, updateProfile, updateEmail, updatePassword } from "firebase/auth"
 import { auth } from "../firebase"
 
 /**
@@ -122,7 +122,33 @@ const changeEmail = (newEmail: string): Promise<void | string> => {
   })
 }
 
+const changePassword = (currentPassword: string, newPassword: string): Promise<void | string> => {
+  return new Promise<void | string>((resolve, reject) => {
+    loginWithEmailAndPassword(auth.currentUser!.email!, currentPassword)
+    .then(() => {
+      updatePassword(auth.currentUser!, newPassword)
+      .then(() => {
+        resolve()
+      })
+      .catch((e) => {
+        switch(e.code){
+          case "auth/weak-password":
+            reject("Das Passwort muss mindestens 6 Zeichen lang sein.");
+            break;
+          default:
+            console.log(e);
+            reject("Etwas ist schief gelaufen")
+        }
+      })
+    })
+    .catch((errMsg) => {
+      reject(errMsg)
+    })
+  })
+}
+
 export {
+  changePassword,
   changeDisplayName,
   changeEmail,
   hasPasswordLogin,
