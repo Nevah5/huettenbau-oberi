@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User, updateProfile } from "firebase/auth"
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User, updateProfile, updateEmail } from "firebase/auth"
 import { auth } from "../firebase"
 
 const loginWithEmailAndPassword = (email: string, password: string): Promise<string | void> => {
@@ -72,8 +72,28 @@ const changeDisplayName = (newDisplayName: string): Promise<void> => {
   })
 }
 
+const changeEmail = (newEmail: string): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    updateEmail(auth.currentUser!, newEmail)
+    .then(() => {
+      resolve()
+    })
+    .catch((e) => {
+      switch(e.code){
+        case "auth/requires-recent-login":
+          reject("Logge dich erneut ein und versuche es dann nochmals.");
+          break;
+        default:
+          console.log(e);
+          reject("Etwas ist schief gelaufen!")
+      }
+    })
+  })
+}
+
 export {
   changeDisplayName,
+  changeEmail,
   isGoogleAccount,
   logoutUser,
   loginWithGoogle,
