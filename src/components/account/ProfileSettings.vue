@@ -189,6 +189,7 @@ const editDisplayName = () => {
     .then(() => {
       editLoading.value.displayName = false;
       editStates.value.displayName = false;
+      displayName.value = user!.displayName;
     })
     .catch(() => {
       editLoading.value.displayName = false;
@@ -203,6 +204,7 @@ const editEmail = () => {
     .then(() => {
       editLoading.value.email = false;
       editStates.value.email = false;
+      email.value = user!.email;
     })
     .catch((errorMsg: string) => {
       editLoading.value.email = false;
