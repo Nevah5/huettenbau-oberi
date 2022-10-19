@@ -1,5 +1,5 @@
-import { firestore } from "@/firebase";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { firestore } from "@/firebase"
+import { collection, getDocs, orderBy, query } from "firebase/firestore"
 
 interface navbarSub{
   display: string,
@@ -25,7 +25,7 @@ const getNavbarData = async () => {
     d.sub?.sort((a, b) => {
       return a.order - b.order
     })
-  });
+  })
   return (data as navbarItem[])
 }
 
