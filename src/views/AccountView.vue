@@ -2,7 +2,7 @@
   <main class="w-full flex flex-col justify-start items-center">
     <AccountNav />
     <router-view v-slot="{ Component }">
-      <transition name="slide">
+      <transition name="slide" mode="out-in">
         <component :is="Component" />
       </transition>
     </router-view>
