@@ -1,7 +1,7 @@
 <template>
-  <main class="w-full flex flex-row justify-between items-start">
+  <main class="w-full flex flex-row justify-start items-start">
     <AdminNav />
-    <div class="m-8 text-black w-fit mx-auto px-8">
+    <div class="m-8 text-black w-full">
       <router-view v-slot="{ Component }">
         <transition name="admin" mode="out-in">
           <component :is="Component" />

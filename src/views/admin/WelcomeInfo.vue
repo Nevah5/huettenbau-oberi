@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="px-8">
     <h2 class="text-center font-bold text-xl">Wilkommen auf dem Admin Panel</h2>
     <p class="text-center">
       Diese Seite ist für das Konfigurieren und Anpassen diversen Sachen. Schau

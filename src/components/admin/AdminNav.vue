@@ -1,5 +1,5 @@
 <template>
-  <nav class="my-8 ml-8 flex flex-col justify-center items-end w-fit">
+  <nav class="my-8 ml-8 flex flex-col justify-center items-end w-fit w-[240px]">
     <router-link
       to="/admin/permissions"
       class="rounded-md p-2 px-3 m-1 font-bold hover:bg-black-light relative w-full text-center"
