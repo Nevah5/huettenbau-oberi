@@ -13,7 +13,7 @@
     <router-link
       to="/admin/gallery"
       class="rounded-md p-2 px-3 m-1 font-bold hover:bg-black-light relative w-full text-center"
-      >Gallerie Verwaltung</router-link
+      >Galerie Verwaltung</router-link
     >
     <router-link
       to="/admin/external-links"

@@ -59,7 +59,7 @@ const routes: RouteRecordRaw[] = [
         path: 'gallery',
         name: 'gallery',
         meta: {
-          title: 'Gallery Administration',
+          title: 'Galerie Administration',
           enforceLogin: true,
         },
         component: () => import('@/views/admin/SiteNavigation.vue')
