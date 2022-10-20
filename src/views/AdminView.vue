@@ -2,7 +2,7 @@
   <main class="w-full flex flex-col justify-start items-center">
     <AdminNav />
     <router-view v-slot="{ Component }">
-      <transition name="settings" mode="out-in">
+      <transition name="admin" mode="out-in">
         <component :is="Component" />
       </transition>
     </router-view>
@@ -14,13 +14,13 @@ import AdminNav from "@/components/admin/AdminNav.vue";
 </script>
 
 <style lang="scss" scoped>
-.settings-enter-from,
-.settings-leave-to {
+.admin-enter-from,
+.admin-leave-to {
   opacity: 0;
 }
 
-.settings-enter-active,
-.settings-leave-active {
+.admin-enter-active,
+.admin-leave-active {
   transition: opacity 300ms ease-in-out;
 }
 </style>
