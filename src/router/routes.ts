@@ -19,6 +19,53 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/LoginView.vue')
   },
   {
+    path: '/admin',
+    name: 'admin',
+    meta: {
+      title: "Admin Panel",
+      enforceLogin: true,
+    },
+    component: () => import('@/views/AdminView.vue'),
+    children: [
+      {
+        path: 'permissions',
+        name: 'permissions',
+        meta: {
+          title: 'Site Permissions',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/SitePermissions.vue')
+      },
+      {
+        path: 'navigation',
+        name: 'navigation',
+        meta: {
+          title: 'Site Navigation',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/SiteNavigation.vue')
+      },
+      {
+        path: 'gallery',
+        name: 'gallery',
+        meta: {
+          title: 'Gallery Administration',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/SiteNavigation.vue')
+      },
+      {
+        path: 'external-links',
+        name: 'external-links',
+        meta: {
+          title: 'Externe Links',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/ExternalLinks.vue')
+      },
+    ]
+  },
+  {
     path: '/account',
     redirect: '/account/overview',
     name: 'account',
