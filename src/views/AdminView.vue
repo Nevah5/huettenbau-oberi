@@ -1,11 +1,13 @@
 <template>
   <main class="w-full flex flex-row justify-between items-start">
     <AdminNav />
-    <router-view v-slot="{ Component }">
-      <transition name="admin" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <div class="m-8 text-black w-fit mx-auto px-8">
+      <router-view v-slot="{ Component }">
+        <transition name="admin" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </div>
   </main>
 </template>
 
