@@ -1,5 +1,5 @@
 <template>
-  <main class="w-full flex flex-col justify-start items-center">
+  <main class="w-full flex flex-row justify-between items-start">
     <AdminNav />
     <router-view v-slot="{ Component }">
       <transition name="admin" mode="out-in">
