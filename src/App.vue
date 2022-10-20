@@ -1,6 +1,10 @@
 <template>
   <NavBarVue />
-  <router-view />
+  <router-view v-slot="{ Component }">
+    <transition name="site" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <script lang="ts" setup>
@@ -29,5 +33,16 @@ html,
 body {
   margin: 0;
   padding: 0;
+}
+</style>
+<style lang="scss" scoped>
+.site-enter-from,
+.site-leave-to {
+  opacity: 0;
+}
+
+.site-enter-active,
+.site-leave-active {
+  transition: opacity 300ms ease-in-out;
 }
 </style>

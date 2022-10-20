@@ -1,5 +1,5 @@
 <template>
-  <section class="flex justify-center items-center h-screen">
+  <section class="flex justify-center items-center h-full pt-16 md:p-16">
     <form
       @submit.prevent="submit"
       class="w-full md:w-2/3 lg:w-5/12 flex flex-col justify-center items-center p-8 md:p-16 text-black rounded drop-shadow-xl md:shadow-2xl"
