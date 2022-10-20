@@ -25,8 +25,18 @@ const routes: RouteRecordRaw[] = [
       title: "Admin Panel",
       enforceLogin: true,
     },
+    redirect: "/admin/welcome",
     component: () => import('@/views/AdminView.vue'),
     children: [
+      {
+        path: 'welcome',
+        name: 'welcome',
+        meta: {
+          title: 'Admin Panel',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/WelcomeView.vue')
+      },
       {
         path: 'permissions',
         name: 'permissions',
@@ -67,8 +77,8 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/account',
-    redirect: '/account/overview',
     name: 'account',
+    redirect: '/account/overview',
     meta: {
       title: 'Account',
       enforceLogin: true,
