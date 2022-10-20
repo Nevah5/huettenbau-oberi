@@ -3,7 +3,8 @@
     <AdminNav />
     <router-view v-slot="{ Component }">
       <transition name="admin" mode="out-in">
-        <component :is="Component" />
+        <component v-if="Component" :is="Component" />
+        <WelcomeInfo v-else />
       </transition>
     </router-view>
   </main>
@@ -11,6 +12,7 @@
 
 <script lang="ts" setup>
 import AdminNav from "@/components/admin/AdminNav.vue";
+import WelcomeInfo from "@/components/admin/WelcomeInfo.vue";
 </script>
 
 <style lang="scss" scoped>
