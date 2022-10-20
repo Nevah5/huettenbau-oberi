@@ -19,6 +19,14 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/LoginView.vue')
   },
   {
+    path: '/nopermissions',
+    name: 'nopermissions',
+    meta: {
+      title: "Keinen Zugriff",
+    },
+    component: () => import('@/views/NoPermissionsView.vue')
+  },
+  {
     path: '/admin',
     name: 'admin',
     meta: {
@@ -35,7 +43,7 @@ const routes: RouteRecordRaw[] = [
           title: 'Admin Panel',
           enforceLogin: true,
         },
-        component: () => import('@/views/admin/WelcomeView.vue')
+        component: () => import('@/views/admin/WelcomeInfo.vue')
       },
       {
         path: 'permissions',
