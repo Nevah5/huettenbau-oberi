@@ -4,7 +4,6 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore"
 interface navbarSub{
   display: string,
   link: string,
-  isExternal: boolean,
   order: number
 }
 

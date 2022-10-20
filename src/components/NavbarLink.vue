@@ -27,7 +27,7 @@
         class="p-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
         >{{ sub.display
         }}<font-awesome-icon
-          v-if="sub.isExternal"
+          v-if="sub.link.startsWith('/link')"
           class="ml-1"
           icon="fa-solid fa-arrow-up-right-from-square"
       /></router-link>
@@ -66,7 +66,7 @@
         class="py-2.5 px-3 mx-1 font-bold rounded-md h-fit hover:bg-black-light cursor-pointer"
         >{{ sub.display
         }}<font-awesome-icon
-          v-if="sub.isExternal"
+          v-if="sub.link.startsWith('/link')"
           class="ml-1"
           icon="fa-solid fa-arrow-up-right-from-square"
       /></router-link>
