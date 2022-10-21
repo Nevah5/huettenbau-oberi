@@ -9,7 +9,14 @@
       Design fix in die Seite integriert wurde, daher melde dich bei Änderungen
       gleich bei Noah.
     </p>
-    <div>
+    <p v-if="!data" class="flex justify-start items-center">
+      <font-awesome-icon
+        icon="fa-solid fa-circle-notch"
+        class="animate-spin h-[20px] p-3"
+      />
+      Daten werden geladen...
+    </p>
+    <div v-else>
       <div class="flex flex-row gap-5 justify-start flex-nowrap">
         <p class="text-sm w-[50px]">Nr.</p>
         <p class="text-sm w-[200px]">Anzeigetext</p>
