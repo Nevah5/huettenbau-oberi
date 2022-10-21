@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import { watchEffect, ref } from "vue";
+import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import NavBarVue from "./components/NavBar.vue";
 
