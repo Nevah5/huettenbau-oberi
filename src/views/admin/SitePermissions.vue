@@ -15,9 +15,7 @@
 <script setup lang="ts">
 import { getAdminUsers } from "@/composables/config";
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
 
-const router = useRouter();
 const admins = ref();
 
 onMounted(async () => {
