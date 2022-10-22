@@ -33,7 +33,7 @@ onMounted(async () => {
   let user = loggedInUser();
   if (user) {
     if (!(admins.value as string[]).includes(user.uid))
-      return router.push("/nopermissions");
+      return router.push("/nopermissions?path=%2Fadmin");
   }
 });
 </script>
