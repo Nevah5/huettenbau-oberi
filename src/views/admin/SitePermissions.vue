@@ -80,6 +80,7 @@ const removeAdminUser = (uid: string): void => {
 };
 
 const addAdminUser = (): void => {
+  if (inputAddUid.value === "" || inputAddUid.value === undefined) return;
   if (admins.value.includes(inputAddUid)) {
     errorMessageAddUser.value = "This user is already an Admin user.";
     return;
