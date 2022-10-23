@@ -1,10 +1,9 @@
 import { firestore } from "@/firebase"
-import { collection, getDocs, orderBy, query } from "firebase/firestore"
+import { collection, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore"
 
 interface navbarSub{
   display: string,
   link: string,
-  isExternal: boolean,
   order: number
 }
 
@@ -29,7 +28,20 @@ const getNavbarData = async () => {
   return (data as navbarItem[])
 }
 
+const updateNavbarDocument = (docId: string, newValue: navbarItem): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    setDoc(doc(firestore, "navbar", docId), newValue)
+    .then(() => resolve())
+    .catch((e) => {
+      console.log(e);
+      reject()
+    })
+  })
+}
+
 export {
+  navbarSub,
   navbarItem,
-  getNavbarData
+  getNavbarData,
+  updateNavbarDocument
 }
