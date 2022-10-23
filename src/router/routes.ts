@@ -19,9 +19,74 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/LoginView.vue')
   },
   {
+    path: '/nopermissions',
+    name: 'nopermissions',
+    meta: {
+      title: "Keinen Zugriff",
+    },
+    component: () => import('@/views/NoPermissionsView.vue')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    meta: {
+      title: "Admin Panel",
+      enforceLogin: true,
+    },
+    redirect: "/admin/welcome",
+    component: () => import('@/views/AdminView.vue'),
+    children: [
+      {
+        path: 'welcome',
+        name: 'welcome',
+        meta: {
+          title: 'Admin Panel',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/WelcomeInfo.vue')
+      },
+      {
+        path: 'groups',
+        name: 'groups',
+        meta: {
+          title: 'Gruppen Verwaltung',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/GroupManagment.vue')
+      },
+      {
+        path: 'navigation',
+        name: 'navigation',
+        meta: {
+          title: 'Site Navigation',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/SiteNavigation.vue')
+      },
+      {
+        path: 'gallery',
+        name: 'gallery',
+        meta: {
+          title: 'Galerie Administration',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/SiteNavigation.vue')
+      },
+      {
+        path: 'external-links',
+        name: 'external-links',
+        meta: {
+          title: 'Externe Links',
+          enforceLogin: true,
+        },
+        component: () => import('@/views/admin/ExternalLinks.vue')
+      },
+    ]
+  },
+  {
     path: '/account',
-    redirect: '/account/overview',
     name: 'account',
+    redirect: '/account/overview',
     meta: {
       title: 'Account',
       enforceLogin: true,
