@@ -46,21 +46,21 @@
         <div
           class="border-l-black border-l-2 p-2 pl-4 ml-2 mt-2 flex flex-row justify-start flex-nowrap gap-3"
           v-for="(sub, subIndex) in data[itemIndex].sub"
-          :key="sub.display"
+          :key="sub"
         >
           <input
             type="text"
-            v-model.trim="sub.order"
+            v-model.trim="data[itemIndex].sub[subIndex].order"
             class="appearance-none w-[50px] h-[50px] border-black border-2 text-center rounded-md font-bold"
           />
           <input
             type="text"
-            v-model.trim="sub.display"
+            v-model="data[itemIndex].sub[subIndex].display"
             class="appearance-none w-[200px] h-[50px] border-black border-2 p-2 rounded-md font-bold"
           />
           <input
             type="text"
-            v-model.trim="sub.link"
+            v-model.trim="data[itemIndex].sub[subIndex].link"
             class="appearance-none w-[330px] h-[50px] border-black border-2 p-2 rounded-md font-bold"
           />
           <button
@@ -88,7 +88,11 @@
 </template>
 
 <script setup lang="ts">
-import { getNavbarData, navbarItem, navbarSub } from "@/composables/navbar";
+import {
+  getNavbarData,
+  navbarItem,
+  updateNavbarDocument,
+} from "@/composables/navbar";
 import { onMounted, ref } from "vue";
 
 const data = ref();
@@ -113,6 +117,6 @@ const removeSubLink = (docId: string, subIndex: number) => {
 
 const saveNavSection = (docId: string) => {
   let nav: navbarItem = data.value.find((obj: navbarItem) => obj.id === docId);
-  console.log("To be updated on Firestore:", nav);
+  updateNavbarDocument(docId, nav);
 };
 </script>
