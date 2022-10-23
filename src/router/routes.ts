@@ -46,13 +46,13 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/admin/WelcomeInfo.vue')
       },
       {
-        path: 'permissions',
-        name: 'permissions',
+        path: 'groups',
+        name: 'groups',
         meta: {
-          title: 'Site Permissions',
+          title: 'Gruppen Verwaltung',
           enforceLogin: true,
         },
-        component: () => import('@/views/admin/SitePermissions.vue')
+        component: () => import('@/views/admin/GroupManagment.vue')
       },
       {
         path: 'navigation',
