@@ -3,7 +3,7 @@
     <router-link
       to="/admin/permissions"
       class="rounded-md p-2 px-3 m-1 font-bold hover:bg-black-light relative w-full text-center"
-      >Zugriff Verwaltung</router-link
+      >Gruppen Verwaltung</router-link
     >
     <router-link
       to="/admin/navigation"

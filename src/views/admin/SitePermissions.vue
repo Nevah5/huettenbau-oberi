@@ -1,11 +1,11 @@
 <template>
   <div>
     <h2 class="text-2xl font-bold border-b-2 border-black border-b-solid mb-2">
-      Verwaltung Zugriff
+      Administratoren
     </h2>
     <p class="mb-4">
       Auf dieser Seite kannst du die Administrationsbenutzer verwalten, die auf
-      den Admin bereich Zugriff haben.
+      den Admin Bereich Zugriff haben.
     </p>
     <h3>Benutzer IDs:</h3>
     <div
