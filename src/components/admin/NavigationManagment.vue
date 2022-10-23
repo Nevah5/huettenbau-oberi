@@ -12,26 +12,31 @@
       <p class="text-sm w-[200px]">Anzeigetext</p>
       <p class="text-sm w-[400px]">Link</p>
     </div>
-    <div class="mb-2" v-for="item in (data as navbarItem[])" :key="item.id">
+    <div
+      class="mb-2"
+      v-for="(item, itemIndex) in (data as navbarItem[])"
+      :key="item.id"
+    >
       <div class="flex flex-row gap-3 justify-start flex-nowrap">
         <input
           type="text"
-          :value="item.order"
+          v-model.trim="data[itemIndex].order"
           class="appearance-none w-[50px] h-[50px] border-black border-2 text-center rounded-md font-bold"
         />
         <input
           type="text"
-          :value="item.display"
+          v-model.trim="data[itemIndex].display"
           class="appearance-none w-[200px] h-[50px] border-black border-2 p-2 rounded-md font-bold"
         />
         <input
           type="text"
-          v-if="!item.sub"
-          :value="item.link"
+          v-if="!data[itemIndex].sub"
+          v-model.trim="data[itemIndex].link"
           class="appearance-none w-[400px] h-[50px] border-black border-2 p-2 rounded-md font-bold"
         />
         <button
           class="flex justify-start items-center gap-2 rounded-md bg-red font-bold text-white px-4 py-2"
+          @click="saveNavSection(item.id)"
         >
           <font-awesome-icon icon="fa-solid fa-floppy-disk" />
           <p>Speichern</p>
@@ -40,25 +45,28 @@
       <div v-if="item.sub">
         <div
           class="border-l-black border-l-2 p-2 pl-4 ml-2 mt-2 flex flex-row justify-start flex-nowrap gap-3"
-          v-for="sub in item.sub"
+          v-for="(sub, subIndex) in data[itemIndex].sub"
           :key="sub.display"
         >
           <input
             type="text"
-            :value="sub.order"
+            v-model.trim="sub.order"
             class="appearance-none w-[50px] h-[50px] border-black border-2 text-center rounded-md font-bold"
           />
           <input
             type="text"
-            :value="sub.display"
+            v-model.trim="sub.display"
             class="appearance-none w-[200px] h-[50px] border-black border-2 p-2 rounded-md font-bold"
           />
           <input
             type="text"
-            :value="sub.link"
+            v-model.trim="sub.link"
             class="appearance-none w-[330px] h-[50px] border-black border-2 p-2 rounded-md font-bold"
           />
-          <button class="rounded-md bg-red font-bold text-white px-4 py-2">
+          <button
+            class="rounded-md bg-red font-bold text-white px-4 py-2"
+            @click="removeSubLink(item.id, subIndex)"
+          >
             <font-awesome-icon icon="fa-solid fa-trash" />
           </button>
         </div>
@@ -68,6 +76,7 @@
           <button
             class="rounded-md bg-red font-bold text-white px-4 py-2"
             v-if="item.sub"
+            @click="addSubLink(item.id)"
           >
             <font-awesome-icon icon="fa-solid fa-plus" />
             Link hinzufügen
@@ -79,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { getNavbarData, navbarItem } from "@/composables/navbar";
+import { getNavbarData, navbarItem, navbarSub } from "@/composables/navbar";
 import { onMounted, ref } from "vue";
 
 const data = ref();
@@ -87,4 +96,23 @@ const data = ref();
 onMounted(async () => {
   data.value = await getNavbarData();
 });
+
+const addSubLink = (docId: string) => {
+  let nav: navbarItem = data.value.find((obj: navbarItem) => obj.id === docId);
+  nav.sub?.push({
+    order: 0,
+    display: "New Link",
+    link: "/path/to/site",
+  });
+};
+
+const removeSubLink = (docId: string, subIndex: number) => {
+  let nav: navbarItem = data.value.find((obj: navbarItem) => obj.id === docId);
+  nav.sub?.splice(subIndex, 1);
+};
+
+const saveNavSection = (docId: string) => {
+  let nav: navbarItem = data.value.find((obj: navbarItem) => obj.id === docId);
+  console.log("To be updated on Firestore:", nav);
+};
 </script>
