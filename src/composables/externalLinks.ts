@@ -13,7 +13,7 @@ const getExternalLinks = (): Promise<void | link[]> => {
     .then((data) => {
       const links: link[] = [];
       data.docs.forEach((docSnapshot: QueryDocumentSnapshot<DocumentData>) => {
-        links.push(docSnapshot.data() as link)
+        links.push({id: docSnapshot.id,...docSnapshot.data()} as link)
       })
       resolve(links)
     })
