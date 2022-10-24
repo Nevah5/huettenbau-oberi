@@ -33,6 +33,7 @@
         </button>
         <button
           class="flex justify-center items-center gap-2 rounded-md bg-red font-bold text-white px-4 py-2"
+          @click="updateLink(item)"
         >
           <font-awesome-icon icon="fa-solid fa-floppy-disk" />
           <p>Speichern</p>
@@ -51,7 +52,11 @@
 </template>
 
 <script setup lang="ts">
-import { getExternalLinks, link } from "@/composables/externalLinks";
+import {
+  getExternalLinks,
+  link,
+  updateExternalLink,
+} from "@/composables/externalLinks";
 import { onMounted, ref } from "vue";
 
 const data = ref<link[]>();
@@ -66,5 +71,11 @@ const getUrlOfLink = (link: string, code: string): string => {
   return `https://huettenbau-oberi.ch/link?url=${encodeURIComponent(
     link
   )}&code=${code}`;
+};
+
+const updateLink = (newLink: link): void => {
+  updateExternalLink(newLink).catch((e) => {
+    console.log(e);
+  });
 };
 </script>
