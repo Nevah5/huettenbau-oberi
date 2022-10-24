@@ -1,5 +1,5 @@
 import { firestore } from "@/firebase"
-import { collection, doc, DocumentData, getDocs, query, QueryDocumentSnapshot, setDoc } from "firebase/firestore"
+import { collection, deleteDoc, doc, DocumentData, getDocs, query, QueryDocumentSnapshot, setDoc } from "firebase/firestore"
 
 interface link {
   id: string,
@@ -35,8 +35,20 @@ const updateExternalLink = (newLink: link): Promise<void> => {
   })
 }
 
+const deleteExternalLink = (link: link): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    deleteDoc(doc(firestore, "external-links", link.id))
+    .then(() => resolve())
+    .catch((e) => {
+      console.log(e);
+      reject()
+    })
+  })
+}
+
 export {
   link,
   getExternalLinks,
-  updateExternalLink
+  updateExternalLink,
+  deleteExternalLink
 }
