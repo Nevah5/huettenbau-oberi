@@ -6,7 +6,7 @@
     />
     Daten werden geladen...
   </p>
-  <div v-else>
+  <div v-else v-auto-animate>
     <div
       class="flex flex-row gap-3 justify-start flex-nowrap"
       v-if="data.length !== 0"
@@ -54,19 +54,46 @@
         >
       </div>
     </div>
+    <form
+      class="flex justify-start items-center gap-2"
+      @submit.prevent="addLink"
+    >
+      <input
+        type="text"
+        class="border-2 border-black border-solid px-4 py-2 rounded-md"
+        placeholder="External Link hier"
+        v-model.trim="linkToAdd"
+      />
+      <button
+        type="submit"
+        class="flex justify-start items-center gap-2 border-red border-solid border-2 bg-red font-bold text-white px-4 py-2 rounded-md"
+      >
+        <font-awesome-icon
+          icon="fa-solid fa-circle-notch"
+          class="animate-spin"
+          v-if="isLoading"
+        />
+        <p>Hinzufügen</p>
+      </button>
+      <p class="text-red font-bold" v-if="errorMessage">{{ errorMessage }}</p>
+    </form>
   </div>
 </template>
 
 <script setup lang="ts">
 import {
   getExternalLinks,
-  link,
+  externalLink,
   updateExternalLink,
   deleteExternalLink,
+  addExternalLink,
 } from "@/composables/externalLinks";
 import { onMounted, ref } from "vue";
 
-const data = ref<link[]>();
+const data = ref<externalLink[]>();
+const isLoading = ref<boolean>();
+const linkToAdd = ref<string>();
+const errorMessage = ref<string>();
 
 onMounted(() => {
   getExternalLinks().then((d) => {
@@ -80,17 +107,33 @@ const getUrlOfLink = (link: string, code: string): string => {
   )}&code=${code}`;
 };
 
-const updateLink = (newLink: link): void => {
+const updateLink = (newLink: externalLink): void => {
   updateExternalLink(newLink).catch((e) => {
     console.log(e);
   });
 };
 
-const deleteLink = (link: link): void => {
+const deleteLink = (link: externalLink): void => {
   deleteExternalLink(link).then(() => {
-    data.value = data.value?.filter((l: link) => {
+    data.value = data.value?.filter((l: externalLink) => {
       return l.id !== link.id;
     });
   });
+};
+
+const addLink = (): void => {
+  if (linkToAdd.value === "" || linkToAdd.value === undefined) return;
+  errorMessage.value = "";
+  isLoading.value = true;
+  addExternalLink(linkToAdd.value)
+    .then((newLink) => {
+      data.value?.push(newLink as externalLink);
+      isLoading.value = false;
+      linkToAdd.value = "";
+    })
+    .catch((e) => {
+      console.log(e);
+      errorMessage.value = "Etwas ist schief gelaufen!";
+    });
 };
 </script>
