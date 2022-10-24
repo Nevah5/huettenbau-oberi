@@ -121,6 +121,14 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/account/SecurityView.vue')
       }
     ]
+  },
+  {
+    path: '/link',
+    name: 'link',
+    meta: {
+      title: 'Externer Link'
+    },
+    component: () => import("@/views/ExternalLink.vue")
   }
 ]
 
