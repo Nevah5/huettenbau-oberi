@@ -1,5 +1,5 @@
 import { firestore } from "@/firebase"
-import { addDoc, collection, deleteDoc, doc, DocumentData, getDocs, query, QueryDocumentSnapshot, setDoc } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, DocumentData, getDocs, getDoc, query, QueryDocumentSnapshot, setDoc, where, QueryConstraint } from "firebase/firestore"
 
 interface externalLink {
   id: string,
@@ -17,6 +17,21 @@ const getExternalLinks = (): Promise<void | externalLink[]> => {
       })
       resolve(links)
     })
+    .catch((e) => {
+      console.log(e);
+      reject()
+    })
+  })
+}
+
+const isExternalLinkValid = (link: string, code: string): Promise<void | boolean> => {
+  return new Promise<void | boolean>((resolve, reject) => {
+    const queryConstraints: QueryConstraint[] = [
+      where("link", "==", link),
+      where("code", "==", code),
+    ]
+    getDocs(query(collection(firestore, "external-links"), ...queryConstraints))
+    .then((data) => resolve(data.docs.length >= 1))
     .catch((e) => {
       console.log(e);
       reject()
@@ -71,6 +86,7 @@ const generateCode = (): string => {
 
 export {
   externalLink,
+  isExternalLinkValid,
   getExternalLinks,
   updateExternalLink,
   deleteExternalLink,
