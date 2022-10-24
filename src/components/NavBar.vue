@@ -102,11 +102,11 @@ export default defineComponent({
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import { loggedInUser } from "@/composables/account";
-import { getNavbarData } from "@/composables/navbar";
+import { getNavbarData, navbarItem } from "@/composables/navbar";
 import NavbarLink from "@/components/NavbarLink.vue";
 import { auth } from "../firebase";
 
-const navbarData = ref();
+const navbarData = ref<navbarItem[]>();
 onMounted(async () => {
   navbarData.value = await getNavbarData();
 });
