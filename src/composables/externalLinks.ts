@@ -48,7 +48,7 @@ const deleteExternalLink = (link: externalLink): Promise<void> => {
 
 const addExternalLink = (link: string): Promise<void | externalLink> => {
   return new Promise<void | externalLink>((resolve, reject) => {
-    const code = (Math.random() + 1).toString(36).substring(2); //https://stackoverflow.com/a/8084248/16029189
+    const code = generateCode();
     const doc = {link, code};
     addDoc(collection(firestore, "external-links"), doc)
     .then((data) => {
@@ -59,6 +59,14 @@ const addExternalLink = (link: string): Promise<void | externalLink> => {
       reject()
     })
   })
+}
+
+const generateCode = (): string => {
+  const charset = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let text = "";
+  for (let i = 0; i < 15; i++)
+    text += charset.charAt(Math.floor(Math.random() * charset.length));
+  return text;
 }
 
 export {
