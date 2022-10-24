@@ -30,6 +30,7 @@ const updateAdminUsers = async (newAdminUsers: adminConfig): Promise<void> => {
 }
 
 export {
+  adminConfig,
   getAdminUsers,
   updateAdminUsers
 }
