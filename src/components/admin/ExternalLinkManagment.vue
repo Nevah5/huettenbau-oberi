@@ -11,7 +11,7 @@
       class="flex flex-row gap-3 justify-start flex-nowrap"
       v-if="data.length !== 0"
     >
-      <p class="text-sm w-[300px]">External Link</p>
+      <p class="text-sm w-[300px]">Externer Link</p>
       <p class="text-sm w-[400px]">Code</p>
     </div>
     <div
