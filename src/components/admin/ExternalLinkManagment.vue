@@ -7,7 +7,10 @@
     Daten werden geladen...
   </p>
   <div v-else>
-    <div class="flex flex-row gap-3 justify-start flex-nowrap">
+    <div
+      class="flex flex-row gap-3 justify-start flex-nowrap"
+      v-if="data.length !== 0"
+    >
       <p class="text-sm w-[300px]">External Link</p>
       <p class="text-sm w-[400px]">Code</p>
     </div>
@@ -28,7 +31,10 @@
           class="appearance-none w-[400px] h-[50px] border-black border-2 p-2 rounded-md cursor-not-allowed"
           disabled
         />
-        <button class="rounded-md bg-red font-bold text-white px-4 py-2">
+        <button
+          class="rounded-md bg-red font-bold text-white px-4 py-2"
+          @click="deleteLink(item)"
+        >
           <font-awesome-icon icon="fa-solid fa-trash" />
         </button>
         <button
@@ -56,6 +62,7 @@ import {
   getExternalLinks,
   link,
   updateExternalLink,
+  deleteExternalLink,
 } from "@/composables/externalLinks";
 import { onMounted, ref } from "vue";
 
@@ -76,6 +83,14 @@ const getUrlOfLink = (link: string, code: string): string => {
 const updateLink = (newLink: link): void => {
   updateExternalLink(newLink).catch((e) => {
     console.log(e);
+  });
+};
+
+const deleteLink = (link: link): void => {
+  deleteExternalLink(link).then(() => {
+    data.value = data.value?.filter((l: link) => {
+      return l.id !== link.id;
+    });
   });
 };
 </script>
