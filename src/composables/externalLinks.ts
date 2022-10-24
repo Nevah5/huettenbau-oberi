@@ -24,7 +24,19 @@ const getExternalLinks = (): Promise<void | link[]> => {
   })
 }
 
+const updateExternalLink = (newLink: link): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    setDoc(doc(firestore, "external-links", newLink.id), {link: newLink.link, code: newLink.code})
+    .then(() => resolve())
+    .catch((e) => {
+      console.log(e);
+      reject(e)
+    })
+  })
+}
+
 export {
   link,
-  getExternalLinks
+  getExternalLinks,
+  updateExternalLink
 }
