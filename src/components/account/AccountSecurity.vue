@@ -78,7 +78,12 @@ import {
 import { ref } from "vue";
 
 const loading = ref(false);
-const data = ref({
+interface Data {
+  currentPassword: string;
+  newPassword: string;
+  repeatNewPassword: string;
+}
+const data = ref<Data>({
   currentPassword: "",
   newPassword: "",
   repeatNewPassword: "",

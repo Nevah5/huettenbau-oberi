@@ -8,21 +8,24 @@
       den Admin Bereich Zugriff haben.
     </p>
     <h3>Benutzer IDs:</h3>
-    <div
-      v-for="admin in admins"
-      :key="admin"
-      class="flex justify-start items-center gap-2 mb-1"
-    >
-      <p>{{ admin }}</p>
-      <p v-if="admin === user.uid" class="text-red font-bold">[You]</p>
-      <p
-        v-else
-        type="button"
-        class="underline text-red cursor-pointer"
-        @click="removeAdminUser(admin)"
+    <div v-auto-animate>
+      <div
+        v-for="admin in admins"
+        :key="admin"
+        class="flex justify-start items-center gap-2 mb-1"
+        v-auto-animate
       >
-        Delete
-      </p>
+        <p>{{ admin }}</p>
+        <p v-if="admin === user!.uid" class="text-red font-bold">[You]</p>
+        <p
+          v-else
+          type="button"
+          class="underline text-red cursor-pointer"
+          @click="removeAdminUser(admin)"
+        >
+          Delete
+        </p>
+      </div>
     </div>
     <p v-if="errorMessage" class="text-red font-bold">
       {{ errorMessage }}
@@ -43,24 +46,32 @@
       >
         Hinzufügen
       </button>
+      <p class="text-red font-bold" v-if="errorMessageAddUser">
+        {{ errorMessageAddUser }}
+      </p>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { loggedInUser } from "@/composables/account";
-import { getAdminUsers, updateAdminUsers } from "@/composables/config";
+import {
+  getAdminUsers,
+  updateAdminUsers,
+  adminConfig,
+} from "@/composables/config";
+import { User } from "@firebase/auth";
 import { onMounted, ref } from "vue";
 
-const admins = ref();
-const user = ref();
+const admins = ref<string[]>([]);
+const user = ref<User>();
 const errorMessage = ref("");
-const inputAddUid = ref();
+const inputAddUid = ref("");
 const errorMessageAddUser = ref("");
 
 onMounted(async () => {
-  user.value = await loggedInUser();
-  let data = await getAdminUsers();
+  user.value = loggedInUser()!;
+  let data: adminConfig | void = await getAdminUsers();
   if (data) {
     let adminUsers: string[] = [];
     data.users?.forEach((user: string) => {
@@ -80,8 +91,9 @@ const removeAdminUser = (uid: string): void => {
 };
 
 const addAdminUser = (): void => {
+  errorMessageAddUser.value = "";
   if (inputAddUid.value === "" || inputAddUid.value === undefined) return;
-  if (admins.value.includes(inputAddUid)) {
+  if (admins.value.includes(inputAddUid.value)) {
     errorMessageAddUser.value = "This user is already an Admin user.";
     return;
   }
