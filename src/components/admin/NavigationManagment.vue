@@ -42,7 +42,7 @@
           <p>Speichern</p>
         </button>
       </div>
-      <div v-if="item.sub">
+      <div v-if="item.sub" v-auto-animate>
         <div
           class="border-l-black border-l-2 p-2 pl-4 ml-2 mt-2 flex flex-row justify-start flex-nowrap gap-3"
           v-for="(sub, subIndex) in data[itemIndex].sub"
