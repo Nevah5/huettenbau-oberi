@@ -4,7 +4,7 @@ import { collection, doc, DocumentData, getDocs, query, QueryDocumentSnapshot, s
 interface link {
   id: string,
   link: string,
-  code?: string
+  code: string
 }
 
 const getExternalLinks = (): Promise<void | link[]> => {
