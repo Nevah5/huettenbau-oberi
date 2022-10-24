@@ -9,19 +9,19 @@
       Externe Links funktionieren wie folgt:<br />
       Man wird automatisch weitergeleitet wenn man den Link besucht. Dazu wird
       die externe Seite url encoded als Parameter weitergegeben. (Beispiel:
-      https://huettenbau-oberi.ch/link?site=https%3A%2F%2Fgoogle.com)<br />
+      https://huettenbau-oberi.ch/link?url=https%3A%2F%2Fgoogle.com)<br />
       Um aber "böse Menschen" abzuhalten unsere Seite als "Umhang" zu verwenden
       und böse links zu verwenden (Beispiel:
-      https://huettenbau-oberi.ch/link?site=http%3A%2F%2Fganz-boeser-link.darknet),
+      https://huettenbau-oberi.ch/link?url=http%3A%2F%2Fganz-boeser-link.darknet),
       wird noch ein weiterer Verifizierungsparameter mitgegeben. Bei Abfrage des
       Links wird dieser in der Datenbank, zusammen mit dem externen Link,
       überprüft. Wenn beide übereinstimmen erfolgt die Weiterleitung. Dies sieht
       so aus:<br />
       <a
-        href="https://huettenbau-oberi.ch?link=https://google.com&code=7ddf32e17a6ac5ce04a8ecbf782ca509"
+        href="https://huettenbau-oberi.ch/link?url=https://google.com&code=7ddf32e17a6ac5ce04a8ecbf782ca509"
         class="underline text-red"
       >
-        https://huettenbau-oberi.ch?link=https://google.com&code=7ddf32e17a6ac5ce04a8ecbf782ca509
+        https://huettenbau-oberi.ch/link?url=https://google.com&code=7ddf32e17a6ac5ce04a8ecbf782ca509
       </a>
     </p>
     <ExternalLinkManagment />
