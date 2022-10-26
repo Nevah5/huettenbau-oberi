@@ -70,7 +70,7 @@ const routes: RouteRecordRaw[] = [
           title: 'Galerie Administration',
           enforceLogin: true,
         },
-        component: () => import('@/views/admin/SiteNavigation.vue')
+        component: () => import('@/views/admin/GalleryAdministration.vue')
       },
       {
         path: 'external-links',
