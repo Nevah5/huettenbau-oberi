@@ -89,5 +89,10 @@ const add = () => {
       }
     }
   }
+  inputData.value = {
+    id: "",
+    theme: "",
+    createdUid: "",
+  };
 };
 </script>
