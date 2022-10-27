@@ -23,7 +23,22 @@ const getGalleries = async (): Promise<void | Gallery[]> => {
   })
 }
 
+const addGallery = (gallery: Gallery): Promise<void | string> => {
+  return new Promise<void | string>((resolve, reject) => {
+    setDoc(doc(firestore, "galleries", gallery.id), {
+      createdUid: gallery.createdUid,
+      theme: gallery.theme
+    })
+    .then(() => resolve())
+    .catch((e) => {
+      console.log(e);
+      reject()
+    })
+  })
+}
+
 export {
+  addGallery,
   getGalleries,
   Gallery
 }
