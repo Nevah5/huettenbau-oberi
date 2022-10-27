@@ -30,7 +30,12 @@ const getNavbarData = async () => {
 
 const updateNavbarDocument = (docId: string, newValue: navbarItem): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
-    setDoc(doc(firestore, "navbar", docId), newValue)
+    setDoc(doc(firestore, "navbar", docId), {
+      display: newValue.display,
+      link: newValue.link,
+      order: newValue.order,
+      sub: newValue.sub
+    })
     .then(() => resolve())
     .catch((e) => {
       console.log(e);
