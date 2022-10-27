@@ -30,35 +30,64 @@
         <p class="w-[200px]">{{ gallery.theme }}</p>
         <p class="w-[350px]">{{ gallery.createdUid }}</p>
       </div>
-      <div class="mt-8 flex justify-start items-center gap-2">
+      <form
+        class="mt-8 flex justify-start items-center gap-2"
+        @submit.prevent="add"
+      >
         <input
           type="text"
+          v-model.trim="inputData.id"
           class="w-[130px] appearance-none border-solid border-black border-2 rounded-md px-4 py-2"
           placeholder="ID (Jahr)"
         />
         <input
           type="text"
+          v-model.trim="inputData.theme"
           class="w-[200px] appearance-none border-solid border-black border-2 rounded-md px-4 py-2"
           placeholder="Thema"
         />
         <button
-          type="button"
+          type="submit"
           class="rounded-md px-4 py-2 bg-red font-bold text-white border-2 border-solid border-red"
         >
           <font-awesome-icon icon="fa-solid fa-plus" />
         </button>
-      </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { getGalleries, Gallery } from "@/composables/gallery";
+import { loggedInUser } from "@/composables/account";
+import { getGalleries, Gallery, addGallery } from "@/composables/gallery";
+import { User } from "@firebase/auth";
 import { onMounted, ref } from "vue";
 
+const user: User = loggedInUser()!;
 const data = ref<Gallery[]>();
+const inputData = ref<Gallery>({
+  id: "",
+  theme: "",
+  createdUid: "",
+});
 
 onMounted(() => {
   getGalleries().then((d) => (data.value = d!));
 });
+
+const add = () => {
+  inputData.value.createdUid = user.uid!;
+  addGallery(inputData.value);
+
+  if (!data.value?.find((obj) => obj.id === inputData.value.id)) {
+    data.value?.push(inputData.value);
+  } else {
+    let data_keys = Object.keys(data.value);
+    for (let i = 0; i < data_keys.length; i++) {
+      if (data.value[i].id === inputData.value.id) {
+        data.value[i] = { ...inputData.value };
+      }
+    }
+  }
+};
 </script>
