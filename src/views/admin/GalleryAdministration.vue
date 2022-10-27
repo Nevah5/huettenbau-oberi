@@ -1,6 +1,8 @@
 <template>
-  <GalleryManagment />
-  <ImageManagment />
+  <div>
+    <GalleryManagment />
+    <ImageManagment />
+  </div>
 </template>
 
 <script setup lang="ts">
