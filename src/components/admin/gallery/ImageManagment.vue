@@ -6,7 +6,7 @@
   </h2>
   <p class="mb-4">
     Dieser Abschnitt ist für das Verwalten der Bilder und Beschreibungen
-    dieser.<br />Klicke auf die Gallery die du verwalten möchtest:
+    dieser.<br />Klicke auf die Galerie die du verwalten möchtest:
   </p>
   <div v-auto-animate>
     <div v-if="!galleryData" class="flex justify-start items-center">
@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getGalleries, Gallery } from "@/composables/gallery";
+import { getGalleries, Gallery, getGalleryImages } from "@/composables/gallery";
 import { ref, onMounted, watch } from "vue";
 
 const galleryData = ref<Gallery[]>();
@@ -61,16 +61,23 @@ onMounted(() => {
   });
 });
 
-let timeout: ReturnType<typeof setTimeout> = setTimeout(() => {
-  return;
-});
-
 watch(selectedGallery, () => {
-  clearTimeout(timeout);
+  if (
+    selectedGallery.value === null ||
+    selectedGallery.value === undefined ||
+    galleryData.value === null ||
+    galleryData.value === undefined
+  )
+    return;
   isStoreDataLoading.value = true;
-  timeout = setTimeout(() => {
+  let gallerySelected: Gallery | undefined = galleryData.value.at(
+    selectedGallery.value
+  );
+  if (gallerySelected === undefined) return;
+  getGalleryImages(gallerySelected.id!).then((data) => {
+    console.log(data);
     isStoreDataLoading.value = false;
-  }, 1000);
+  });
 });
 </script>
 

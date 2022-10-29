@@ -5,7 +5,10 @@
   <p class="mb-4">
     Hier kannst du Galerien hinzufügen. Das löschen kann man nur direkt über die
     Datenbank, es sollten ja keine Unfälle passieren. Heisst so viel wie, keiner
-    sollte etwas ausversehen löschen.
+    sollte etwas ausversehen löschen. Die Galerien sind dann unter
+    <a class="underline text-red" href="#"
+      >https://huettenbau-oberi.ch/gallery/&lt;ID (Jahr)&gt;</a
+    >erreichbar.<br />
   </p>
   <div v-auto-animate>
     <div v-if="!data" class="flex justify-start items-center">
@@ -72,9 +75,7 @@ const inputData = ref<Gallery>({
 });
 
 onMounted(() => {
-  setTimeout(() => {
-    getGalleries().then((d) => (data.value = d!));
-  }, 3000);
+  getGalleries().then((d) => (data.value = d!));
 });
 
 const add = () => {
