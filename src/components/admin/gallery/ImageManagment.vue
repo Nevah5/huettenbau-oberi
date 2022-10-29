@@ -23,7 +23,7 @@
           :key="gallery.id"
           class="rounded-md p-2 px-3 font-bold hover:bg-black-light relative w-fit cursor-pointer"
           :id="selectedGallery === i ? 'selected' : ''"
-          @click="selectedGallery = i"
+          @click="selectGallery(i)"
         >
           {{ gallery.id }}
         </p>
@@ -79,6 +79,11 @@ watch(selectedGallery, () => {
     isStoreDataLoading.value = false;
   });
 });
+
+const selectGallery = (index: number) => {
+  if (isStoreDataLoading.value === true) return;
+  selectedGallery.value = index;
+};
 </script>
 
 <style lang="scss" scoped>
