@@ -1,5 +1,5 @@
 <template>
-  <div v-auto-animate>
+  <div>
     <GalleryManagment />
     <ImageManagment />
   </div>
