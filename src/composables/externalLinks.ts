@@ -1,5 +1,5 @@
 import { firestore } from "@/firebase"
-import { addDoc, collection, deleteDoc, doc, DocumentData, getDocs, getDoc, query, QueryDocumentSnapshot, setDoc, where, QueryConstraint } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, DocumentData, getDocs, query, QueryDocumentSnapshot, setDoc, where, QueryConstraint } from "firebase/firestore"
 
 interface externalLink {
   id: string,

@@ -40,7 +40,16 @@
           <p>Dateien werden geladen</p>
         </div>
         <div v-else-if="isStoreDataLoading === false">
-          <p>Dateien werden hier angezeigt.</p>
+          <div
+            v-for="(data) in (storageData as GalleryImage[])"
+            :key="data.fullPath"
+            class="flex justify-start items-center gap-2"
+          >
+            <p>{{ data.name }}</p>
+            <a :href="data.url" class="text-red underline" target="_blank"
+              >herunterladen</a
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -48,10 +57,16 @@
 </template>
 
 <script lang="ts" setup>
-import { getGalleries, Gallery, getGalleryImages } from "@/composables/gallery";
+import {
+  getGalleries,
+  Gallery,
+  GalleryImage,
+  getGalleryImages,
+} from "@/composables/gallery";
 import { ref, onMounted, watch } from "vue";
 
 const galleryData = ref<Gallery[]>();
+const storageData = ref<GalleryImage[]>();
 const selectedGallery = ref<number>();
 const isStoreDataLoading = ref<boolean>();
 
@@ -74,9 +89,11 @@ watch(selectedGallery, () => {
     selectedGallery.value
   );
   if (gallerySelected === undefined) return;
-  getGalleryImages(gallerySelected.id!).then((data) => {
-    console.log(data);
+  getGalleryImages(gallerySelected.id!).then((value) => {
     isStoreDataLoading.value = false;
+    console.log(value);
+
+    storageData.value = value as GalleryImage[];
   });
 });
 
