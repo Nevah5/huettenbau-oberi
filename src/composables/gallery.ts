@@ -1,10 +1,41 @@
-import { firestore } from "@/firebase"
+import { firestore, storage } from "@/firebase"
 import { collection, doc, getDocs, query, setDoc } from "firebase/firestore"
+import { listAll, ListResult, StorageReference, ref, getDownloadURL } from "firebase/storage"
 
 interface Gallery {
   id: string,
   createdUid: string,
   theme: string,
+}
+
+interface GalleryImage {
+  name: string,
+  bucket: string,
+  fullPath: string,
+  url: string,
+}
+
+const getGalleryImages = async (id: string): Promise<void | GalleryImage[]> => {
+  return new Promise<void | GalleryImage[]>((resolve, reject) => {
+    listAll(ref(storage, `galleries/${id}/`)).then((data: ListResult) => {
+      const images: GalleryImage[] = [];
+      data.items.forEach(async (item: StorageReference) => {
+        await getDownloadURL(item).then((url) => {
+          images.push({
+            name: item.name,
+            bucket: item.bucket,
+            fullPath: item.fullPath,
+            url
+          })
+        })
+      });
+      resolve(images);
+    })
+    .catch((e) => {
+      console.log(e);
+      reject();
+    })
+  })
 }
 
 const getGalleries = async (): Promise<void | Gallery[]> => {
@@ -40,5 +71,7 @@ const addGallery = (gallery: Gallery): Promise<void | string> => {
 export {
   addGallery,
   getGalleries,
-  Gallery
+  Gallery,
+  GalleryImage,
+  getGalleryImages,
 }
