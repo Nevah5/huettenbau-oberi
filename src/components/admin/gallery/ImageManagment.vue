@@ -40,15 +40,11 @@
           <p>Dateien werden geladen</p>
         </div>
         <div
-          v-else-if="
-            isStoreDataLoading === false &&
-            !errorMessage &&
-            storageData?.length === 0
-          "
+          v-else-if="isStoreDataLoading === false && storageData?.length === 0"
         >
           <h4 class="text-black">Diese Galerie hat noch keine Daten.</h4>
         </div>
-        <div v-else-if="isStoreDataLoading === false && !errorMessage">
+        <div v-else-if="isStoreDataLoading === false">
           <form
             class="my-6 flex justify-center items-start flex-col gap-2 w-fit"
             @submit.prevent="uploadImages"
@@ -59,6 +55,7 @@
                 type="file"
                 class="block w-full text-sm text-black file:mr-4 file:py-2 file:px-4 file:rounded-md file:cursor-pointer hover:file:text-white file:border-0 file:text-sm file:font-semibold file:bg-black-light file:text-red hover:file:bg-red"
                 multiple
+                v-on:change="fileChange"
               />
             </label>
             <div class="flex justify-start items-start gap-2 h-[60px]">
@@ -83,6 +80,9 @@
                 </div>
               </div>
               <p v-else-if="uploadPercentage" class="text-black">Fertig!</p>
+              <p v-else-if="errorMessage" class="font-bold text-red">
+                {{ errorMessage }}
+              </p>
             </div>
           </form>
           <div class="flex justify-start gap-2">
@@ -103,9 +103,6 @@
             >
           </div>
         </div>
-        <p v-else-if="errorMessage" class="font-bold text-red">
-          {{ errorMessage }}
-        </p>
       </div>
     </div>
   </div>
@@ -118,7 +115,7 @@ import {
   GalleryImage,
   getGalleryImages,
 } from "@/composables/gallery";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, VueElement } from "vue";
 
 const galleryData = ref<Gallery[]>();
 const storageData = ref<GalleryImage[]>();
@@ -126,6 +123,8 @@ const selectedGallery = ref<number>();
 const isStoreDataLoading = ref<boolean>();
 const errorMessage = ref<string>();
 const uploadPercentage = ref<number>();
+const files = ref<FileList>();
+const validUploadTypes = ["image/jpg", "image/png"];
 
 onMounted(() => {
   getGalleries().then((d) => {
@@ -156,12 +155,34 @@ const selectGallery = (index: number) => {
   if (isStoreDataLoading.value === true) return;
   selectedGallery.value = index;
 };
-const uploadImages = () => {
+const uploadImages = (): void => {
+  // Validation
+  if (files.value?.length === 0 || files.value === undefined) {
+    errorMessage.value = "Bitte wähle eine/mehrere Bild(er) aus!";
+    return;
+  }
+  for (let i = 0; i < files.value.length; i++) {
+    if (files.value.item(i)?.type === undefined) {
+      errorMessage.value = "Etwas ist schief gelaufen!";
+      return;
+    } else if (!validUploadTypes.includes(files.value.item(i)?.type!)) {
+      errorMessage.value = "Es sind nur Bilder erlaubt! (.jpg, .png)";
+      return;
+    }
+  }
+
+  // Progress Bar
   uploadPercentage.value = 0;
   const interval = setInterval(() => {
     uploadPercentage.value = uploadPercentage.value! + 1;
     if (uploadPercentage.value === 100) clearInterval(interval);
   }, 50);
+};
+const fileChange = (event: InputEvent): void => {
+  const target = event.target as HTMLInputElement;
+  const fileList = target.files;
+  if (fileList?.length === 0) return;
+  files.value = fileList!;
 };
 </script>
 
