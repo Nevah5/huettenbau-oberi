@@ -1,6 +1,6 @@
 import { firestore, storage } from "@/firebase"
 import { collection, doc, getDocs, query, setDoc } from "firebase/firestore"
-import { listAll, ListResult, StorageReference, ref, getDownloadURL } from "firebase/storage"
+import { listAll, ListResult, StorageReference, ref, getDownloadURL, UploadTask, uploadBytesResumable } from "firebase/storage"
 
 interface Gallery {
   id: string,
@@ -13,6 +13,19 @@ interface GalleryImage {
   bucket: string,
   fullPath: string,
   url: string,
+}
+
+
+const uploadGalleryImages = (id: string, files: FileList): Promise<void | UploadTask[]> => {
+  return new Promise<void | UploadTask[]>((resolve) => {
+    const taskList: UploadTask[] = [];
+    for(let i = 0; i < files.length; i++){
+      const storageRef: StorageReference = ref(storage, `galleries/${id}/${files.item(i)?.name}`);
+      const task = uploadBytesResumable(storageRef, files.item(i)!);
+      taskList.push(task);
+    }
+    resolve(taskList);
+  })
 }
 
 const getGalleryImages = async (id: string): Promise<void | GalleryImage[]> => {
@@ -75,4 +88,5 @@ export {
   Gallery,
   GalleryImage,
   getGalleryImages,
+  uploadGalleryImages,
 }
