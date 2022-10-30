@@ -65,21 +65,23 @@
               >
                 Upload
               </button>
-              <div
-                v-if="uploadPercentage && uploadPercentage <= 100"
-                class="text-black flex flex-col justify-center items-start"
-              >
-                <p class="text-black">Lädt hoch...</p>
-                <div class="w-[400px] bg-black-light h-[20px]">
-                  <div
-                    class="bg-red flex justify-center items-center h-full text-white font-bold"
-                    :style="'width:' + (400 / 100) * uploadPercentage + 'px'"
-                  >
-                    {{ uploadPercentage }}%
+              <div v-if="uploadStates">
+                <div
+                  v-for="state in uploadStates"
+                  :key="state.name"
+                  class="text-black flex justify-start items-center gap-2"
+                >
+                  <div class="w-[400px] bg-black-light h-[20px]">
+                    <div
+                      class="bg-red flex justify-center items-center h-full text-white font-bold"
+                      :style="'width:' + (400 / 100) * state.percentage + 'px'"
+                    >
+                      {{ state.percentage }}%
+                    </div>
                   </div>
+                  <p>{{ state.name }}</p>
                 </div>
               </div>
-              <p v-else-if="uploadPercentage" class="text-black">Fertig!</p>
               <p v-else-if="errorMessage" class="font-bold text-red">
                 {{ errorMessage }}
               </p>
@@ -124,7 +126,7 @@ const storageData = ref<GalleryImage[]>();
 const selectedGallery = ref<number>();
 const isStoreDataLoading = ref<boolean>();
 const errorMessage = ref<string>();
-const uploadPercentage = ref<number>();
+const uploadStates = ref<{ name: string; percentage: number }[]>([]);
 const files = ref<FileList>();
 const validUploadTypes = ["image/jpg", "image/png"];
 
@@ -158,6 +160,7 @@ const selectGallery = (index: number) => {
   selectedGallery.value = index;
 };
 const uploadImages = (): void => {
+  uploadStates.value = [];
   // Validation
   if (files.value?.length === 0 || files.value === undefined) {
     errorMessage.value = "Bitte wähle eine/mehrere Bild(er) aus!";
@@ -174,6 +177,7 @@ const uploadImages = (): void => {
     }
   }
 
+  // Upload
   if (!selectedGallery.value) return;
   uploadGalleryImages(
     galleryData.value![selectedGallery.value!].id,
@@ -182,8 +186,14 @@ const uploadImages = (): void => {
     .then((taskList) => {
       const list = taskList! as UploadTask[];
       for (let i = 0; i < list.length; i++) {
+        uploadStates.value.push({
+          name: files.value?.item(i)?.name,
+          percentage: 0,
+        });
         list[i].on("state_changed", (snapshot) => {
-          console.log((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          const percentage =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          uploadStates.value[i].percentage = percentage;
         });
       }
     })
@@ -191,13 +201,6 @@ const uploadImages = (): void => {
       console.log(e);
       errorMessage.value = "Etwas ist schief gelaufen!";
     });
-
-  // Progress Bar
-  uploadPercentage.value = 0;
-  const interval = setInterval(() => {
-    uploadPercentage.value = uploadPercentage.value! + 1;
-    if (uploadPercentage.value === 100) clearInterval(interval);
-  }, 50);
 };
 const fileChange = (event: InputEvent): void => {
   const target = event.target as HTMLInputElement;
