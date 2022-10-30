@@ -49,14 +49,21 @@
           <h4 class="text-black">Diese Galerie hat noch keine Daten.</h4>
         </div>
         <div v-else-if="isStoreDataLoading === false && !errorMessage">
+          <div class="flex justify-start gap-2">
+            <p class="w-[100px]">Nr.</p>
+            <p class="w-[600px]">Dateiname</p>
+          </div>
           <div
             v-for="(data) in (storageData as GalleryImage[])"
             :key="data.fullPath"
-            class="flex justify-start items-center gap-2"
+            class="flex justify-start items-center gap-2 w-fit"
           >
-            <p>{{ data.name }}</p>
-            <a :href="data.url" class="text-red underline" target="_blank"
-              >herunterladen</a
+            <p class="w-[100px]">ID</p>
+            <a
+              :href="data.url"
+              class="underline text-red w-fit"
+              target="_blank"
+              >{{ data.name }}</a
             >
           </div>
         </div>
@@ -75,7 +82,6 @@ import {
   GalleryImage,
   getGalleryImages,
 } from "@/composables/gallery";
-import { storage } from "@/firebase";
 import { ref, onMounted, watch } from "vue";
 
 const galleryData = ref<Gallery[]>();
