@@ -49,6 +49,42 @@
           <h4 class="text-black">Diese Galerie hat noch keine Daten.</h4>
         </div>
         <div v-else-if="isStoreDataLoading === false && !errorMessage">
+          <form
+            class="my-6 flex justify-center items-start flex-col gap-2 w-fit"
+            @submit.prevent="uploadImages"
+          >
+            <label class="block">
+              <span class="sr-only">Choose profile photo</span>
+              <input
+                type="file"
+                class="block w-full text-sm text-black file:mr-4 file:py-2 file:px-4 file:rounded-md file:cursor-pointer hover:file:text-white file:border-0 file:text-sm file:font-semibold file:bg-black-light file:text-red hover:file:bg-red"
+                multiple
+              />
+            </label>
+            <div class="flex justify-start items-start gap-2 h-[60px]">
+              <button
+                type="submit"
+                class="py-2 px-4 bg-red text-white font-bold rounded-md"
+              >
+                Upload
+              </button>
+              <div
+                v-if="uploadPercentage && uploadPercentage <= 100"
+                class="text-black flex flex-col justify-center items-start"
+              >
+                <p class="text-black">Lädt hoch...</p>
+                <div class="w-[400px] bg-black-light h-[20px]">
+                  <div
+                    class="bg-red flex justify-center items-center h-full text-white font-bold"
+                    :style="'width:' + (400 / 100) * uploadPercentage + 'px'"
+                  >
+                    {{ uploadPercentage }}%
+                  </div>
+                </div>
+              </div>
+              <p v-else-if="uploadPercentage" class="text-black">Fertig!</p>
+            </div>
+          </form>
           <div class="flex justify-start gap-2">
             <p class="w-[100px]">Nr.</p>
             <p class="w-[600px]">Dateiname</p>
@@ -89,6 +125,7 @@ const storageData = ref<GalleryImage[]>();
 const selectedGallery = ref<number>();
 const isStoreDataLoading = ref<boolean>();
 const errorMessage = ref<string>();
+const uploadPercentage = ref<number>();
 
 onMounted(() => {
   getGalleries().then((d) => {
@@ -118,6 +155,13 @@ watch(selectedGallery, () => {
 const selectGallery = (index: number) => {
   if (isStoreDataLoading.value === true) return;
   selectedGallery.value = index;
+};
+const uploadImages = () => {
+  uploadPercentage.value = 0;
+  const interval = setInterval(() => {
+    uploadPercentage.value = uploadPercentage.value! + 1;
+    if (uploadPercentage.value === 100) clearInterval(interval);
+  }, 50);
 };
 </script>
 
