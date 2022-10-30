@@ -39,7 +39,16 @@
           />
           <p>Dateien werden geladen</p>
         </div>
-        <div v-else-if="isStoreDataLoading === false">
+        <div
+          v-else-if="
+            isStoreDataLoading === false &&
+            !errorMessage &&
+            storageData?.length === 0
+          "
+        >
+          <h4 class="text-black">Diese Galerie hat noch keine Daten.</h4>
+        </div>
+        <div v-else-if="isStoreDataLoading === false && !errorMessage">
           <div
             v-for="(data) in (storageData as GalleryImage[])"
             :key="data.fullPath"
@@ -51,6 +60,9 @@
             >
           </div>
         </div>
+        <p v-else-if="errorMessage" class="font-bold text-red">
+          {{ errorMessage }}
+        </p>
       </div>
     </div>
   </div>
@@ -63,12 +75,14 @@ import {
   GalleryImage,
   getGalleryImages,
 } from "@/composables/gallery";
+import { storage } from "@/firebase";
 import { ref, onMounted, watch } from "vue";
 
 const galleryData = ref<Gallery[]>();
 const storageData = ref<GalleryImage[]>();
 const selectedGallery = ref<number>();
 const isStoreDataLoading = ref<boolean>();
+const errorMessage = ref<string>();
 
 onMounted(() => {
   getGalleries().then((d) => {
@@ -91,8 +105,6 @@ watch(selectedGallery, () => {
   if (gallerySelected === undefined) return;
   getGalleryImages(gallerySelected.id!).then((value) => {
     isStoreDataLoading.value = false;
-    console.log(value);
-
     storageData.value = value as GalleryImage[];
   });
 });

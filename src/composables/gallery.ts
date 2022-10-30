@@ -17,9 +17,10 @@ interface GalleryImage {
 
 const getGalleryImages = async (id: string): Promise<void | GalleryImage[]> => {
   return new Promise<void | GalleryImage[]>((resolve, reject) => {
-    listAll(ref(storage, `galleries/${id}/`)).then((data: ListResult) => {
+    listAll(ref(storage, `galleries/${id}/`)).then(async (data: ListResult) => {
       const images: GalleryImage[] = [];
-      data.items.forEach(async (item: StorageReference) => {
+      for(let i = 0; i < data.items.length; i++){
+        const item: StorageReference = data.items[i];
         await getDownloadURL(item).then((url) => {
           images.push({
             name: item.name,
@@ -28,7 +29,7 @@ const getGalleryImages = async (id: string): Promise<void | GalleryImage[]> => {
             url
           })
         })
-      });
+      }
       resolve(images);
     })
     .catch((e) => {
