@@ -114,8 +114,10 @@ import {
   Gallery,
   GalleryImage,
   getGalleryImages,
+  uploadGalleryImages,
 } from "@/composables/gallery";
-import { ref, onMounted, watch, VueElement } from "vue";
+import { UploadTask } from "@firebase/storage";
+import { ref, onMounted, watch } from "vue";
 
 const galleryData = ref<Gallery[]>();
 const storageData = ref<GalleryImage[]>();
@@ -165,11 +167,30 @@ const uploadImages = (): void => {
     if (files.value.item(i)?.type === undefined) {
       errorMessage.value = "Etwas ist schief gelaufen!";
       return;
+      // eslint-disable-next-line
     } else if (!validUploadTypes.includes(files.value.item(i)?.type!)) {
       errorMessage.value = "Es sind nur Bilder erlaubt! (.jpg, .png)";
       return;
     }
   }
+
+  if (!selectedGallery.value) return;
+  uploadGalleryImages(
+    galleryData.value![selectedGallery.value!].id,
+    files.value
+  )
+    .then((taskList) => {
+      const list = taskList! as UploadTask[];
+      for (let i = 0; i < list.length; i++) {
+        list[i].on("state_changed", (snapshot) => {
+          console.log((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        });
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+      errorMessage.value = "Etwas ist schief gelaufen!";
+    });
 
   // Progress Bar
   uploadPercentage.value = 0;
