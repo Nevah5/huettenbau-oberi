@@ -1,5 +1,12 @@
 import { firestore, storage } from "@/firebase";
-import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
 import {
   listAll,
   ListResult,
@@ -78,6 +85,19 @@ const getGalleryImages = async (id: string): Promise<void | GalleryImage[]> => {
   });
 };
 
+const getGallery = async (id: string): Promise<void | Gallery> => {
+  return new Promise<void | Gallery>((resolve, reject) => {
+    getDoc(doc(firestore, "galleries", id))
+      .then((data) => {
+        resolve(data.data() as Gallery);
+      })
+      .catch((e) => {
+        console.log(e);
+        reject();
+      });
+  });
+};
+
 const getGalleries = async (): Promise<void | Gallery[]> => {
   return new Promise<void | Gallery[]>((resolve, reject) => {
     getDocs(query(collection(firestore, "galleries")))
@@ -110,6 +130,7 @@ const addGallery = (gallery: Gallery): Promise<void | string> => {
 
 export {
   addGallery,
+  getGallery,
   getGalleries,
   Gallery,
   GalleryImage,
