@@ -1,135 +1,143 @@
-import {RouteRecordRaw} from "vue-router"
+import { RouteRecordRaw } from "vue-router";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     meta: {
-      title: "Startseite"
+      title: "Startseite",
     },
-    component: () => import('@/views/HomeView.vue')
+    component: () => import("@/views/HomeView.vue"),
   },
   {
-    path: '/login',
-    name: 'login',
+    path: "/login",
+    name: "login",
     meta: {
       title: "Login",
       enforceNoLogin: true,
     },
-    component: () => import('@/views/LoginView.vue')
+    component: () => import("@/views/LoginView.vue"),
   },
   {
-    path: '/nopermissions',
-    name: 'nopermissions',
+    path: "/nopermissions",
+    name: "nopermissions",
     meta: {
       title: "Keinen Zugriff",
     },
-    component: () => import('@/views/NoPermissionsView.vue')
+    component: () => import("@/views/NoPermissionsView.vue"),
   },
   {
-    path: '/admin',
-    name: 'admin',
+    path: "/admin",
+    name: "admin",
     meta: {
       title: "Admin Panel",
       enforceLogin: true,
     },
     redirect: "/admin/welcome",
-    component: () => import('@/views/AdminView.vue'),
+    component: () => import("@/views/AdminView.vue"),
     children: [
       {
-        path: 'welcome',
-        name: 'welcome',
+        path: "welcome",
+        name: "welcome",
         meta: {
-          title: 'Admin Panel',
+          title: "Admin Panel",
           enforceLogin: true,
         },
-        component: () => import('@/views/admin/WelcomeInfo.vue')
+        component: () => import("@/views/admin/WelcomeInfo.vue"),
       },
       {
-        path: 'groups',
-        name: 'groups',
+        path: "groups",
+        name: "groups",
         meta: {
-          title: 'Gruppen Verwaltung',
+          title: "Gruppen Verwaltung",
           enforceLogin: true,
         },
-        component: () => import('@/views/admin/GroupManagment.vue')
+        component: () => import("@/views/admin/GroupManagment.vue"),
       },
       {
-        path: 'navigation',
-        name: 'navigation',
+        path: "navigation",
+        name: "navigation",
         meta: {
-          title: 'Site Navigation',
+          title: "Site Navigation",
           enforceLogin: true,
         },
-        component: () => import('@/views/admin/SiteNavigation.vue')
+        component: () => import("@/views/admin/SiteNavigation.vue"),
       },
       {
-        path: 'gallery',
-        name: 'gallery',
+        path: "gallery",
+        name: "gallery",
         meta: {
-          title: 'Galerie Administration',
+          title: "Galerie Administration",
           enforceLogin: true,
         },
-        component: () => import('@/views/admin/GalleryAdministration.vue')
+        component: () => import("@/views/admin/GalleryAdministration.vue"),
       },
       {
-        path: 'external-links',
-        name: 'external-links',
+        path: "external-links",
+        name: "external-links",
         meta: {
-          title: 'Externe Links',
+          title: "Externe Links",
           enforceLogin: true,
         },
-        component: () => import('@/views/admin/ExternalLinks.vue')
+        component: () => import("@/views/admin/ExternalLinks.vue"),
       },
-    ]
+    ],
   },
   {
-    path: '/account',
-    name: 'account',
-    redirect: '/account/overview',
+    path: "/account",
+    name: "account",
+    redirect: "/account/overview",
     meta: {
-      title: 'Account',
+      title: "Account",
       enforceLogin: true,
     },
-    component: () => import('@/views/AccountView.vue'),
+    component: () => import("@/views/AccountView.vue"),
     children: [
       {
-        path: 'overview',
-        name: 'overview',
+        path: "overview",
+        name: "overview",
         meta: {
-          title: 'Account',
+          title: "Account",
           enforceLogin: true,
         },
-        component: () => import('@/views/account/OverviewView.vue')
+        component: () => import("@/views/account/OverviewView.vue"),
       },
       {
-        path: 'settings',
-        name: 'settings',
+        path: "settings",
+        name: "settings",
         meta: {
-          title: 'Account Settings',
+          title: "Account Settings",
           enforceLogin: true,
         },
-        component: () => import('@/views/account/SettingsView.vue')
+        component: () => import("@/views/account/SettingsView.vue"),
       },
       {
-        path: 'security',
-        name: 'security',
+        path: "security",
+        name: "security",
         meta: {
-          title: 'Account Security',
+          title: "Account Security",
           enforceLogin: true,
         },
-        component: () => import('@/views/account/SecurityView.vue')
-      }
-    ]
+        component: () => import("@/views/account/SecurityView.vue"),
+      },
+    ],
   },
   {
-    path: '/link',
-    name: 'link',
+    path: "/link",
+    name: "link",
     meta: {
-      title: 'Externer Link'
+      title: "Externer Link",
     },
-    component: () => import("@/views/ExternalLink.vue")
-  }
-]
+    component: () => import("@/views/ExternalLink.vue"),
+  },
+  {
+    path: "/gallery/:catchAll(.*)",
+    name: "gallery",
+    meta: {
+      title: "Externer Link",
+    },
+    component: () => import("@/views/GalleryView.vue"),
+  },
+];
 
-export default routes
+export default routes;
