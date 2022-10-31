@@ -1,12 +1,5 @@
 import { firestore, storage } from "@/firebase";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  addDoc,
-} from "firebase/firestore";
+import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
 import {
   listAll,
   ListResult,
