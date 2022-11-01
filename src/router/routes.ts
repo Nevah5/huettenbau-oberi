@@ -94,7 +94,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/AccountView.vue"),
     children: [
       {
-        path: "/overview",
+        path: "overview",
         name: "overview",
         meta: {
           title: "Account",
@@ -103,7 +103,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/account/OverviewView.vue"),
       },
       {
-        path: "/settings",
+        path: "settings",
         name: "settings",
         meta: {
           title: "Account Settings",
@@ -112,7 +112,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/account/SettingsView.vue"),
       },
       {
-        path: "/security",
+        path: "security",
         name: "security",
         meta: {
           title: "Account Security",
