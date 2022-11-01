@@ -23,20 +23,36 @@
 
 <script lang="ts" setup>
 import { getGalleryImages, getGallery, Gallery } from "@/composables/gallery";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 
 const path = window.location.pathname;
 const id = path.split("/")[path.split("/").length - 1];
 const isLoading = ref<boolean>(true);
 const galleryData = ref<Gallery>();
+const route = useRoute();
 
-onMounted(async () => {
-  await getGallery(id).then((gallery) => {
+const loadData = async (id: string | string[]) => {
+  let idComputed = "";
+  if (id.length === 1) {
+    idComputed = id[0];
+  } else if (typeof id === "string") {
+    idComputed = id;
+  }
+  isLoading.value = true;
+  await getGallery(idComputed).then((gallery) => {
     galleryData.value = gallery!;
   });
-  getGalleryImages(id).then((data) => {
+  getGalleryImages(idComputed).then(() => {
     isLoading.value = false;
   });
+};
+watchEffect(() => {
+  loadData(route.params.id);
+});
+
+onMounted(() => {
+  loadData(route.params.id);
 });
 </script>
 
