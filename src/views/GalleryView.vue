@@ -1,5 +1,14 @@
 <template>
-  <main v-if="isLoading">
+  <main v-if="notFound">
+    <div
+      class="w-full max-h-[400px] h-[1/3] min-h-[200px] bg-black-light px-16 py-8"
+    >
+      <h1 placeholder-loading class="text-[40px] font-bold">
+        Diese Galerie wurde nicht gefunden!
+      </h1>
+    </div>
+  </main>
+  <main v-else-if="isLoading">
     <div
       class="w-full max-h-[400px] h-[1/3] min-h-[200px] bg-black-light px-16 py-8"
     >
@@ -15,7 +24,7 @@
     >
       <h5 class="text-sm">Thema</h5>
       <h1 placeholder-loading class="text-[40px] font-bold">
-        {{ galleryData?.theme }} - {{ id }}
+        {{ galleryData?.theme }} - {{ route.params.id }}
       </h1>
     </div>
   </main>
@@ -26,8 +35,7 @@ import { getGalleryImages, getGallery, Gallery } from "@/composables/gallery";
 import { onMounted, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 
-const path = window.location.pathname;
-const id = path.split("/")[path.split("/").length - 1];
+const notFound = ref<boolean>(false);
 const isLoading = ref<boolean>(true);
 const galleryData = ref<Gallery>();
 const route = useRoute();
@@ -43,6 +51,10 @@ const loadData = async (id: string | string[]) => {
   await getGallery(idComputed).then((gallery) => {
     galleryData.value = gallery!;
   });
+  if (galleryData.value === undefined) {
+    notFound.value = true;
+    return;
+  }
   getGalleryImages(idComputed).then(() => {
     isLoading.value = false;
   });
