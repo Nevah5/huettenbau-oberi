@@ -17,6 +17,20 @@
         class="loading-placeholder h-[40px] w-[520px] overflow-hidden relative bg-black rounded-md"
       ></h1>
     </div>
+    <div class="flex flex-wrap justify-center">
+      <figure
+        v-for="image in (galleryImages as GalleryImage[])"
+        :key="image.name"
+        class="w-[400px] h-[240px] m-8"
+      >
+        <div
+          class="block h-[200px] w-full bg-black loading-placeholder overflow-hidden relative rounded-md"
+        ></div>
+        <caption
+          class="block w-[120px] h-[30px] loading-placeholder overflow-hidden relative rounded-md bg-black"
+        ></caption>
+      </figure>
+    </div>
   </main>
   <main v-else class="text-black">
     <div
@@ -27,17 +41,41 @@
         {{ galleryData?.theme }} - {{ route.params.id }}
       </h1>
     </div>
+    <div class="flex flex-wrap justify-center">
+      <figure
+        v-for="image in (galleryImages as GalleryImage[])"
+        :key="image.name"
+        class="w-[400px] m-8"
+      >
+        <img
+          :src="image.url"
+          :alt="image.name"
+          class="h-[200px] w-full rounded-md"
+        />
+        <caption>
+          {{
+            image.name
+          }}
+        </caption>
+      </figure>
+    </div>
   </main>
 </template>
 
 <script lang="ts" setup>
-import { getGalleryImages, getGallery, Gallery } from "@/composables/gallery";
+import {
+  getGalleryImages,
+  getGallery,
+  Gallery,
+  GalleryImage,
+} from "@/composables/gallery";
 import { onMounted, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 
 const notFound = ref<boolean>(false);
 const isLoading = ref<boolean>(true);
 const galleryData = ref<Gallery>();
+const galleryImages = ref<GalleryImage[]>();
 const route = useRoute();
 
 const loadData = async (id: string | string[]) => {
@@ -55,7 +93,8 @@ const loadData = async (id: string | string[]) => {
     notFound.value = true;
     return;
   }
-  getGalleryImages(idComputed).then(() => {
+  getGalleryImages(idComputed).then((imgs) => {
+    galleryImages.value = imgs as GalleryImage[];
     isLoading.value = false;
   });
 };
