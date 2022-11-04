@@ -11,7 +11,7 @@
       >Navigation</router-link
     >
     <router-link
-      to="/admin/gallery"
+      to="/admin/gallery-managment"
       class="rounded-md p-2 px-3 m-1 font-bold hover:bg-black-light relative w-full text-center"
       >Galerie Verwaltung</router-link
     >
