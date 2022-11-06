@@ -72,7 +72,7 @@ const uploadGalleryImages = async (
 };
 
 const updateGalleryImage = async (
-  id: number,
+  id: string,
   image: GalleryImage
 ): Promise<void> => {
   return new Promise<void>((resolve, reject) => {

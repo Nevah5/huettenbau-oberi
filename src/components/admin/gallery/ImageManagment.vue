@@ -247,7 +247,7 @@ const uploadImages = (): void => {
 const updateImage = (index: number) => {
   if (storageData.value === undefined) return;
   let data: GalleryImage = storageData.value.at(index)!;
-  updateGalleryImage(galleryData.value?.at(selectedGallery.value!)?.id, data);
+  updateGalleryImage(galleryData.value![selectedGallery.value!].id, data);
 };
 const fileChange = (event: InputEvent): void => {
   const target = event.target as HTMLInputElement;
