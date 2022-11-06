@@ -214,5 +214,6 @@ export {
   Gallery,
   GalleryImage,
   getGalleryImages,
+  updateGalleryImage,
   uploadGalleryImages,
 };

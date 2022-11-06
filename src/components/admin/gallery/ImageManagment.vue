@@ -133,7 +133,9 @@
                   {{ data.uploadedBy }}
                 </td>
                 <td>
-                  <a href="#" class="text-red underline">Speichern</a>
+                  <a class="text-red underline" @click="updateImage(dataIndex)"
+                    >Speichern</a
+                  >
                 </td>
               </tr>
             </tbody>
@@ -150,6 +152,7 @@ import {
   Gallery,
   GalleryImage,
   getGalleryImages,
+  updateGalleryImage,
   uploadGalleryImages,
 } from "@/composables/gallery";
 import { UploadTask } from "@firebase/storage";
@@ -240,6 +243,11 @@ const uploadImages = (): void => {
       console.log(e);
       errorMessage.value = "Etwas ist schief gelaufen!";
     });
+};
+const updateImage = (index: number) => {
+  if (storageData.value === undefined) return;
+  let data: GalleryImage = storageData.value.at(index)!;
+  updateGalleryImage(galleryData.value?.at(selectedGallery.value!)?.id, data);
 };
 const fileChange = (event: InputEvent): void => {
   const target = event.target as HTMLInputElement;
