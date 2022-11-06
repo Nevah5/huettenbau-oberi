@@ -92,50 +92,52 @@
             </div>
           </form>
           <!-- File List -->
-          <div>
-            <div
-              class="flex justify-start gap-2"
-              v-if="storageData?.length !== 0"
-            >
-              <p class="w-[50px]">Nr.</p>
-              <p class="w-[400px]">Dateiname</p>
-              <p class="w-[400px]">Beschreibung</p>
-              <p>Hochgeladen von</p>
-            </div>
-            <div
-              v-for="data, dataIndex in (storageData as GalleryImage[])"
-              :key="data.fullPath"
-              class="flex justify-start items-center gap-2 my-1"
-            >
-              <input
-                type="text"
-                v-model.trim="storageData![dataIndex].order"
-                class="appearance-none w-[50px] h-[50px] border-black border-2 text-center rounded-md font-bold"
-              />
-              <p
-                class="w-[400px] h-[50px] border-black border-2 p-2 rounded-md font-bold flex justify-start items-center cursor-not-allowed"
+          <table v-if="storageData?.length !== 0">
+            <thead>
+              <tr>
+                <th class="text-left">Nr.</th>
+                <th class="text-left">Dateiname</th>
+                <th class="text-left">Beschreibung</th>
+                <th class="text-left">Hochgeladen von</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="data, dataIndex in (storageData as GalleryImage[])"
+                :key="data.fullPath"
               >
-                <a
-                  :href="storageData![dataIndex].url"
-                  class="underline text-red w-fit"
-                  target="_blank"
-                  >{{ data.name }}</a
-                >
-              </p>
-              <input
-                type="text"
-                v-model.trim="storageData![dataIndex].description"
-                class="appearance-none w-[400px] h-[50px] border-black border-2 rounded-md font-bold px-4 py-2"
-              />
-              <input
-                type="text"
-                v-model.trim="storageData![dataIndex].uploadedBy"
-                class="appearance-none w-[400px] h-[50px] border-black border-2 p-2 rounded-md cursor-not-allowed"
-                disabled
-              />
-              <a href="#" class="text-red underline">Speichern</a>
-            </div>
-          </div>
+                <td>
+                  <input
+                    type="text"
+                    v-model.trim="storageData![dataIndex].order"
+                    class="appearance-none w-[50px] h-[50px] border-black border-2 text-center rounded-md font-bold"
+                  />
+                </td>
+                <td>
+                  <a
+                    :href="data.url"
+                    class="underline text-red w-fit"
+                    target="_blank"
+                    >{{ data.name }}</a
+                  >
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    v-model.trim="storageData![dataIndex].description"
+                    class="appearance-none w-[400px] h-[50px] border-black border-2 rounded-md font-bold px-4 py-2"
+                  />
+                </td>
+                <td>
+                  {{ data.uploadedBy }}
+                </td>
+                <td>
+                  <a href="#" class="text-red underline">Speichern</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
