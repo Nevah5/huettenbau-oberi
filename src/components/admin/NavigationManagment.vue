@@ -63,8 +63,6 @@
             v-model.trim="data[itemIndex].sub[subIndex].link"
             class="appearance-none w-[330px] h-[50px] border-black border-2 p-2 rounded-md font-bold"
           />
-          <label :for="'external' + subIndex">custom checkbox here</label>
-          <input type="checkbox" class="hidden" :id="'external' + subIndex" />
           <button
             class="rounded-md bg-red font-bold text-white px-4 py-2"
             @click="removeSubLink(item.id, subIndex)"
