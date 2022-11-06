@@ -8,14 +8,14 @@
       <p v-if="data.google">{{ data.google }}</p>
       <button
         v-if="!data.google"
-        class="text-black border-black border-2 border-solid rounded-md px-4 py-2 font-bold hover:bg-black hover:text-white"
+        class="text-black border-black border-2 border-solid rounded-md px-2 py-1 text-sm font-bold hover:bg-black hover:text-white"
         @click="funLinkGoogleAccount"
       >
         Verlinken
       </button>
       <button
         v-else-if="hasPasswordLogin()"
-        class="text-black border-black border-2 border-solid rounded-md px-4 py-2 font-bold hover:bg-black hover:text-white"
+        class="text-black border-black border-2 border-solid rounded-md px-2 py-1 text-sm font-bold hover:bg-black hover:text-white"
         @click="funUnlinkGoogleAccount"
       >
         Aufheben
