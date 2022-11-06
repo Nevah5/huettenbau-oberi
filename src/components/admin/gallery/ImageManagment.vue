@@ -92,7 +92,10 @@
             </div>
           </form>
           <!-- File List -->
-          <table v-if="storageData?.length !== 0">
+          <table
+            v-if="storageData?.length !== 0"
+            class="border-separate border-spacing-1"
+          >
             <thead>
               <tr>
                 <th class="text-left">Nr.</th>
