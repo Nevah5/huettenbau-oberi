@@ -97,21 +97,43 @@
               class="flex justify-start gap-2"
               v-if="storageData?.length !== 0"
             >
-              <p class="w-[100px]">Nr.</p>
-              <p class="w-[600px]">Dateiname</p>
+              <p class="w-[50px]">Nr.</p>
+              <p class="w-[400px]">Dateiname</p>
+              <p class="w-[400px]">Beschreibung</p>
+              <p>Hochgeladen von</p>
             </div>
             <div
-              v-for="(data) in (storageData as GalleryImage[])"
+              v-for="data, dataIndex in (storageData as GalleryImage[])"
               :key="data.fullPath"
-              class="flex justify-start items-center gap-2 w-fit"
+              class="flex justify-start items-center gap-2 my-1"
             >
-              <p class="w-[100px]">ID</p>
-              <a
-                :href="data.url"
-                class="underline text-red w-fit"
-                target="_blank"
-                >{{ data.name }}</a
+              <input
+                type="text"
+                v-model.trim="storageData![dataIndex].order"
+                class="appearance-none w-[50px] h-[50px] border-black border-2 text-center rounded-md font-bold"
+              />
+              <p
+                class="w-[400px] h-[50px] border-black border-2 p-2 rounded-md font-bold flex justify-start items-center cursor-not-allowed"
               >
+                <a
+                  :href="storageData![dataIndex].url"
+                  class="underline text-red w-fit"
+                  target="_blank"
+                  >{{ data.name }}</a
+                >
+              </p>
+              <input
+                type="text"
+                v-model.trim="storageData![dataIndex].description"
+                class="appearance-none w-[400px] h-[50px] border-black border-2 rounded-md font-bold px-4 py-2"
+              />
+              <input
+                type="text"
+                v-model.trim="storageData![dataIndex].uploadedBy"
+                class="appearance-none w-[400px] h-[50px] border-black border-2 p-2 rounded-md cursor-not-allowed"
+                disabled
+              />
+              <a href="#" class="text-red underline">Speichern</a>
             </div>
           </div>
         </div>
@@ -162,6 +184,7 @@ watch(selectedGallery, () => {
   getGalleryImages(gallerySelected.id!).then((value) => {
     isStoreDataLoading.value = false;
     storageData.value = value as GalleryImage[];
+    storageData.value.sort((obj1, obj2) => obj1.order - obj2.order);
   });
 });
 
