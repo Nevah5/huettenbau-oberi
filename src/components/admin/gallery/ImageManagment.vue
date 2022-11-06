@@ -133,9 +133,13 @@
                   {{ data.uploadedBy }}
                 </td>
                 <td>
-                  <a class="text-red underline" @click="updateImage(dataIndex)"
-                    >Speichern</a
+                  <button
+                    class="flex justify-center items-center gap-2 rounded-md bg-red font-bold text-white px-4 py-2"
+                    @click="updateImage(dataIndex)"
                   >
+                    <font-awesome-icon icon="fa-solid fa-floppy-disk" />
+                    <p>Speichern</p>
+                  </button>
                 </td>
               </tr>
             </tbody>
