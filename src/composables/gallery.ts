@@ -6,6 +6,7 @@ import {
   query,
   setDoc,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 import {
   listAll,
@@ -67,6 +68,26 @@ const uploadGalleryImages = async (
         }
       );
     }
+  });
+};
+
+const updateGalleryImage = async (
+  id: number,
+  image: GalleryImage
+): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    updateDoc(doc(firestore, `/galleries/${id}/public-images/${image.name}`), {
+      description: image.description,
+      order: image.order,
+      uploadedBy: image.uploadedBy,
+    })
+      .then(() => {
+        resolve();
+      })
+      .catch((e) => {
+        console.log(e);
+        reject();
+      });
   });
 };
 
