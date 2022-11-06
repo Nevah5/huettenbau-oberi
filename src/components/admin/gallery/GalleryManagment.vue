@@ -18,19 +18,21 @@
       />
       <p>Daten werden geladen</p>
     </div>
-    <table v-else v-auto-animate class="border-separate border-spacing-2">
-      <thead>
-        <th class="text-left font-bold">ID (Jahr)</th>
-        <th class="text-left font-bold">Thema</th>
-        <th class="text-left font-bold">Erstellt von</th>
-      </thead>
-      <tbody>
-        <tr v-for="gallery in data" :key="gallery.id">
-          <td>{{ gallery.id }}</td>
-          <td>{{ gallery.theme }}</td>
-          <td>{{ gallery.createdUid }}</td>
-        </tr>
-      </tbody>
+    <div v-else>
+      <table v-auto-animate class="border-separate border-spacing-2">
+        <thead>
+          <th class="text-left font-bold">ID (Jahr)</th>
+          <th class="text-left font-bold">Thema</th>
+          <th class="text-left font-bold">Erstellt von</th>
+        </thead>
+        <tbody>
+          <tr v-for="gallery in data" :key="gallery.id">
+            <td>{{ gallery.id }}</td>
+            <td>{{ gallery.theme }}</td>
+            <td>{{ gallery.createdUid }}</td>
+          </tr>
+        </tbody>
+      </table>
       <form
         class="mt-8 flex justify-start items-center gap-2"
         @submit.prevent="add"
@@ -54,7 +56,7 @@
           <font-awesome-icon icon="fa-solid fa-plus" />
         </button>
       </form>
-    </table>
+    </div>
   </div>
 </template>
 
