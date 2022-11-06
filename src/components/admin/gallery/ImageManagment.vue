@@ -43,7 +43,7 @@
         <div v-else-if="isStoreDataLoading === false">
           <!-- Form -->
           <form
-            v-if="selectedGallery && !isStoreDataLoading"
+            v-if="selectedGallery !== undefined && isStoreDataLoading === false"
             class="my-6 flex justify-center items-start flex-col gap-2 w-fit"
             @submit.prevent="uploadImages"
           >
