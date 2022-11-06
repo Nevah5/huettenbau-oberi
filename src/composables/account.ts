@@ -7,9 +7,9 @@ import {
   updateEmail,
   updatePassword,
   linkWithPopup,
-  unlink,
-} from "firebase/auth";
-import { auth } from "../firebase";
+  unlink
+} from "firebase/auth"
+import { auth } from "../firebase"
 
 /**
  * Logs into an account.
@@ -17,38 +17,35 @@ import { auth } from "../firebase";
  * @param password string
  * @returns Error Message when error, else void
  */
-const loginWithEmailAndPassword = (
-  email: string,
-  password: string
-): Promise<string | void> => {
+const loginWithEmailAndPassword = (email: string, password: string): Promise<string | void> => {
   return new Promise<string | void>((resolve, reject) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        resolve();
+        resolve()
       })
       .catch((e) => {
-        let errorMessage = "";
-        switch (e.code) {
+        let errorMessage = ""
+        switch(e.code){
           case "auth/invalid-email":
-            errorMessage = "Ungültige Email Adresse";
-            break;
+            errorMessage = "Ungültige Email Adresse"
+            break
           case "auth/user-not-found":
-            errorMessage = "Benutzer nicht gefunden";
-            break;
+            errorMessage = "Benutzer nicht gefunden"
+            break
           case "auth/wrong-password":
-            errorMessage = "Passwort inkorrekt";
-            break;
+            errorMessage = "Passwort inkorrekt"
+            break
           case "auth/user-disabled":
-            errorMessage = "Dieser Benutzer wurde deaktiviert";
-            break;
+            errorMessage = "Dieser Benutzer wurde deaktiviert"
+            break
           default:
-            errorMessage = "Etwas ist schief gelaufen!";
-            console.log(e);
+            errorMessage = "Etwas ist schief gelaufen!"
+            console.log(e)
         }
-        reject(errorMessage);
-      });
-  });
-};
+        reject(errorMessage)
+      })
+  })
+}
 
 /**
  * Opens popup to authenticate with google login.
@@ -56,43 +53,42 @@ const loginWithEmailAndPassword = (
  */
 const loginWithGoogle = () => {
   return new Promise<string | void>((resolve, reject) => {
-    const provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider()
     signInWithPopup(auth, provider)
       .then(() => {
-        resolve();
+        resolve()
       })
       .catch((e) => {
-        console.log(e);
-        reject("Etwas ist schief gelaufen!");
-      });
-  });
-};
+        console.log(e)
+        reject("Etwas ist schief gelaufen!")
+      })
+  })
+}
 
 /**
  * Checks if the account has Password login.
  * @returns boolean
  */
 const hasPasswordLogin = (): boolean => {
-  const user = loggedInUser();
-  if (user!.providerData.find((obj) => obj.providerId === "password"))
-    return true;
-  return false;
-};
+  const user = loggedInUser()
+  if(user!.providerData.find((obj) => obj.providerId === 'password')) return true
+  return false
+}
 
 /**
  * Gives the current logged in user back.
  * @returns User
  */
 const loggedInUser = (): User | null => {
-  return auth.currentUser;
-};
+  return auth.currentUser
+}
 
 /**
  * Signs out of firebase auth.
  */
 const logoutUser = async (): Promise<void> => {
-  await auth.signOut();
-};
+  await auth.signOut()
+}
 
 /**
  * Changes the displayname of the account.
@@ -102,15 +98,15 @@ const logoutUser = async (): Promise<void> => {
 const changeDisplayName = (newDisplayName: string): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     updateProfile(auth.currentUser!, {
-      displayName: newDisplayName,
+      displayName: newDisplayName
     })
-      .then(() => resolve())
-      .catch((e) => {
-        console.log(e);
-        reject();
-      });
-  });
-};
+    .then(() => resolve())
+    .catch((e) => {
+      console.log(e)
+      reject()
+    })
+  })
+}
 
 /**
  * Changes the email of a account, automatically sends mail to old email that email was changed.
@@ -120,55 +116,52 @@ const changeDisplayName = (newDisplayName: string): Promise<void> => {
 const changeEmail = (newEmail: string): Promise<void | string> => {
   return new Promise<void | string>((resolve, reject) => {
     updateEmail(auth.currentUser!, newEmail)
-      .then(() => {
-        resolve();
-      })
-      .catch((e) => {
-        switch (e.code) {
-          case "auth/requires-recent-login":
-            reject("Logge dich erneut ein und versuche es dann nochmals.");
-            break;
-          default:
-            console.log(e);
-            reject("Etwas ist schief gelaufen!");
-        }
-      });
-  });
-};
+    .then(() => {
+      resolve()
+    })
+    .catch((e) => {
+      switch(e.code){
+        case "auth/requires-recent-login":
+          reject("Logge dich erneut ein und versuche es dann nochmals.")
+          break
+        default:
+          console.log(e)
+          reject("Etwas ist schief gelaufen!")
+      }
+    })
+  })
+}
 
 /**
  * Changes the password of a emailAndPassword user.
- * @param currentPassword
- * @param newPassword
- * @returns
+ * @param currentPassword 
+ * @param newPassword 
+ * @returns 
  */
-const changePassword = (
-  currentPassword: string,
-  newPassword: string
-): Promise<void | string> => {
+const changePassword = (currentPassword: string, newPassword: string): Promise<void | string> => {
   return new Promise<void | string>((resolve, reject) => {
     loginWithEmailAndPassword(auth.currentUser!.email!, currentPassword)
+    .then(() => {
+      updatePassword(auth.currentUser!, newPassword)
       .then(() => {
-        updatePassword(auth.currentUser!, newPassword)
-          .then(() => {
-            resolve();
-          })
-          .catch((e) => {
-            switch (e.code) {
-              case "auth/weak-password":
-                reject("Das Passwort muss mindestens 6 Zeichen lang sein.");
-                break;
-              default:
-                console.log(e);
-                reject("Etwas ist schief gelaufen");
-            }
-          });
+        resolve()
       })
-      .catch((errMsg) => {
-        reject(errMsg);
-      });
-  });
-};
+      .catch((e) => {
+        switch(e.code){
+          case "auth/weak-password":
+            reject("Das Passwort muss mindestens 6 Zeichen lang sein.")
+            break
+          default:
+            console.log(e)
+            reject("Etwas ist schief gelaufen")
+        }
+      })
+    })
+    .catch((errMsg) => {
+      reject(errMsg)
+    })
+  })
+}
 
 /**
  * Adds the emailAndPassword provider to a users account.
@@ -178,24 +171,24 @@ const changePassword = (
 const addPassword = (newPassword: string): Promise<void | string> => {
   return new Promise<void | string>((resolve, reject) => {
     updatePassword(auth.currentUser!, newPassword)
-      .then(() => {
-        resolve();
-      })
-      .catch((e) => {
-        switch (e.code) {
-          case "auth/requires-recent-login":
-            reject("Logge dich erneut ein und versuche es dann nochmals.");
-            break;
-          case "auth/weak-password":
-            reject("Das Passwort muss mindestens 6 Zeichen lang sein.");
-            break;
-          default:
-            console.log(e);
-            reject("Etwas ist schief gelaufen!");
-        }
-      });
-  });
-};
+    .then(() => {
+      resolve()
+    })
+    .catch((e) => {
+      switch(e.code){
+        case "auth/requires-recent-login":
+          reject("Logge dich erneut ein und versuche es dann nochmals.")
+          break
+        case "auth/weak-password":
+          reject("Das Passwort muss mindestens 6 Zeichen lang sein.")
+          break
+        default:
+          console.log(e)
+          reject("Etwas ist schief gelaufen!")
+      }
+    })
+  })
+}
 
 /**
  * Links google account to currentUser auth.
@@ -203,23 +196,23 @@ const addPassword = (newPassword: string): Promise<void | string> => {
  */
 const linkGoogleAccount = (): Promise<void | string> => {
   return new Promise<void | string>((resolve, reject) => {
-    const provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider()
     linkWithPopup(auth.currentUser!, provider)
-      .then(() => {
-        resolve();
-      })
-      .catch((e) => {
-        switch (e.code) {
-          case "auth/credential-already-in-use":
-            reject("Dieser Account wird bereits benutzt.");
-            break;
-          default:
-            console.log(e);
-            reject("Etwas ist schief gelaufen.");
-        }
-      });
-  });
-};
+    .then(() => {
+      resolve()
+    })
+    .catch((e) => {
+      switch(e.code){
+        case "auth/credential-already-in-use":
+          reject("Dieser Account wird bereits benutzt.")
+          break
+        default:
+          console.log(e)
+          reject("Etwas ist schief gelaufen.")
+      }
+    })
+  })
+}
 
 /**
  * Unlinks the googleaccount from currentUser auth.
@@ -227,16 +220,16 @@ const linkGoogleAccount = (): Promise<void | string> => {
  */
 const unlinkGoogleAccount = (): Promise<void | string> => {
   return new Promise<void | string>((resolve, reject) => {
-    unlink(auth.currentUser!, "google.com")
-      .then(() => {
-        resolve();
-      })
-      .catch((e) => {
-        console.log(e);
-        reject("Etwas ist schief gelaufen.");
-      });
-  });
-};
+    unlink(auth.currentUser!, 'google.com')
+    .then(() => {
+      resolve()
+    })
+    .catch((e) => {
+      console.log(e)
+      reject("Etwas ist schief gelaufen.")
+    })
+  })
+}
 
 export {
   unlinkGoogleAccount,
@@ -249,5 +242,5 @@ export {
   logoutUser,
   loginWithGoogle,
   loggedInUser,
-  loginWithEmailAndPassword,
-};
+  loginWithEmailAndPassword
+}
