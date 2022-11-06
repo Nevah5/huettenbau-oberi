@@ -23,12 +23,21 @@ interface Gallery {
   createdUid: string;
   theme: string;
 }
+interface publicImageData {
+  id: string;
+  order: number;
+  description: string;
+  uploadedBy: string;
+}
 
 interface GalleryImage {
   name: string;
   bucket: string;
   fullPath: string;
   url: string;
+  order: number;
+  description: string;
+  uploadedBy: string;
 }
 
 const uploadGalleryImages = async (
@@ -46,6 +55,7 @@ const uploadGalleryImages = async (
       taskList.push(task);
     }
     resolve(taskList);
+    //save additional data in firestore
     for (let i = 0; i < files.length; i++) {
       setDoc(
         // eslint-disable-next-line
@@ -65,10 +75,16 @@ const getGalleryImages = async (id: string): Promise<void | GalleryImage[]> => {
     listAll(ref(storage, `galleries/${id}/`))
       .then(async (data: ListResult) => {
         const images: GalleryImage[] = [];
+        const itemData: {
+          name: string;
+          bucket: string;
+          fullPath: string;
+          url: string;
+        }[] = [];
         for (let i = 0; i < data.items.length; i++) {
           const item: StorageReference = data.items[i];
           await getDownloadURL(item).then((url) => {
-            images.push({
+            itemData.push({
               name: item.name,
               bucket: item.bucket,
               fullPath: item.fullPath,
@@ -76,7 +92,49 @@ const getGalleryImages = async (id: string): Promise<void | GalleryImage[]> => {
             });
           });
         }
+        const galleryPublicImages = await getGalleryPublicImages(id);
+
+        itemData.forEach((img) => {
+          const publicData: publicImageData = galleryPublicImages!.find(
+            (obj) => obj.id === img.name
+          )!;
+
+          images.push({
+            name: img.name,
+            bucket: img.bucket,
+            fullPath: img.fullPath,
+            url: img.url,
+            order: publicData.order,
+            description: publicData.description,
+            uploadedBy: publicData.uploadedBy,
+          });
+        });
         resolve(images);
+      })
+      .catch((e) => {
+        console.log(e);
+        reject();
+      });
+  });
+};
+
+const getGalleryPublicImages = async (
+  id: string
+): Promise<void | publicImageData[]> => {
+  return new Promise<void | publicImageData[]>((resolve, reject) => {
+    getDocs(collection(firestore, `/galleries/${id}/public-images`))
+      .then((data) => {
+        const d: publicImageData[] = [];
+        data.docs.forEach((item) => {
+          const computedData = item.data();
+          d.push({
+            id: item.id,
+            order: computedData.order,
+            description: computedData.description,
+            uploadedBy: computedData.uploadedBy,
+          });
+        });
+        resolve(d);
       })
       .catch((e) => {
         console.log(e);
