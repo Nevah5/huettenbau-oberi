@@ -3,9 +3,7 @@
     <div
       class="w-full max-h-[400px] h-[1/3] min-h-[200px] bg-black-light px-16 py-8"
     >
-      <h1 placeholder-loading class="text-[40px] font-bold">
-        Diese Galerie wurde nicht gefunden!
-      </h1>
+      <h1 class="text-[40px] font-bold">Diese Galerie wurde nicht gefunden!</h1>
     </div>
   </main>
   <main v-else-if="isLoading">
@@ -14,20 +12,23 @@
     >
       <h5 class="text-sm">Thema</h5>
       <h1
-        class="loading-placeholder h-[40px] w-[520px] overflow-hidden relative bg-black rounded-md"
+        placeholder-animation
+        class="h-[40px] w-[520px] overflow-hidden relative bg-black-medium rounded-md"
       ></h1>
     </div>
     <div class="flex flex-wrap justify-center">
       <figure
-        v-for="image in (galleryImages as GalleryImage[])"
-        :key="image.name"
+        v-for="i in [0, 1, 2, 3]"
+        :key="i"
         class="w-[400px] h-[240px] m-8"
       >
         <div
-          class="block h-[200px] w-full bg-black loading-placeholder overflow-hidden relative rounded-md"
+          placeholder-animation
+          class="block h-[200px] w-full bg-black-medium overflow-hidden relative rounded-md"
         ></div>
         <caption
-          class="block w-[120px] h-[30px] loading-placeholder overflow-hidden relative rounded-md bg-black"
+          placeholder-animation
+          class="block h-[30px] overflow-hidden relative rounded-md bg-black-medium mt-2 w-full"
         ></caption>
       </figure>
     </div>
@@ -37,13 +38,13 @@
       class="w-full max-h-[400px] h-[1/3] min-h-[200px] bg-black-light px-16 py-8"
     >
       <h5 class="text-sm">Thema</h5>
-      <h1 placeholder-loading class="text-[40px] font-bold">
+      <h1 class="text-[40px] font-bold">
         {{ galleryData?.theme }} - {{ route.params.id }}
       </h1>
     </div>
     <div class="flex flex-wrap justify-center">
       <figure
-        v-for="image in (galleryImages as GalleryImage[])"
+        v-for="image, imgIndex in (galleryImages as GalleryImage[])"
         :key="image.name"
         class="w-[400px] m-8"
       >
@@ -51,10 +52,11 @@
           :src="image.url"
           :alt="image.name"
           class="h-[200px] w-full rounded-md"
+          :loading="imgIndex > 4 ? 'lazy' : ''"
         />
-        <caption>
+        <caption class="w-full">
           {{
-            image.name
+            image.description
           }}
         </caption>
       </figure>
@@ -108,7 +110,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.loading-placeholder::after {
+[placeholder-animation]::after {
   content: " ";
   box-shadow: 0 0 50px 9px rgba(254, 254, 254);
   position: absolute;
