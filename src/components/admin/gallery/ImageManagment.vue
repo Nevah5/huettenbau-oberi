@@ -226,7 +226,8 @@ const uploadImages = (): void => {
   }
 
   // Upload
-  if (!selectedGallery.value) return;
+  if (selectedGallery.value === undefined) return;
+
   uploadGalleryImages(
     galleryData.value![selectedGallery.value!].id,
     files.value
