@@ -14,12 +14,15 @@ interface navbarSub {
   order: number;
 }
 
-interface navbarItem {
-  id: string;
+interface navbarDocument {
   display: string;
   link?: string;
   order: number;
   sub?: navbarSub[];
+}
+
+interface navbarItem extends navbarDocument {
+  id: string;
 }
 
 const getNavbarData = async () => {
@@ -42,12 +45,13 @@ const updateNavbarDocument = (
   newValue: navbarItem
 ): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
-    setDoc(doc(firestore, "navbar", docId), {
+    const newDocument: navbarDocument = {
       display: newValue.display,
-      link: newValue.link,
       order: newValue.order,
       sub: newValue.sub,
-    })
+    };
+    if (newValue.link) newDocument.link = newValue.link;
+    setDoc(doc(firestore, "navbar", docId), newDocument)
       .then(() => resolve())
       .catch((e) => {
         console.log(e);
