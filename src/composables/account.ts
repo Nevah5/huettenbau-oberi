@@ -9,7 +9,8 @@ import {
   linkWithPopup,
   unlink,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, firestore } from "../firebase";
 
 /**
  * Logs into an account.
@@ -234,6 +235,29 @@ const unlinkGoogleAccount = (): Promise<void | string> => {
       .catch((e) => {
         console.log(e);
         reject("Etwas ist schief gelaufen.");
+      });
+  });
+};
+
+/**
+ * Sets the users data in the cloud firestore for the frontend to fetch other user's data.
+ * This function is private.
+ * @returns void
+ */
+const updateUserdataFirestore = (): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    const user = auth.currentUser;
+    if (!user) {
+      console.error("User not logged in.");
+      reject();
+    }
+    setDoc(doc(firestore, `/users/${user?.uid}`), {
+      displayname: user?.displayName,
+    })
+      .then(() => resolve())
+      .catch((e) => {
+        console.log(e);
+        reject();
       });
   });
 };
