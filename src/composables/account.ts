@@ -12,7 +12,7 @@ import {
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, firestore } from "../firebase";
 
-interface userdata {
+interface Userdata {
   displayName: string;
 }
 
@@ -270,11 +270,11 @@ const updateUserdataFirestore = (): Promise<void> => {
   });
 };
 
-const getUserdata = (userId: string): Promise<void | userdata> => {
-  return new Promise<void | userdata>((resolve, reject) => {
+const getUserdata = (userId: string): Promise<void | Userdata> => {
+  return new Promise<void | Userdata>((resolve, reject) => {
     getDoc(doc(firestore, `users/${userId}`))
       .then((data) => {
-        const userdata: userdata = data.data() as userdata;
+        const userdata: Userdata = data.data() as Userdata;
         resolve(userdata);
       })
       .catch((e) => {
@@ -297,4 +297,5 @@ export {
   loggedInUser,
   loginWithEmailAndPassword,
   getUserdata,
+  Userdata,
 };
