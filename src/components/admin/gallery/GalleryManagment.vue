@@ -29,7 +29,7 @@
           <tr v-for="gallery in data" :key="gallery.id">
             <td>{{ gallery.id }}</td>
             <td>{{ gallery.theme }}</td>
-            <td>{{ getUserdata(gallery.createdUid) }}</td>
+            <td>{{ getDisplayName(gallery.createdUid) }}</td>
           </tr>
         </tbody>
       </table>
@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { loggedInUser, getUserdata } from "@/composables/account";
+import { loggedInUser, getUserdata, Userdata } from "@/composables/account";
 import { getGalleries, Gallery, addGallery } from "@/composables/gallery";
 import { User } from "@firebase/auth";
 import { onMounted, ref } from "vue";
@@ -73,16 +73,31 @@ const inputData = ref<Gallery>({
   theme: "",
   createdUid: "",
 });
+const userdataDisplayNames = ref<{ [index: string]: string }>({});
 
 onMounted(() => {
-  getGalleries().then((d) => {
-    data.value = d!;
-    //TODO: loop through every gallery
-    //TODO: get instinct createdUids
-    //TODO: get userdata from instinct Uids
-    //TODO: put into data to display
+  getGalleries().then(async (d) => {
+    let galleryData: Gallery[] = d!;
+    //set data
+    data.value = galleryData;
+
+    //get instinct displayNames into userdataDisplayNames object
+    for (let i = 0; i < galleryData.length; i++) {
+      if (userdataDisplayNames.value[galleryData[i].createdUid] === undefined) {
+        let userdata: Userdata | void = await getUserdata(
+          galleryData[i].createdUid
+        );
+        userdataDisplayNames.value[galleryData[i].createdUid] =
+          userdata!.displayName;
+      }
+    }
+    console.log(userdataDisplayNames.value);
   });
 });
+
+const getDisplayName = (uid: string) => {
+  return userdataDisplayNames.value[uid];
+};
 
 const add = () => {
   inputData.value.createdUid = user.uid!;
