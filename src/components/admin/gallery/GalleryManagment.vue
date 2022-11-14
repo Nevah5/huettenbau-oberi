@@ -29,7 +29,7 @@
           <tr v-for="gallery in data" :key="gallery.id">
             <td>{{ gallery.id }}</td>
             <td>{{ gallery.theme }}</td>
-            <td>{{ gallery.createdUid }}</td>
+            <td>{{ getUserdata(gallery.createdUid) }}</td>
           </tr>
         </tbody>
       </table>
@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { loggedInUser } from "@/composables/account";
+import { loggedInUser, getUserdata } from "@/composables/account";
 import { getGalleries, Gallery, addGallery } from "@/composables/gallery";
 import { User } from "@firebase/auth";
 import { onMounted, ref } from "vue";
@@ -75,7 +75,13 @@ const inputData = ref<Gallery>({
 });
 
 onMounted(() => {
-  getGalleries().then((d) => (data.value = d!));
+  getGalleries().then((d) => {
+    data.value = d!;
+    //TODO: loop through every gallery
+    //TODO: get instinct createdUids
+    //TODO: get userdata from instinct Uids
+    //TODO: put into data to display
+  });
 });
 
 const add = () => {

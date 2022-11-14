@@ -9,7 +9,12 @@ import {
   linkWithPopup,
   unlink,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, firestore } from "../firebase";
+
+interface userdata {
+  displayName: string;
+}
 
 /**
  * Logs into an account.
@@ -59,7 +64,7 @@ const loginWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(() => {
-        resolve();
+        updateUserdataFirestore().then(() => resolve());
       })
       .catch((e) => {
         console.log(e);
@@ -104,7 +109,11 @@ const changeDisplayName = (newDisplayName: string): Promise<void> => {
     updateProfile(auth.currentUser!, {
       displayName: newDisplayName,
     })
-      .then(() => resolve())
+      .then(() => {
+        updateUserdataFirestore().then(() => {
+          resolve();
+        });
+      })
       .catch((e) => {
         console.log(e);
         reject();
@@ -238,6 +247,43 @@ const unlinkGoogleAccount = (): Promise<void | string> => {
   });
 };
 
+/**
+ * Sets the users data in the cloud firestore for the frontend to fetch other user's data.
+ * This function is private.
+ * @returns void
+ */
+const updateUserdataFirestore = (): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    const user = auth.currentUser;
+    if (!user) {
+      console.error("User not logged in.");
+      reject();
+    }
+    setDoc(doc(firestore, `/users/${user?.uid}`), {
+      displayName: user?.displayName,
+    })
+      .then(() => resolve())
+      .catch((e) => {
+        console.log(e);
+        reject();
+      });
+  });
+};
+
+const getUserdata = (userId: string): Promise<void | userdata> => {
+  return new Promise<void | userdata>((resolve, reject) => {
+    getDoc(doc(firestore, `users/${userId}`))
+      .then((data) => {
+        const userdata: userdata = data.data() as userdata;
+        resolve(userdata);
+      })
+      .catch((e) => {
+        console.log(e);
+        reject();
+      });
+  });
+};
+
 export {
   unlinkGoogleAccount,
   linkGoogleAccount,
@@ -250,4 +296,5 @@ export {
   loginWithGoogle,
   loggedInUser,
   loginWithEmailAndPassword,
+  getUserdata,
 };
