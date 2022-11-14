@@ -60,7 +60,7 @@ const loginWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(() => {
-        resolve();
+        updateUserdataFirestore().then(() => resolve());
       })
       .catch((e) => {
         console.log(e);
@@ -105,7 +105,11 @@ const changeDisplayName = (newDisplayName: string): Promise<void> => {
     updateProfile(auth.currentUser!, {
       displayName: newDisplayName,
     })
-      .then(() => resolve())
+      .then(() => {
+        updateUserdataFirestore().then(() => {
+          resolve();
+        });
+      })
       .catch((e) => {
         console.log(e);
         reject();
@@ -252,7 +256,7 @@ const updateUserdataFirestore = (): Promise<void> => {
       reject();
     }
     setDoc(doc(firestore, `/users/${user?.uid}`), {
-      displayname: user?.displayName,
+      displayName: user?.displayName,
     })
       .then(() => resolve())
       .catch((e) => {
