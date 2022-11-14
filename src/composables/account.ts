@@ -9,8 +9,12 @@ import {
   linkWithPopup,
   unlink,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, firestore } from "../firebase";
+
+interface userdata {
+  displayName: string;
+}
 
 /**
  * Logs into an account.
@@ -266,6 +270,20 @@ const updateUserdataFirestore = (): Promise<void> => {
   });
 };
 
+const getUserdata = (userId: string): Promise<void | userdata> => {
+  return new Promise<void | userdata>((resolve, reject) => {
+    getDoc(doc(firestore, `users/${userId}`))
+      .then((data) => {
+        const userdata: userdata = data.data() as userdata;
+        resolve(userdata);
+      })
+      .catch((e) => {
+        console.log(e);
+        reject();
+      });
+  });
+};
+
 export {
   unlinkGoogleAccount,
   linkGoogleAccount,
@@ -278,4 +296,5 @@ export {
   loginWithGoogle,
   loggedInUser,
   loginWithEmailAndPassword,
+  getUserdata,
 };
