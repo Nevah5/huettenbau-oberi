@@ -15,7 +15,7 @@
         class="flex justify-start items-center gap-2 mb-1"
         v-auto-animate
       >
-        <p>{{ admin }}</p>
+        <p>{{ adminUsernames[admin] }} - {{ admin }}</p>
         <p v-if="admin === user!.uid" class="text-red font-bold">[You]</p>
         <p
           v-else
@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { loggedInUser } from "@/composables/account";
+import { getUserdata, loggedInUser, Userdata } from "@/composables/account";
 import {
   getAdminUsers,
   updateAdminUsers,
@@ -64,6 +64,7 @@ import { User } from "@firebase/auth";
 import { onMounted, ref } from "vue";
 
 const admins = ref<string[]>([]);
+const adminUsernames = ref<{ [index: string]: string }>({});
 const user = ref<User>();
 const errorMessage = ref("");
 const inputAddUid = ref("");
@@ -74,9 +75,13 @@ onMounted(async () => {
   let data: adminConfig | void = await getAdminUsers();
   if (data) {
     let adminUsers: string[] = [];
-    data.users?.forEach((user: string) => {
-      adminUsers.push(user);
-    });
+    for (let i = 0; i < data.users!.length; i++) {
+      adminUsers.push(data.users![i]!);
+      if (adminUsernames.value[data.users![i]!] === undefined) {
+        let udata: Userdata | void = await getUserdata(data.users![i]!);
+        adminUsernames.value[data.users![i]!] = udata!.displayName;
+      }
+    }
     admins.value = adminUsers;
   }
 });
