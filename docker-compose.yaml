@@ -1,0 +1,10 @@
+# This docker compose is for development for payload CMS
+
+services:
+  mongodb:
+    image: mongo:8.0.15
+    container_name: payload-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database:/data/db
