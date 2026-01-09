@@ -37,6 +37,26 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     user: Users.slug,
+    meta: {
+      icons: [
+        {
+          fetchPriority: 'high',
+          sizes: '32x32',
+          type: 'image/png',
+          rel: 'icon',
+          url: '/images/icon_dark.png',
+        },
+        {
+          fetchPriority: 'high',
+          sizes: '32x32',
+          type: 'image/png',
+          rel: 'icon',
+          url: '/images/icon_light.png',
+          media: '(prefers-color-scheme: dark)',
+        },
+      ],
+      titleSuffix: ' - Hüttenbau Admin',
+    },
     livePreview: {
       breakpoints: [
         {
