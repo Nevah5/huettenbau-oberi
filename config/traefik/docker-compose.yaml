@@ -1,0 +1,33 @@
+services:
+  traefik:
+    image: traefik:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    container_name: traefik
+    command:
+      - "--configFile=/etc/traefik/traefik.yml"
+    ports:
+      - 443:443   # https
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./acme.json:/acme.json
+      - ./config/:/etc/traefik/:ro
+      - ./logs/:/var/log/traefik/
+    networks:
+      - proxy
+    environment:
+      CF_API_EMAIL: ${CF_API_EMAIL}
+      CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN}
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.traefik.tls.certresolver: cloudflare
+      traefik.http.routers.traefik.tls.domains[0].main: "dev.huettenbau-oberi.ch"
+      traefik.http.routers.traefik.tls.domains[0].sans: "*.huettenbau-oberi.ch"
+      traefik.http.routers.traefik.service: api@internal
+
+networks:
+  proxy:
+    # Make sure the network already exists
+    external: true

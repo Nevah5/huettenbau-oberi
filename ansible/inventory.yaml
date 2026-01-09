@@ -1,0 +1,7 @@
+development:
+  hosts:
+    dev.huettenbau-oberi.ch:
+      ansible_host: 168.119.122.196
+      ansible_port: 39974
+      ansible_user: ansible
+      ansible_ssh_private_key_file: "{{ inventory_dir }}/files/dev_ssh_key"

@@ -19,3 +19,8 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Ansible
+.vault_pass
+files/*_decrypted
+files/*.pem

@@ -1,0 +1,119 @@
+---
+# Playbook to install Docker and configure Traefik
+# Runs against the 'development' group in ansible/inventory.yaml
+- hosts: development
+  become: true
+  vars:
+    remove_packages:
+      - docker.io
+      - docker-compose
+      - docker-compose-v2
+      - docker-doc
+      - podman-docker
+      - containerd
+      - runc
+    docker_packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+  tasks:
+    - name: Update apt cache and upgrade packages
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Remove possible conflicting packages
+      ansible.builtin.apt:
+        name: "{{ remove_packages }}"
+        state: absent
+        purge: yes
+        autoremove: yes
+
+    - name: Ensure prerequisites installed
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - curl
+        state: present
+        update_cache: yes
+
+    - name: Create apt keyrings directory
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download Docker's official GPG key
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: '0644'
+
+    - name: Add Docker apt repository
+      ansible.builtin.shell: |
+        tee /etc/apt/sources.list.d/docker.sources <<'EOF'
+        Types: deb
+        URIs: https://download.docker.com/linux/ubuntu
+        Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+        Components: stable
+        Signed-By: /etc/apt/keyrings/docker.asc
+        EOF
+      args:
+        executable: /bin/bash
+
+    - name: Update apt cache after adding Docker repo
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install Docker packages
+      ansible.builtin.apt:
+        name: "{{ docker_packages }}"
+        state: present
+        update_cache: yes
+
+    - name: Ensure Traefik directories exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - /etc/traefik
+        - /opt/traefik
+
+    - name: Copy docker-compose.yaml to /opt/traefik
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../config/traefik/docker-compose.yaml"
+        dest: /opt/traefik/docker-compose.yaml
+        owner: root
+        mode: '0644'
+
+    - name: Create docker network 'proxy' if it doesn't exist
+      ansible.builtin.shell: |
+        if ! docker network inspect proxy >/dev/null 2>&1; then
+          docker network create proxy
+        fi
+      args:
+        executable: /bin/bash
+
+    - name: Create /etc/traefik/acme.json with empty JSON
+      ansible.builtin.copy:
+        content: '{}'
+        dest: /etc/traefik/acme.json
+        owner: root
+        mode: '0600'
+
+    - name: Copy traefik.yaml to /etc/traefik/traefik.yaml
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../config/traefik/traefik.yaml"
+        dest: /etc/traefik/traefik.yaml
+        owner: root
+        mode: '0644'
+
+    - name: Ensure /etc/traefik/acme.json has correct permissions
+      ansible.builtin.file:
+        path: /etc/traefik/acme.json
+        mode: '0600'
+        owner: root
