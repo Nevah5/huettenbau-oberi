@@ -30,6 +30,7 @@ export default buildConfig({
       beforeDashboard: ['@/components/BeforeDashboard'],
       graphics: {
         Logo: '@/graphics/Logo/index.tsx#Logos',
+        Icon: '@/graphics/Icon/index.tsx#Icons',
       },
     },
     importMap: {
