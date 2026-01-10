@@ -16,7 +16,7 @@ import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { Settings } from './globals/Settings'
 import { Homepage } from './globals/Homepage'
-import localization from './app/i18n/localization'
+import localization from './i18n/localization'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

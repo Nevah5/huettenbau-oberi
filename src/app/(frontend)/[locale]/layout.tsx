@@ -13,14 +13,39 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 
+import { NextIntlClientProvider } from 'next-intl'
+import { routing } from '@/i18n/routing'
+import { notFound } from 'next/navigation'
+import { TypedLocale } from 'payload'
+import { getMessages, setRequestLocale } from 'next-intl/server'
+
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ locale: TypedLocale }>
+}) {
+  const { locale } = await params
+
+  if (!routing.locales.includes(locale as any)) {
+    return notFound()
+  }
+
+  setRequestLocale(locale)
+  const message = await getMessages()
+
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(GeistSans.variable, GeistMono.variable)}
+      lang={locale}
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/images/icon_dark.png" rel="icon" sizes="32x32" type="image/png" />
@@ -33,20 +58,26 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body>
-        <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
+        <NextIntlClientProvider messages={message}>
+          <Providers>
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
 
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
+            <Header />
+            {children}
+            <Footer />
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   )
+}
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
 }
 
 export const metadata: Metadata = {

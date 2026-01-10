@@ -1,0 +1,20 @@
+{
+  "date-published": "Published on {{date, datetime}}",
+  "last-updated": "Last updated on {{date, datetime}}",
+  "page-not-found": "This page was not found",
+  "go-back-home": "Back to homepage",
+  "loading": "Loading...",
+  "error-occurred": "An error occurred",
+  "try-again": "Please try again",
+  "search": "Search",
+  "no-results": "No results found",
+  "author": "Author",
+  "read-more": "Read more...",
+  "media": "Media",
+  "previous": "Previous",
+  "next": "Next",
+  "users": "Users",
+  "settings": "Settings",
+  "language": "Language",
+  "contact-us": "Contact us"
+}

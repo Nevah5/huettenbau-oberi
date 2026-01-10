@@ -1,8 +1,8 @@
 import { getRequestConfig } from 'next-intl/server'
 import { routing } from './routing'
-import en from './messages/en.json'
+import de from './messages/de.json'
 
-type Messages = typeof en
+type Messages = typeof de
 
 declare global {
   interface IntlMessages extends Messages {}

@@ -1,0 +1,20 @@
+{
+  "date-published": "Veröffentlicht am {{date, datetime}}",
+  "last-updated": "Zuletzt aktualisiert am {{date, datetime}}",
+  "page-not-found": "Diese Seite wurde nicht gefunden",
+  "go-back-home": "Zurück zur Startseite",
+  "loading": "Lädt...",
+  "error-occurred": "Ein Fehler ist aufgetreten",
+  "try-again": "Bitte versuchen Sie es erneut",
+  "search": "Suche",
+  "no-results": "Keine Ergebnisse gefunden",
+  "author": "Autor",
+  "read-more": "Weiterlesen...",
+  "media": "Medien",
+  "previous": "Vorherige",
+  "next": "Nächste",
+  "users": "Benutzer",
+  "settings": "Einstellungen",
+  "language": "Sprache",
+  "contact-us": "Kontaktieren Sie uns"
+}
