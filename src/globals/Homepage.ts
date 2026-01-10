@@ -16,5 +16,10 @@ export const Homepage: GlobalConfig = {
       type: 'date',
       label: 'Camp Date To',
     },
+    {
+      name: 'title',
+      type: 'text',
+      localized: true,
+    },
   ],
 }

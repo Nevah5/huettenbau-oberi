@@ -108,7 +108,7 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('de' | 'en') | ('de' | 'en')[];
   globals: {
     header: Header;
     footer: Footer;
@@ -121,7 +121,7 @@ export interface Config {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
   };
-  locale: null;
+  locale: 'de' | 'en';
   user: User & {
     collection: 'users';
   };
@@ -1699,6 +1699,7 @@ export interface Homepage {
   id: number;
   campDateFrom?: string | null;
   campDateTo?: string | null;
+  title?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1768,6 +1769,7 @@ export interface FooterSelect<T extends boolean = true> {
 export interface HomepageSelect<T extends boolean = true> {
   campDateFrom?: T;
   campDateTo?: T;
+  title?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
